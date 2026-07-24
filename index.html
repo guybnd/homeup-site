@@ -144,7 +144,7 @@
     color: var(--axis); font-size: 15px;
   }
   .nav-links { display: flex; gap: 22px; margin-left: auto; }
-  .nav-links a { color: var(--muted-fg); font-size: 13.5px; font-weight: 500; }
+  .nav-links a { color: var(--muted-fg); font-size: 13.5px; font-weight: 500; white-space: nowrap; }
   .nav-links a:hover { color: var(--fg); text-decoration: none; }
 
   .btn {
@@ -335,6 +335,55 @@
   .sim-phone { display: flex; flex-direction: column; min-height: 100%; font-size: 10px; color: var(--body-c); }
   .sim-phone .sim-main { padding: 22px 13px 10px; flex: 1; }
 
+  /* richer sim widgets: weather, filters, re-add, category bars, checklists */
+  .sim-topline { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+  .sim-weather { display: flex; align-items: center; gap: 6px; flex: none; }
+  .sim-weather .icon { color: var(--warning); font-size: 14px; }
+  .sim-weather .wt { font-size: 13px; font-weight: 600; color: var(--fg); }
+  .sim-weather .wc { font-size: 7px; color: var(--muted-fg); line-height: 1.35; }
+  .sim-people { display: flex; gap: 10px; align-items: center; margin-top: 5px; }
+  .sim-people .pp { display: flex; align-items: center; gap: 4px; font-size: 8px; color: var(--muted-fg); }
+  .sim-lede .frag-in { font-family: var(--font-mono); font-size: 9px; font-weight: 400; color: var(--muted-fg); letter-spacing: 0; }
+  .sim-controls { display: flex; align-items: center; gap: 8px; margin: 9px 0 0; }
+  .sim-add { margin-left: auto; display: inline-flex; align-items: center; gap: 4px; font-size: 8px; font-weight: 600; padding: 5px 9px; border-radius: 5px; background: var(--primary); color: var(--primary-fg); flex: none; }
+  .sim-filters { display: flex; gap: 5px; margin: 8px 0 2px; flex-wrap: wrap; }
+  .sim-filters .f { display: inline-flex; align-items: center; gap: 4px; font-size: 7.5px; font-weight: 500; color: var(--muted-fg); border: 1px solid var(--hairline); border-radius: 5px; padding: 3.5px 8px; background: var(--card); }
+  .sim-filters .f .icon { font-size: 9px; }
+  .sim-filters .f.on { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+  .sim-tile .val.over { color: var(--danger); }
+  .sim-readd { border-left: 2px solid var(--warning); background: color-mix(in oklch, var(--warning) 7%, var(--inset)); border-radius: 6px; padding: 6px 9px; margin: 8px 0; }
+  .sim-readd .rh { font-size: 7.5px; font-weight: 600; color: var(--warning); margin-bottom: 3px; }
+  .sim-readd .rr { display: flex; align-items: center; gap: 7px; padding: 3.5px 0; }
+  .sim-readd .rb { flex: 1; min-width: 0; }
+  .sim-readd .rr + .rr { border-top: 1px solid color-mix(in oklch, var(--warning) 14%, transparent); }
+  .sim-btn { display: inline-flex; align-items: center; gap: 3px; font-size: 7.5px; font-weight: 600; padding: 3.5px 7px; border-radius: 5px; background: var(--success); color: oklch(0.98 0.005 90); flex: none; }
+  .sim-btn.ghost { background: var(--card); color: var(--body-c); border: 1px solid var(--hairline); font-weight: 500; }
+  .lead-glyph { background: var(--inset); font-size: 11px; }
+  .sim-group.red { color: var(--danger); }
+  .sim-checklist { background: var(--inset); border-radius: 6px; padding: 6px 9px; margin-top: 4px; margin-left: -29px; }
+  .sim-checklist .ci span:last-child, .sim-checklist .cfoot span { white-space: nowrap; }
+  .sim-checklist .ci { display: flex; align-items: center; gap: 6px; font-size: 8px; color: var(--body-c); padding: 2.5px 0; }
+  .sim-checklist .cb { width: 9px; height: 9px; border: 1px solid var(--border); border-radius: 2.5px; flex: none; }
+  .sim-checklist .cfoot { display: flex; justify-content: space-between; gap: 8px; margin-top: 4px; font-size: 7.5px; color: var(--muted-fg); }
+  .sim-checklist .cfoot .lnk { color: var(--primary); font-weight: 500; }
+  .sim-stack { display: flex; height: 7px; border-radius: 4px; overflow: hidden; gap: 1.5px; margin: 7px 0 8px; background: color-mix(in oklch, var(--fg) 6%, transparent); }
+  .sim-stack i { display: block; height: 100%; }
+  .sim-cat { display: flex; align-items: center; gap: 6px; font-size: 8.5px; padding: 3px 0; }
+  .sim-cat .cd { width: 5px; height: 5px; border-radius: 50%; flex: none; }
+  .sim-cat .cn { color: var(--fg); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sim-cat .oneoff { font-size: 5.5px; text-transform: uppercase; letter-spacing: 0.08em; background: var(--inset); border: 1px solid var(--hairline); border-radius: 3px; padding: 1px 4px; color: var(--muted-fg); flex: none; }
+  .sim-cat .cv { margin-left: auto; font-family: var(--font-mono); font-size: 8px; color: var(--muted-fg); flex: none; }
+  .sim-chart .plan { position: absolute; left: 0; right: 0; border-top: 1.5px dashed color-mix(in oklch, var(--fg) 35%, transparent); z-index: 1; }
+  .sim-chart .bar.blue { background: color-mix(in srgb, var(--primary) 45%, transparent); }
+  .sim-chart .bar.blue.cur { background: var(--primary); }
+  .sim-chart .bar.future { background: color-mix(in oklch, var(--fg) 8%, transparent); }
+  .sim-legend { display: flex; gap: 10px; font-size: 7px; color: var(--muted-fg); margin-top: 6px; flex-wrap: wrap; }
+  .sim-legend span { display: inline-flex; align-items: center; gap: 3px; }
+  .sim-legend i { width: 5px; height: 5px; border-radius: 50%; display: inline-block; }
+  .sim-shelf { display: flex; align-items: center; gap: 6px; margin-top: 3px; }
+  .sim-shelf .sim-meter { margin-top: 0; flex: 1; max-width: 80px; }
+  .sim-shelf .sl { font-size: 7px; color: var(--muted-fg); font-family: var(--font-mono); }
+
   /* mini month grid for the calendar sim */
   .sim-cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; margin: 8px 0 10px; }
   .sim-cal span {
@@ -362,7 +411,7 @@
 
   /* ---------------- showcase ---------------- */
   #sections { padding-top: 120px; }
-  .showcase { display: grid; grid-template-columns: 1fr 1fr; gap: 64px 40px; align-items: stretch; }
+  .showcase { display: grid; grid-template-columns: 1fr 1fr; gap: 64px 40px; align-items: start; }
   .show { display: flex; flex-direction: column; min-width: 0; }
   .show-head { margin-bottom: 16px; }
   .show-head h3 { font-family: var(--font-inscription); font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; font-size: 15px; color: var(--axis); display: flex; align-items: center; gap: 10px; }
@@ -377,7 +426,7 @@
   .show-phone { align-items: center; }
   .show-phone .show-head { align-self: stretch; }
   .show-phone .phone { flex: none; }
-  .show-phone .phone-screen { height: 404px; display: flex; flex-direction: column; }
+  .show-phone .phone-screen { height: 480px; display: flex; flex-direction: column; }
   .show-wide .window { min-height: 0; }
 
   /* ---------------- connections (flows) ---------------- */
@@ -505,8 +554,10 @@
     .showcase { grid-template-columns: 1fr; }
     .show-wide { grid-column: span 1; }
   }
-  @media (max-width: 760px) {
+  @media (max-width: 900px) {
     .nav-links { display: none; }
+  }
+  @media (max-width: 760px) {
     .plat { grid-template-columns: 1fr; }
     .chain { flex-direction: column; align-items: stretch; }
     .arrow { transform: rotate(90deg); align-self: center; }
@@ -612,39 +663,56 @@
                 <span class="s-ava">G</span>
               </div>
               <div class="sim-main">
-                <div class="sim-head">
+                <div class="sim-topline">
                   <div>
-                    <div class="sim-lede">Your day</div>
-                    <div class="sim-cap">Tuesday · 3 need someone</div>
+                    <div class="sim-cap">Sat, Jul 25 · 9 on today</div>
+                    <div class="sim-lede">Fix the fridge <span class="frag-in num">11:59 PM (in 23h)</span></div>
+                    <div class="sim-people">
+                      <span class="pp"><span class="sim-ava you" style="width:14px;height:14px;font-size:6px">G</span>You 3</span>
+                      <span class="pp"><span class="sim-ava" style="width:14px;height:14px;font-size:6px">M</span>Maya 5</span>
+                    </div>
                   </div>
-                  <div class="sim-seg" style="width:170px;margin:0"><span class="on">Today</span><span>Week</span><span>Month</span></div>
+                  <div class="sim-weather">
+                    <svg class="icon"><use href="#i-sun"/></svg>
+                    <span class="wt num">8°</span>
+                    <span class="wc">Clear<br>H 11° · L 7°</span>
+                  </div>
                 </div>
-                <div class="sim-tiles c4">
-                  <div class="sim-tile"><div class="lbl">On today</div><div class="val num">7</div></div>
-                  <div class="sim-tile"><div class="lbl">July so far</div><div class="val num">$2,341 <small>of $2,600</small></div><div class="sim-meter"><i style="width:90%;background:var(--warning)"></i></div></div>
-                  <div class="sim-tile"><div class="lbl">Needed</div><div class="val num">12 <small>items</small></div></div>
-                  <div class="sim-tile"><div class="lbl">Setup</div><div class="val num">23 <small>of 31</small></div><div class="sim-meter"><i style="width:74%;background:var(--success)"></i></div></div>
+                <div class="sim-tiles c2" style="margin-top:9px">
+                  <div class="sim-tile"><div class="lbl">Budget</div><div class="val num over">$7,006 <small>of $7,000</small></div><div class="sim-meter"><i style="width:100%;background:var(--danger)"></i></div></div>
+                  <div class="sim-tile"><div class="lbl">Groceries</div><div class="val num">17 <small>to buy</small></div></div>
+                </div>
+                <div class="sim-controls">
+                  <div class="sim-seg" style="width:180px;margin:0"><span class="on">Today</span><span>This Week</span><span>Month</span></div>
+                  <span class="sim-add"><svg class="icon" style="font-size:9px"><use href="#i-plus"/></svg>Add</span>
+                </div>
+                <div class="sim-filters">
+                  <span class="f on"><svg class="icon"><use href="#i-layout-grid"/></svg>All</span>
+                  <span class="f"><svg class="icon"><use href="#i-list-checks"/></svg>Tasks</span>
+                  <span class="f"><svg class="icon"><use href="#i-bell"/></svg>Reminders</span>
+                  <span class="f"><svg class="icon"><use href="#i-map-pin"/></svg>Appts</span>
+                  <span class="f"><svg class="icon"><use href="#i-calendar-days"/></svg>Cal</span>
                 </div>
                 <div class="sim-rows">
                   <div class="sim-row">
-                    <span class="lead lead-round"></span>
-                    <div class="rb"><div class="t">Book the removalist</div><div class="m">tomorrow · <span class="dgr">high</span></div></div>
-                    <div class="trail"><span class="sim-ava you">M</span></div>
+                    <span class="lead" style="background:color-mix(in oklch, var(--success) 13%, transparent);color:var(--success)"><svg class="icon"><use href="#i-list-checks"/></svg></span>
+                    <div class="rb"><div class="t">Find a local GP and pharmacy</div><div class="m"><span class="dgr">Overdue</span> · Task · <span class="wrn">Med</span></div></div>
+                    <div class="trail"><span class="frag">Maya</span><span class="sim-ava">M</span></div>
                   </div>
                   <div class="sim-row">
-                    <span class="lead" style="background:color-mix(in oklch, var(--danger) 13%, transparent);color:var(--danger)"><svg class="icon"><use href="#i-bell"/></svg></span>
-                    <div class="rb"><div class="t">Contents insurance renewal</div><div class="m"><span class="dgr"><span class="sim-dot"></span>3d overdue</span></div></div>
-                    <div class="trail"><span class="sim-ava">G</span></div>
+                    <span class="lead" style="background:color-mix(in oklch, var(--success) 13%, transparent);color:var(--success)"><svg class="icon"><use href="#i-list-checks"/></svg></span>
+                    <div class="rb"><div class="t">Move the phone bill to the shared account</div><div class="m"><span class="dgr">Overdue</span> · Task · <span class="wrn">Med</span></div></div>
+                    <div class="trail"><span class="frag">You</span><span class="sim-ava you">G</span></div>
+                  </div>
+                  <div class="sim-row">
+                    <span class="lead" style="background:color-mix(in oklch, var(--success) 13%, transparent);color:var(--success)"><svg class="icon"><use href="#i-list-checks"/></svg></span>
+                    <div class="rb"><div class="t">Sell the old chairs</div><div class="m"><span class="dgr">Overdue</span> · Task · <span class="wrn">Med</span></div></div>
+                    <div class="trail"><span class="frag">Maya</span><span class="sim-ava">M</span></div>
                   </div>
                   <div class="sim-row">
                     <span class="lead" style="background:color-mix(in oklch, var(--primary) 12%, transparent);color:var(--primary)"><svg class="icon"><use href="#i-map-pin"/></svg></span>
-                    <div class="rb"><div class="t">Viewing at 14 Fenwick St</div><div class="m">Sat · 25 min by tram</div></div>
+                    <div class="rb"><div class="t">Viewing at 14 Fenwick St</div><div class="m">Sat · Appt · 25 min by tram</div></div>
                     <div class="trail"><span class="frag">10:30</span></div>
-                  </div>
-                  <div class="sim-row done">
-                    <span class="lead lead-done"><svg class="icon"><use href="#i-check"/></svg></span>
-                    <div class="rb"><div class="t">Water the balcony plants</div><div class="m">done · repeats weekly</div></div>
-                    <div class="trail"><span class="sim-ava">G</span></div>
                   </div>
                 </div>
               </div>
@@ -659,21 +727,23 @@
           <div class="phone-punch" aria-hidden="true"></div>
           <div class="sim-phone" aria-hidden="true" style="flex:1">
             <div class="sim-main">
-              <div class="sim-lede" style="font-size:13px">Your day</div>
-              <div class="sim-cap">Tuesday · 3 need someone</div>
+              <div class="sim-cap">Sat, Jul 25 · 9 on today</div>
+              <div class="sim-lede" style="font-size:13px">Fix the fridge</div>
+              <div class="sim-cap"><span class="mono num">11:59 PM (in 23h)</span></div>
               <div class="sim-tiles c2" style="margin-top:8px">
-                <div class="sim-tile"><div class="lbl">On today</div><div class="val num">7</div></div>
-                <div class="sim-tile"><div class="lbl">July</div><div class="val num">$2,341</div><div class="sim-meter"><i style="width:90%;background:var(--warning)"></i></div></div>
+                <div class="sim-tile"><div class="lbl">Budget</div><div class="val num over">$7,006</div><div class="sim-meter"><i style="width:100%;background:var(--danger)"></i></div></div>
+                <div class="sim-tile"><div class="lbl">Groceries</div><div class="val num">17 <small>to buy</small></div></div>
               </div>
               <div class="sim-rows">
                 <div class="sim-row">
-                  <span class="lead lead-round"></span>
-                  <div class="rb"><div class="t">Book the removalist</div><div class="m">tomorrow · <span class="dgr">high</span></div></div>
-                  <div class="trail"><span class="sim-ava you">M</span></div>
+                  <span class="lead" style="background:color-mix(in oklch, var(--success) 13%, transparent);color:var(--success)"><svg class="icon"><use href="#i-list-checks"/></svg></span>
+                  <div class="rb"><div class="t">Find a local GP</div><div class="m"><span class="dgr">Overdue</span> · <span class="wrn">Med</span></div></div>
+                  <div class="trail"><span class="sim-ava">M</span></div>
                 </div>
                 <div class="sim-row">
-                  <span class="lead" style="background:color-mix(in oklch, var(--danger) 13%, transparent);color:var(--danger)"><svg class="icon"><use href="#i-bell"/></svg></span>
-                  <div class="rb"><div class="t">Insurance renewal</div><div class="m"><span class="dgr"><span class="sim-dot"></span>3d overdue</span></div></div>
+                  <span class="lead" style="background:color-mix(in oklch, var(--success) 13%, transparent);color:var(--success)"><svg class="icon"><use href="#i-list-checks"/></svg></span>
+                  <div class="rb"><div class="t">Move the phone bill</div><div class="m"><span class="dgr">Overdue</span> · <span class="wrn">Med</span></div></div>
+                  <div class="trail"><span class="sim-ava you">G</span></div>
                 </div>
                 <div class="sim-row">
                   <span class="lead" style="background:color-mix(in oklch, var(--primary) 12%, transparent);color:var(--primary)"><svg class="icon"><use href="#i-map-pin"/></svg></span>
@@ -772,34 +842,35 @@
                 <div class="sim-head" style="margin-top:6px">
                   <div>
                     <div class="sim-lede" style="font-size:13px">Tasks</div>
-                    <div class="sim-cap"><span style="color:var(--danger)">2 overdue</span> · 5 this week</div>
+                    <div class="sim-cap"><span style="color:var(--danger)">3 overdue</span> · 5 this week</div>
                   </div>
                 </div>
+                <div class="sim-group red">Overdue <span class="gv num" style="color:var(--danger)">3</span></div>
                 <div class="sim-rows">
                   <div class="sim-row">
                     <span class="lead lead-round"></span>
-                    <div class="rb"><div class="t">Vacuum upstairs</div><div class="m">tonight · repeats weekly</div></div>
-                    <div class="trail"><span class="sim-ava">R</span></div>
+                    <div class="rb"><div class="t">Move the phone bill</div><div class="m"><span class="dgr">4d overdue</span> · <span class="wrn">Med</span></div><span class="sim-portal"><svg class="icon" style="font-size:8px"><use href="#i-paperclip"/></svg>Comments</span></div>
+                    <div class="trail"><span class="sim-ava">M</span></div>
                   </div>
-                  <div class="sim-row">
-                    <span class="lead lead-round"></span>
-                    <div class="rb"><div class="t">Take the bins out</div><div class="m">tomorrow</div></div>
-                    <div class="trail"><span class="sim-ava empty"></span></div>
-                  </div>
-                  <div class="sim-row">
-                    <span class="lead lead-round"></span>
-                    <div class="rb"><div class="t">Clean the gutters</div><div class="m">Sun · <span class="dgr">high</span></div><span class="sim-portal"><svg class="icon" style="font-size:8px"><use href="#i-paperclip"/></svg>1 comment</span></div>
+                  <div class="sim-row" style="align-items:flex-start">
+                    <span class="lead lead-round" style="margin-top:2px"></span>
+                    <div class="rb">
+                      <div class="t">Visa paperwork</div>
+                      <div class="m"><span class="dgr">2d overdue</span> · <span class="wrn">Med</span></div>
+                      <span class="sim-portal"><svg class="icon" style="font-size:8px"><use href="#i-list-todo"/></svg>Checklist 0/3</span>
+                      <div class="sim-checklist">
+                        <div class="ci"><span class="cb"></span>Translate documents</div>
+                        <div class="ci"><span class="cb"></span>Book biometrics</div>
+                        <div class="ci"><span class="cb"></span>Sponsor form</div>
+                        <div class="cfoot"><span class="num">0 / 3 done</span><span class="lnk">Open full checklist</span></div>
+                      </div>
+                    </div>
                     <div class="trail"><span class="sim-ava you">G</span></div>
                   </div>
                   <div class="sim-row">
-                    <span class="lead" style="background:color-mix(in oklch, var(--danger) 13%, transparent);color:var(--danger)"><svg class="icon"><use href="#i-bell"/></svg></span>
-                    <div class="rb"><div class="t">Car rego renewal</div><div class="m"><span class="dgr"><span class="sim-dot"></span>5d overdue</span></div></div>
+                    <span class="lead lead-round"></span>
+                    <div class="rb"><div class="t">Sell the old chairs</div><div class="m"><span class="dgr">2d overdue</span> · <span class="wrn">Med</span></div></div>
                     <div class="trail"><span class="sim-ava">M</span></div>
-                  </div>
-                  <div class="sim-row done">
-                    <span class="lead lead-done"><svg class="icon"><use href="#i-check"/></svg></span>
-                    <div class="rb"><div class="t">Wipe down the oven</div><div class="m">done · 2h ago</div></div>
-                    <div class="trail"><span class="sim-ava">R</span></div>
                   </div>
                 </div>
               </div>
@@ -836,38 +907,53 @@
             <div class="sim-main">
               <div class="sim-head">
                 <div>
-                  <div class="sim-lede num">$2,341</div>
-                  <div class="sim-cap">of $2,600 budget · July</div>
+                  <div class="sim-lede num">$6,406 <span class="frag-in num">of $7,000 planned</span></div>
+                  <div class="sim-cap"><span style="color:var(--success)">$595 under plan</span> · 6d left</div>
                 </div>
-                <div class="sim-seg" style="width:130px;margin:0"><span>Weekly</span><span class="on">Monthly</span></div>
+                <div class="sim-seg" style="width:150px;margin:0"><span>Weekly</span><span class="on">Monthly</span><span>Yearly</span></div>
               </div>
-              <div class="sim-meter" style="max-width:220px"><i style="width:90%;background:var(--warning)"></i></div>
+              <div class="sim-meter" style="max-width:100%"><i style="width:91%;background:var(--success)"></i></div>
+              <div class="sim-tiles" style="grid-template-columns:repeat(3,1fr);margin-top:9px">
+                <div class="sim-tile"><div class="lbl">Vs last month</div><div class="val num" style="font-size:10px">&minus;$4,752 <small>vs Jun</small></div></div>
+                <div class="sim-tile"><div class="lbl">Rest of year</div><div class="val num" style="font-size:10px">$31,688</div></div>
+                <div class="sim-tile"><div class="lbl">Year to date</div><div class="val num" style="font-size:10px">$50,451</div></div>
+              </div>
               <div class="sim-chart">
-                <div class="bar" style="height:58%"></div>
-                <div class="bar" style="height:64%"></div>
-                <div class="bar" style="height:47%"></div>
-                <div class="bar" style="height:71%"></div>
-                <div class="bar" style="height:62%"></div>
-                <div class="bar cur" style="height:83%"></div>
+                <div class="plan" style="top:30%"></div>
+                <div class="bar blue" style="height:62%"></div>
+                <div class="bar blue" style="height:60%"></div>
+                <div class="bar blue" style="height:63%"></div>
+                <div class="bar blue" style="height:61%"></div>
+                <div class="bar blue" style="height:64%"></div>
+                <div class="bar blue" style="height:88%"></div>
+                <div class="bar blue cur" style="height:71%"></div>
+                <div class="bar future" style="height:58%"></div>
+                <div class="bar future" style="height:58%"></div>
+                <div class="bar future" style="height:58%"></div>
+                <div class="bar future" style="height:58%"></div>
+                <div class="bar future" style="height:58%"></div>
               </div>
-              <div class="sim-chart-x"><span>F</span><span>M</span><span>A</span><span>M</span><span>J</span><span>J</span></div>
-              <div class="sim-rows" style="margin-top:8px">
-                <div class="sim-row">
-                  <span class="lead" style="background:color-mix(in oklch, var(--primary) 12%, transparent);color:var(--primary)"><svg class="icon"><use href="#i-house"/></svg></span>
-                  <div class="rb"><div class="t">Rent</div><span class="sim-portal away">from Home Search</span></div>
-                  <div class="trail"><span class="frag num">$520 wk</span><span class="sim-ava">M</span></div>
-                </div>
-                <div class="sim-row">
-                  <span class="lead" style="background:color-mix(in oklch, var(--fg) 8%, transparent);color:var(--muted-fg)"><svg class="icon"><use href="#i-wifi-off"/></svg></span>
-                  <div class="rb"><div class="t">Internet</div><div class="m">Aussie Broadband</div></div>
-                  <div class="trail"><span class="frag num">$79 mo</span><span class="sim-ava">G</span></div>
-                </div>
-                <div class="sim-row">
-                  <span class="lead" style="background:color-mix(in oklch, var(--fg) 8%, transparent);color:var(--muted-fg)"><svg class="icon"><use href="#i-file-text"/></svg></span>
-                  <div class="rb"><div class="t">Power</div><div class="m">est · <span class="wrn">discount ends in 6wk</span></div><span class="sim-portal"><svg class="icon" style="font-size:8px"><use href="#i-paperclip"/></svg>2 bills</span></div>
-                  <div class="trail"><span class="frag num">$143 mo</span><span class="sim-ava you">G</span></div>
-                </div>
+              <div class="sim-chart-x"><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span></div>
+              <div class="sim-legend">
+                <span><i style="background:var(--primary)"></i>Spent</span>
+                <span><i style="background:color-mix(in oklch, var(--fg) 15%, transparent)"></i>Projected</span>
+                <span><span class="mono">--</span> Plan</span>
               </div>
+              <div class="sim-group" style="margin-top:6px">Jul <span class="gv"><span style="color:var(--warning)">in progress</span> · <span class="num" style="color:var(--danger)">$7,006 projected</span></span></div>
+              <div class="sim-stack">
+                <i style="width:64%;background:var(--primary)"></i>
+                <i style="width:7%;background:oklch(0.68 0.14 55)"></i>
+                <i style="width:2%;background:oklch(0.7 0.1 230)"></i>
+                <i style="width:6%;background:oklch(0.6 0.12 290)"></i>
+                <i style="width:11%;background:var(--success)"></i>
+                <i style="width:8%;background:color-mix(in oklch, var(--fg) 30%, transparent)"></i>
+              </div>
+              <div class="sim-cat"><span class="cd" style="background:var(--primary)"></span><span class="cn">Rent</span><span class="sim-portal away" style="margin:0 0 0 4px">from Home Search</span><span class="cv num">$4,550</span></div>
+              <div class="sim-cat"><span class="cd" style="background:oklch(0.68 0.14 55)"></span><span class="cn">Utilities</span><span class="cv num">$518</span></div>
+              <div class="sim-cat"><span class="cd" style="background:oklch(0.7 0.1 230)"></span><span class="cn">Internet</span><span class="cv num">$105</span></div>
+              <div class="sim-cat"><span class="cd" style="background:oklch(0.6 0.12 290)"></span><span class="cn">Insurance</span><span class="cv num">$408</span></div>
+              <div class="sim-cat"><span class="cd" style="background:var(--success)"></span><span class="cn">Groceries</span><span class="cv num">$793</span></div>
+              <div class="sim-cat"><span class="cd" style="background:color-mix(in oklch, var(--fg) 30%, transparent)"></span><span class="cn">Fold-out bed</span><span class="oneoff">one-off</span><span class="cv num">$450</span></div>
             </div>
           </div>
         </div>
@@ -886,39 +972,36 @@
               <div class="sim-main">
                 <div class="sim-head" style="margin-top:6px">
                   <div>
-                    <div class="sim-lede" style="font-size:13px">Groceries</div>
-                    <div class="sim-cap">9 needed · est <span class="mono num">$48.60</span></div>
+                    <div class="sim-lede" style="font-size:13px">17 to buy <span class="frag-in num">· ~$100</span></div>
+                    <div class="sim-cap">69 have</div>
+                  </div>
+                  <span class="sim-add"><svg class="icon" style="font-size:9px"><use href="#i-plus"/></svg>Add item</span>
+                </div>
+                <div class="sim-tiles c2">
+                  <div class="sim-tile"><div class="lbl">Need soon</div><div class="val num" style="color:var(--warning)">2</div></div>
+                  <div class="sim-tile"><div class="lbl">Est total</div><div class="val num">$100</div></div>
+                </div>
+                <div class="sim-readd">
+                  <div class="rh">Suggest re-add (2)</div>
+                  <div class="rr">
+                    <span style="font-size:11px">🥩</span>
+                    <div class="rb"><div class="t" style="font-size:9px">Beef mince</div><div class="m"><span class="wrn">3d past shelf life</span></div></div>
+                    <span class="sim-btn" style="margin-left:auto"><svg class="icon" style="font-size:8px"><use href="#i-plus"/></svg>Add</span>
                   </div>
                 </div>
-                <div class="sim-group">Produce <span class="gv num">3 items</span></div>
+                <div class="sim-group">🥬 Produce <span style="opacity:0.7">14</span> <span class="gv num">0/2 · ~$11</span></div>
                 <div class="sim-rows">
                   <div class="sim-row">
-                    <span class="lead lead-square"></span>
-                    <div class="rb"><div class="t">Tomatoes</div><div class="m">×6 · need by Sat</div></div>
-                    <div class="trail"><span class="frag num">$7.20</span></div>
+                    <span class="lead lead-glyph">🧄</span>
+                    <div class="rb"><div class="t">Garlic</div><div class="m">have 4d · repeats</div>
+                      <div class="sim-shelf"><div class="sim-meter"><i style="width:80%;background:var(--success)"></i></div><span class="sl">~25d left</span></div>
+                    </div>
+                    <div class="trail"><span class="frag ok num">$6</span></div>
                   </div>
                   <div class="sim-row">
-                    <span class="lead lead-square"></span>
-                    <div class="rb"><div class="t">Basil</div><div class="m">×1 bunch</div><span class="sim-portal away"><svg class="icon" style="font-size:8px"><use href="#i-chef-hat"/></svg>Pad see ew</span></div>
-                    <div class="trail"><span class="frag num">$3.50</span></div>
-                  </div>
-                  <div class="sim-row done">
-                    <span class="lead lead-done-sq"><svg class="icon"><use href="#i-check"/></svg></span>
-                    <div class="rb"><div class="t">Spring onions</div><div class="m">in the trolley</div></div>
-                    <div class="trail"><span class="frag num">$2.80</span></div>
-                  </div>
-                </div>
-                <div class="sim-group">Dairy <span class="gv num">2 items</span></div>
-                <div class="sim-rows">
-                  <div class="sim-row">
-                    <span class="lead lead-square"></span>
-                    <div class="rb"><div class="t">Milk 2L</div><div class="m"><span class="wrn">past shelf life · re-add?</span></div></div>
-                    <div class="trail"><span class="frag num">$3.10</span></div>
-                  </div>
-                  <div class="sim-row">
-                    <span class="lead lead-square"></span>
-                    <div class="rb"><div class="t">Greek yoghurt</div><div class="m">×2 · lowest $4.50 at Aldi</div></div>
-                    <div class="trail"><span class="frag num">$9.80</span></div>
+                    <span class="lead lead-glyph">🍅</span>
+                    <div class="rb"><div class="t">Tomatoes</div><div class="m">×6 · need by Sat</div><span class="sim-portal away"><svg class="icon" style="font-size:8px"><use href="#i-chef-hat"/></svg>Pad see ew</span></div>
+                    <div class="trail"><span class="frag ok num">$7</span></div>
                   </div>
                 </div>
               </div>
