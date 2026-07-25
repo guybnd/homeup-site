@@ -521,6 +521,34 @@
   .agent-facts > div:first-child { border-left: 0; padding-left: 0; }
   .agent-facts b { display: block; color: var(--fg); font-weight: 600; margin-bottom: 5px; }
 
+  /* ---------------- e-ink tablet ---------------- */
+  .eink-tablet {
+    max-width: 780px; margin: 0 auto;
+    background: var(--bezel); border: 1px solid var(--bezel-edge);
+    border-radius: 22px; padding: 14px;
+    box-shadow: var(--device-shadow);
+  }
+  .eink-screen { border-radius: 7px; overflow: hidden; }
+  /* the E-Ink theme's real tokens (globals.css): grayscale only, no shadow,
+     meaning carried by label instead of hue. filter guards the emoji glyphs. */
+  .eink {
+    --fg: oklch(0.12 0 0); --body-c: oklch(0.25 0 0); --muted-fg: oklch(0.35 0 0);
+    --card: oklch(0.98 0 0); --inset: oklch(0.92 0 0); --raised: oklch(0.96 0 0);
+    --hairline: oklch(0.80 0 0); --border: oklch(0.70 0 0);
+    --primary: oklch(0.12 0 0); --primary-fg: oklch(0.98 0 0);
+    --success: oklch(0.35 0 0); --warning: oklch(0.55 0 0); --danger: oklch(0.30 0 0);
+    --axis: oklch(0.30 0 0);
+    background: oklch(0.98 0 0);
+    color: var(--body-c);
+    filter: grayscale(1);
+    display: grid; grid-template-columns: 1.35fr 1fr;
+    font-size: 10px; line-height: 1.45;
+  }
+  .eink .sim-tile, .eink .sim-widget, .eink .sim-meter, .eink .sim-btn, .eink .sim-portal { border-radius: 2px; }
+  .eink-main { padding: 16px 18px; border-right: 1px solid var(--hairline); min-width: 0; }
+  .eink-rail { padding: 16px 18px; min-width: 0; display: flex; flex-direction: column; }
+  .eink-note { text-align: center; font-size: 12.5px; color: var(--muted-fg); margin-top: 18px; }
+
   /* ---------------- platform ---------------- */
   .plat { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--hairline); border-left: 1px solid var(--hairline); }
   .plat > div { padding: 26px 28px; border-right: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline); }
@@ -574,6 +602,9 @@
   }
   @media (max-width: 760px) {
     .plat { grid-template-columns: 1fr; }
+    .eink { grid-template-columns: 1fr; }
+    .eink-main { border-right: 0; border-bottom: 1px solid var(--hairline); }
+    .eink-tablet { border-radius: 16px; padding: 9px; }
     .chain { flex-direction: column; align-items: stretch; }
     .arrow { transform: rotate(90deg); align-self: center; }
   }
@@ -1493,6 +1524,72 @@
       <div><b>Revocable in a tap</b>Tokens are hashed at rest, one per person, refreshed or revoked from settings.</div>
       <div><b>Telegram-ready</b>Pair it with home-agent, the companion bridge, and drive the house from a chat thread.</div>
     </div>
+  </div>
+</section>
+
+<!-- ================= E-INK ================= -->
+<section id="e-ink">
+  <div class="wrap">
+    <div class="sec-head center lp-reveal">
+      <h2>An E-Ink theme for always-on displays.</h2>
+      <p>Pin the briefing to a wall-mounted e-ink tablet. The theme strips every shadow, blur, and animation, and carries status in labels and grayscale instead of color, so the day reads like print.</p>
+    </div>
+    <div class="eink-tablet lp-reveal" style="transition-delay:100ms" role="img" aria-label="Landscape e-ink tablet showing the HomeUp briefing in grayscale: today's tasks on the left, the shopping list and a weather note on the right.">
+      <div class="eink-screen">
+        <div class="eink" aria-hidden="true">
+          <div class="eink-main">
+            <div class="sim-cap">Sat, Jul 25 · 9 on today</div>
+            <div class="sim-lede">Fix the fridge <span class="frag-in num">11:59 PM (in 23h)</span></div>
+            <div class="sim-tiles c2" style="margin-top:9px">
+              <div class="sim-tile"><div class="lbl">Budget · over plan</div><div class="val num">$7,006 <small>of $7,000</small></div><div class="sim-meter"><i style="width:100%;background:var(--danger)"></i></div></div>
+              <div class="sim-tile"><div class="lbl">Groceries</div><div class="val num">17 <small>to buy</small></div></div>
+            </div>
+            <div class="sim-rows">
+              <div class="sim-row">
+                <span class="lead lead-round"></span>
+                <div class="rb"><div class="t">Find a local GP and pharmacy</div><div class="m"><span class="dgr">Overdue</span> · Task · Med</div></div>
+                <div class="trail"><span class="frag">Maya</span></div>
+              </div>
+              <div class="sim-row">
+                <span class="lead lead-round"></span>
+                <div class="rb"><div class="t">Move the phone bill to the shared account</div><div class="m"><span class="dgr">Overdue</span> · Task · Med</div></div>
+                <div class="trail"><span class="frag">You</span></div>
+              </div>
+              <div class="sim-row">
+                <span class="lead" style="background:var(--inset)"><svg class="icon"><use href="#i-map-pin"/></svg></span>
+                <div class="rb"><div class="t">Viewing at 14 Fenwick St</div><div class="m">Sat · Appt · 25 min by tram</div></div>
+                <div class="trail"><span class="frag">10:30</span></div>
+              </div>
+              <div class="sim-row done">
+                <span class="lead lead-done"><svg class="icon"><use href="#i-check"/></svg></span>
+                <div class="rb"><div class="t">Water the balcony plants</div><div class="m">done · repeats weekly</div></div>
+                <div class="trail"><span class="frag">You</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="eink-rail">
+            <div class="sim-group" style="padding-top:2px">Shopping list <span class="gv num">17</span></div>
+            <div class="sim-rows">
+              <div class="sim-row">
+                <span class="lead lead-glyph">🥩</span>
+                <div class="rb"><div class="t">Beef mince</div><div class="m">3d past shelf life · re-add?</div></div>
+              </div>
+              <div class="sim-row">
+                <span class="lead lead-glyph">🥛</span>
+                <div class="rb"><div class="t">Milk 2L</div><div class="m">essential · running low</div></div>
+              </div>
+              <div class="sim-row">
+                <span class="lead lead-glyph">🍅</span>
+                <div class="rb"><div class="t">Tomatoes</div><div class="m">×6 · need by Sat</div></div>
+              </div>
+            </div>
+            <div class="sim-group" style="margin-top:10px">Heads up</div>
+            <div class="sim-tip" style="color:var(--body-c)"><svg class="icon" style="color:var(--muted-fg)"><use href="#i-droplets"/></svg><span>Clear till 3pm, rain after. Hang the washing early.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="eink-note lp-reveal">Same app, same data. E-Ink is one of the themes in settings; nothing else to install.</p>
   </div>
 </section>
 
