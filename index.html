@@ -384,6 +384,21 @@
   .sim-shelf .sim-meter { margin-top: 0; flex: 1; max-width: 80px; }
   .sim-shelf .sl { font-size: 7px; color: var(--muted-fg); font-family: var(--font-mono); }
 
+  /* briefing widgets: grocery nudges + weather tip on the hub */
+  .sim-widgets { display: grid; grid-template-columns: 1.25fr 1fr; gap: 6px; margin-bottom: 10px; }
+  .sim-widget { background: var(--inset); border-radius: 6px; padding: 7px 9px; min-width: 0; }
+  .sim-widget .lbl { font-size: 6.5px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted-fg); font-weight: 600; margin-bottom: 3px; white-space: nowrap; }
+  .sim-wrow { display: flex; align-items: center; gap: 6px; padding: 2.5px 0; font-size: 8.5px; color: var(--fg); font-weight: 500; }
+  .sim-wrow .m2 { color: var(--muted-fg); font-weight: 400; font-size: 7.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sim-wrow .sim-btn { margin-left: auto; }
+  .sim-tip { display: flex; gap: 6px; font-size: 8px; color: var(--body-c); line-height: 1.5; }
+  .sim-tip .icon { font-size: 11px; color: var(--warning); margin-top: 1px; }
+
+  /* per-item comment threads: two people talking on a row */
+  .sim-comments { margin-top: 4px; display: flex; flex-direction: column; gap: 3px; }
+  .sim-cm { display: flex; align-items: center; gap: 5px; font-size: 7.5px; color: var(--body-c); background: var(--inset); border-radius: 5px; padding: 3px 7px 3px 4px; width: fit-content; max-width: 100%; }
+  .sim-cm .who { font-weight: 600; color: var(--fg); }
+
   /* mini month grid for the calendar sim */
   .sim-cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; margin: 8px 0 10px; }
   .sim-cal span {
@@ -607,6 +622,7 @@
     <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></symbol>
     <symbol id="i-paperclip" viewBox="0 0 24 24"><path d="m16 6-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551"/></symbol>
     <symbol id="i-tag" viewBox="0 0 24 24"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/></symbol>
+    <symbol id="i-droplets" viewBox="0 0 24 24"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/></symbol>
   </defs>
 </svg>
 
@@ -682,6 +698,17 @@
                   <div class="sim-tile"><div class="lbl">Budget</div><div class="val num over">$7,006 <small>of $7,000</small></div><div class="sim-meter"><i style="width:100%;background:var(--danger)"></i></div></div>
                   <div class="sim-tile"><div class="lbl">Groceries</div><div class="val num">17 <small>to buy</small></div></div>
                 </div>
+                <div class="sim-widgets">
+                  <div class="sim-widget">
+                    <div class="lbl">Groceries · suggest re-add</div>
+                    <div class="sim-wrow"><span>🥩</span><span>Beef mince</span><span class="m2">3d past shelf life</span><span class="sim-btn"><svg class="icon" style="font-size:8px"><use href="#i-plus"/></svg>Add</span></div>
+                    <div class="sim-wrow"><span>🥛</span><span>Milk 2L</span><span class="m2">essential · running low</span><span class="sim-btn"><svg class="icon" style="font-size:8px"><use href="#i-plus"/></svg>Add</span></div>
+                  </div>
+                  <div class="sim-widget">
+                    <div class="lbl">Heads up</div>
+                    <div class="sim-tip"><svg class="icon"><use href="#i-droplets"/></svg><span>Clear till 3pm, rain after. Hang the washing early, tram to the 10:30 viewing.</span></div>
+                  </div>
+                </div>
                 <div class="sim-controls">
                   <div class="sim-seg" style="width:180px;margin:0"><span class="on">Today</span><span>This Week</span><span>Month</span></div>
                   <span class="sim-add"><svg class="icon" style="font-size:9px"><use href="#i-plus"/></svg>Add</span>
@@ -692,6 +719,10 @@
                   <span class="f"><svg class="icon"><use href="#i-bell"/></svg>Reminders</span>
                   <span class="f"><svg class="icon"><use href="#i-map-pin"/></svg>Appts</span>
                   <span class="f"><svg class="icon"><use href="#i-calendar-days"/></svg>Cal</span>
+                  <span style="margin-left:auto;display:inline-flex;align-items:center;gap:4px">
+                    <span class="sim-ava you" style="width:15px;height:15px;font-size:6px">G</span>
+                    <span class="sim-ava" style="width:15px;height:15px;font-size:6px">M</span>
+                  </span>
                 </div>
                 <div class="sim-rows">
                   <div class="sim-row">
@@ -723,7 +754,7 @@
       </div>
 
       <div class="phone phone-hero lp-reveal" style="transition-delay:320ms" role="img" aria-label="Phone showing the same Home briefing on mobile, with pulse tiles, task rows and the bottom dock with its raised capture button.">
-        <div class="phone-screen" style="height:400px;display:flex;flex-direction:column">
+        <div class="phone-screen" style="height:432px;display:flex;flex-direction:column">
           <div class="phone-punch" aria-hidden="true"></div>
           <div class="sim-phone" aria-hidden="true" style="flex:1">
             <div class="sim-main">
@@ -733,6 +764,10 @@
               <div class="sim-tiles c2" style="margin-top:8px">
                 <div class="sim-tile"><div class="lbl">Budget</div><div class="val num over">$7,006</div><div class="sim-meter"><i style="width:100%;background:var(--danger)"></i></div></div>
                 <div class="sim-tile"><div class="lbl">Groceries</div><div class="val num">17 <small>to buy</small></div></div>
+              </div>
+              <div class="sim-widget" style="margin-bottom:8px">
+                <div class="sim-wrow"><span>🥩</span><span>Beef mince</span><span class="m2">re-add?</span><span class="sim-btn"><svg class="icon" style="font-size:8px"><use href="#i-plus"/></svg>Add</span></div>
+                <div class="sim-tip" style="margin-top:3px"><svg class="icon" style="font-size:9px"><use href="#i-droplets"/></svg><span>Rain from 3pm · hang the washing early</span></div>
               </div>
               <div class="sim-rows">
                 <div class="sim-row">
@@ -775,58 +810,6 @@
     </div>
 
     <div class="showcase">
-
-      <!-- Home Search -->
-      <div class="show lp-reveal">
-        <div class="show-head">
-          <h3><svg class="icon"><use href="#i-layout-dashboard"/></svg>Home Search</h3>
-          <p>Paste a listing URL and it parses itself. Every apartment is scored against your own weighted checklist.</p>
-        </div>
-        <div class="window" role="img" aria-label="Home Search dashboard with listing counts and scored apartments.">
-          <div class="sim" aria-hidden="true">
-            <div class="sim-side">
-              <span class="mark"><svg class="icon"><use href="#i-house"/></svg></span>
-              <span class="s-item"><svg class="icon"><use href="#i-layout-grid"/></svg></span>
-              <span class="s-item on"><svg class="icon"><use href="#i-layout-dashboard"/></svg></span>
-              <span class="s-item"><svg class="icon"><use href="#i-calendar-days"/></svg></span>
-              <span class="s-item"><svg class="icon"><use href="#i-wallet"/></svg></span>
-              <span class="s-gap"></span>
-              <span class="s-ava">G</span>
-            </div>
-            <div class="sim-main">
-              <div class="sim-head">
-                <div>
-                  <div class="sim-lede">Home Search</div>
-                  <div class="sim-cap">24 listings · 6 to book</div>
-                </div>
-              </div>
-              <div class="sim-tiles c4">
-                <div class="sim-tile"><div class="lbl">To book</div><div class="val num">6</div></div>
-                <div class="sim-tile"><div class="lbl">Booked</div><div class="val num">4</div></div>
-                <div class="sim-tile"><div class="lbl">Visited</div><div class="val num">9</div></div>
-                <div class="sim-tile"><div class="lbl">To score</div><div class="val num">5</div></div>
-              </div>
-              <div class="sim-rows">
-                <div class="sim-row">
-                  <span class="lead" style="background:color-mix(in oklch, var(--primary) 12%, transparent);color:var(--primary)"><svg class="icon"><use href="#i-map-pin"/></svg></span>
-                  <div class="rb"><div class="t">14 Fenwick St, Brunswick</div><div class="m">$620 wk · 2 bed · 1 bath · viewing Sat</div><span class="sim-portal">8 photos</span></div>
-                  <div class="trail"><div style="text-align:right"><span class="frag ok num">87%</span><div class="sim-meter w52"><i style="width:87%;background:var(--success)"></i></div></div></div>
-                </div>
-                <div class="sim-row">
-                  <span class="lead" style="background:color-mix(in oklch, var(--primary) 12%, transparent);color:var(--primary)"><svg class="icon"><use href="#i-map-pin"/></svg></span>
-                  <div class="rb"><div class="t">2/8 Girard Ave, Coburg</div><div class="m">$585 wk · 2 bed · 320m to station</div></div>
-                  <div class="trail"><div style="text-align:right"><span class="frag warn num">64%</span><div class="sim-meter w52"><i style="width:64%;background:var(--warning)"></i></div></div></div>
-                </div>
-                <div class="sim-row">
-                  <span class="lead" style="background:color-mix(in oklch, var(--primary) 12%, transparent);color:var(--primary)"><svg class="icon"><use href="#i-map-pin"/></svg></span>
-                  <div class="rb"><div class="t">301/12 Harrow Ln, Preston</div><div class="m">$650 wk · 3 bed · parsed from URL</div></div>
-                  <div class="trail"><span class="frag">to score</span></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
       <!-- Tasks (phone) -->
       <div class="show show-phone lp-reveal">
@@ -1052,8 +1035,8 @@
               <div class="sim-rows">
                 <div class="sim-row">
                   <span class="lead" style="background:oklch(0.6 0.12 290 / 0.13);color:oklch(0.6 0.12 290)"><svg class="icon"><use href="#i-calendar-days"/></svg></span>
-                  <div class="rb"><div class="t">Dentist for Ren</div><div class="m">Wed 14:20 · medical · private</div></div>
-                  <div class="trail"><span class="sim-ava">R</span></div>
+                  <div class="rb"><div class="t">Dentist for Maya</div><div class="m">Wed 14:20 · medical · private</div></div>
+                  <div class="trail"><span class="sim-ava">M</span></div>
                 </div>
                 <div class="sim-row">
                   <span class="lead" style="background:color-mix(in oklch, var(--warning) 14%, transparent);color:var(--warning)"><svg class="icon"><use href="#i-wallet"/></svg></span>
@@ -1170,15 +1153,20 @@
               </div>
               <div class="sim-group">Living room <span class="gv num">5 of 7</span></div>
               <div class="sim-rows">
-                <div class="sim-row">
-                  <span class="lead lead-square"></span>
-                  <div class="rb"><div class="t">Couch cover</div><div class="m">Temple &amp; Webster</div><span class="sim-portal"><svg class="icon" style="font-size:8px"><use href="#i-paperclip"/></svg>link</span></div>
+                <div class="sim-row" style="align-items:flex-start">
+                  <span class="lead lead-square" style="margin-top:2px"></span>
+                  <div class="rb"><div class="t">Couch cover</div><div class="m">Temple &amp; Webster · 2 comments</div>
+                    <div class="sim-comments">
+                      <div class="sim-cm"><span class="sim-ava" style="width:12px;height:12px;font-size:5.5px">M</span><span><span class="who">Maya</span> · the grey one, right?</span></div>
+                      <div class="sim-cm"><span class="sim-ava you" style="width:12px;height:12px;font-size:5.5px">G</span><span><span class="who">You</span> · yes, the washable cover</span></div>
+                    </div>
+                  </div>
                   <div class="trail"><span class="frag num">$149</span></div>
                 </div>
                 <div class="sim-row done">
                   <span class="lead lead-done-sq"><svg class="icon"><use href="#i-check"/></svg></span>
                   <div class="rb"><div class="t">Floor lamp</div><div class="m">IKEA</div></div>
-                  <div class="trail"><span class="frag num">$79</span><span class="sim-ava">R</span></div>
+                  <div class="trail"><span class="frag num">$79</span><span class="sim-ava">M</span></div>
                 </div>
               </div>
               <div style="margin-top:10px">
@@ -1222,7 +1210,7 @@
               <div class="sim-rows">
                 <div class="sim-row done">
                   <span class="lead lead-done-sq"><svg class="icon"><use href="#i-check"/></svg></span>
-                  <div class="rb"><div class="t">Strip the beds</div><div class="m">checked by Ren · 9:40</div></div>
+                  <div class="rb"><div class="t">Strip the beds</div><div class="m">checked by Maya · 9:40</div></div>
                 </div>
                 <div class="sim-row done">
                   <span class="lead lead-done-sq"><svg class="icon"><use href="#i-check"/></svg></span>
@@ -1231,6 +1219,58 @@
                 <div class="sim-row">
                   <span class="lead lead-square"></span>
                   <div class="rb"><div class="t">Plan the week's meals</div><div class="m">opens Recipes</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Home Search -->
+      <div class="show lp-reveal">
+        <div class="show-head">
+          <h3><svg class="icon"><use href="#i-layout-dashboard"/></svg>Home Search</h3>
+          <p>And for when it's time to find the next place: paste a listing URL and it parses itself, scored against your own weighted checklist.</p>
+        </div>
+        <div class="window" role="img" aria-label="Home Search dashboard with listing counts and scored apartments.">
+          <div class="sim" aria-hidden="true">
+            <div class="sim-side">
+              <span class="mark"><svg class="icon"><use href="#i-house"/></svg></span>
+              <span class="s-item"><svg class="icon"><use href="#i-layout-grid"/></svg></span>
+              <span class="s-item on"><svg class="icon"><use href="#i-layout-dashboard"/></svg></span>
+              <span class="s-item"><svg class="icon"><use href="#i-calendar-days"/></svg></span>
+              <span class="s-item"><svg class="icon"><use href="#i-wallet"/></svg></span>
+              <span class="s-gap"></span>
+              <span class="s-ava">G</span>
+            </div>
+            <div class="sim-main">
+              <div class="sim-head">
+                <div>
+                  <div class="sim-lede">Home Search</div>
+                  <div class="sim-cap">24 listings · 6 to book</div>
+                </div>
+              </div>
+              <div class="sim-tiles c4">
+                <div class="sim-tile"><div class="lbl">To book</div><div class="val num">6</div></div>
+                <div class="sim-tile"><div class="lbl">Booked</div><div class="val num">4</div></div>
+                <div class="sim-tile"><div class="lbl">Visited</div><div class="val num">9</div></div>
+                <div class="sim-tile"><div class="lbl">To score</div><div class="val num">5</div></div>
+              </div>
+              <div class="sim-rows">
+                <div class="sim-row">
+                  <span class="lead" style="background:color-mix(in oklch, var(--primary) 12%, transparent);color:var(--primary)"><svg class="icon"><use href="#i-map-pin"/></svg></span>
+                  <div class="rb"><div class="t">14 Fenwick St, Brunswick</div><div class="m">$620 wk · 2 bed · 1 bath · viewing Sat</div><span class="sim-portal">8 photos</span></div>
+                  <div class="trail"><div style="text-align:right"><span class="frag ok num">87%</span><div class="sim-meter w52"><i style="width:87%;background:var(--success)"></i></div></div></div>
+                </div>
+                <div class="sim-row">
+                  <span class="lead" style="background:color-mix(in oklch, var(--primary) 12%, transparent);color:var(--primary)"><svg class="icon"><use href="#i-map-pin"/></svg></span>
+                  <div class="rb"><div class="t">2/8 Girard Ave, Coburg</div><div class="m">$585 wk · 2 bed · 320m to station</div></div>
+                  <div class="trail"><div style="text-align:right"><span class="frag warn num">64%</span><div class="sim-meter w52"><i style="width:64%;background:var(--warning)"></i></div></div></div>
+                </div>
+                <div class="sim-row">
+                  <span class="lead" style="background:color-mix(in oklch, var(--primary) 12%, transparent);color:var(--primary)"><svg class="icon"><use href="#i-map-pin"/></svg></span>
+                  <div class="rb"><div class="t">301/12 Harrow Ln, Preston</div><div class="m">$650 wk · 3 bed · parsed from URL</div></div>
+                  <div class="trail"><span class="frag">to score</span></div>
                 </div>
               </div>
             </div>
