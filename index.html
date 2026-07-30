@@ -511,36 +511,23 @@
   .flow:last-of-type { border-bottom: 1px solid var(--hairline); }
   .flow-name { font-family: var(--font-heading); font-weight: 600; font-size: 16px; color: var(--fg); line-height: 1.35; padding-top: 10px; }
   .flow-name small { display: block; font-family: var(--font-body); font-weight: 400; font-size: 12.5px; color: var(--muted-fg); margin-top: 4px; }
-  .chain { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-  .node {
-    display: flex; align-items: center; gap: 10px;
-    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg);
-    box-shadow: var(--card-shadow); padding: 10px 14px; min-width: 0;
-  }
-  .node .n-icon { width: 28px; height: 28px; border-radius: 6px; display: grid; place-items: center; font-size: 14px; flex: none; }
-  .node .n-title { font-size: 13px; font-weight: 500; color: var(--fg); line-height: 1.25; }
-  .node .n-cap { font-size: 11.5px; color: var(--muted-fg); line-height: 1.3; }
   .arrow { color: var(--muted-fg); opacity: 0.7; font-size: 14px; flex: none; }
-  .fan { display: flex; flex-direction: column; gap: 8px; }
-  .fan .node { padding: 8px 12px; }
 
-  /* playable flows: the first card runs the chain */
-  #connections .node, #connections .arrow { transition: opacity 300ms var(--swift), border-color 150ms var(--swift); }
-  #connections .node.dim { opacity: 0.35; }
-  #connections .arrow.dim { opacity: 0.25; }
-  .flow-go { cursor: pointer; border-color: color-mix(in oklch, var(--primary) 45%, var(--border)); }
-  .flow-go:hover { transform: translateY(-1px); }
-  .flow-go::after {
-    content: "tap to run"; font-size: 9.5px; font-weight: 600; color: var(--primary);
-    margin-left: 6px; align-self: center; white-space: nowrap;
+  /* flows demonstrated through the app's own surfaces */
+  .fd { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .fd-trigger {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+    box-shadow: var(--card-shadow); padding: 14px; width: 250px; flex: none;
+    font-size: 10px; line-height: 1.45; color: var(--body-c);
   }
-  .flow-go.ran::after { content: "again"; color: var(--muted-fg); }
-  .node.pop { animation: n-pop 380ms var(--swift); }
-  @keyframes n-pop { 0% { transform: scale(0.92); } 60% { transform: scale(1.03); } 100% { transform: scale(1); } }
-  .arrow.arrow-live { color: var(--primary); opacity: 1; }
+  .fd-win { flex: 1 1 380px; min-height: 0; }
+  .fd-win .sim-main { padding: 12px 16px; }
+  .fd-cta { margin-top: 10px; width: 100%; justify-content: center; font-size: 9.5px; padding: 6.5px 10px; }
+  .fd-cta.done { background: var(--card); color: var(--success); border: 1px solid var(--hairline); }
+  @keyframes fd-in { 0% { opacity: 0; transform: translateY(-7px); } 100% { opacity: 1; transform: none; } }
+  .fd-new { animation: fd-in 420ms var(--swift); }
   @media (prefers-reduced-motion: reduce) {
-    .node.pop { animation: none; }
-    .flow-go:hover { transform: none; }
+    .fd-new { animation: none; }
   }
 
   /* ---------------- capture ---------------- */
@@ -686,7 +673,8 @@
     .eink { grid-template-columns: 1fr; }
     .eink-main { border-right: 0; border-bottom: 1px solid var(--hairline); }
     .eink-tablet { border-radius: 16px; padding: 9px; }
-    .chain { flex-direction: column; align-items: stretch; }
+    .fd { flex-direction: column; align-items: stretch; }
+    .fd-trigger { width: 100%; }
     .arrow { transform: rotate(90deg); align-self: center; }
   }
   @media (max-width: 560px) {
@@ -2087,52 +2075,191 @@
   <div class="wrap">
     <div class="sec-head lp-reveal">
       <h2>The sections feed each other.</h2>
-      <p>Add something once and it shows up everywhere it matters. Tap the first card in a row to run it, then tap any result to open that section.</p>
+      <p>Do the thing in the app on the left, and watch the other sections update on the right. Every new row opens its section.</p>
     </div>
 
+    <!-- Flow 1: receipt -->
     <div class="flow lp-reveal">
-      <div class="flow-name">Receipt photo to three sections<small>One snap at the checkout updates all of them.</small></div>
-      <div class="chain">
-        <div class="node"><span class="n-icon" style="background:color-mix(in oklch, var(--primary) 12%, transparent);color:var(--primary)"><svg class="icon"><use href="#i-camera"/></svg></span><div><div class="n-title">Snap the receipt</div><div class="n-cap">from the capture button, anywhere</div></div></div>
-        <svg class="icon arrow"><use href="#i-arrow-right"/></svg>
-        <div class="node"><span class="n-icon" style="background:oklch(0.6 0.12 290 / 0.13);color:oklch(0.6 0.12 290)"><svg class="icon"><use href="#i-sparkles"/></svg></span><div><div class="n-title">Total read for you</div><div class="n-cap num mono" data-count="184.20" data-prefix="$">$184.20</div></div></div>
-        <svg class="icon arrow"><use href="#i-arrow-right"/></svg>
-        <div class="fan">
-          <div class="node" data-goto="p-costs"><span class="n-icon" style="background:color-mix(in oklch, var(--warning) 14%, transparent);color:var(--warning)"><svg class="icon"><use href="#i-wallet"/></svg></span><div><div class="n-title">Cost line logged</div><div class="n-cap">in this month's spend</div></div></div>
-          <div class="node" data-goto="p-documents"><span class="n-icon" style="background:color-mix(in oklch, var(--fg) 8%, transparent);color:var(--muted-fg)"><svg class="icon"><use href="#i-folder-open"/></svg></span><div><div class="n-title">Receipt filed</div><div class="n-cap">linked to the shop, findable later</div></div></div>
-          <div class="node" data-goto="p-groceries"><span class="n-icon" style="background:color-mix(in oklch, var(--success) 14%, transparent);color:var(--success)"><svg class="icon"><use href="#i-cart"/></svg></span><div><div class="n-title">Prices learned</div><div class="n-cap">next list estimates itself</div></div></div>
+      <div class="flow-name">Receipt photo to three sections<small>One snap updates Costs, Documents, and price memory.</small></div>
+      <div class="fd">
+        <div class="fd-trigger" role="img" aria-label="The capture sheet, ready to snap a receipt photo.">
+          <div class="grab" aria-hidden="true"></div>
+          <div class="sim-cap" style="margin-bottom:7px">Capture · from any screen</div>
+          <div class="sim-filters" aria-hidden="true" style="margin:0 0 10px">
+            <span class="f on"><svg class="icon"><use href="#i-receipt"/></svg>Receipt</span>
+            <span class="f"><svg class="icon"><use href="#i-file-text"/></svg>Invoice</span>
+            <span class="f"><svg class="icon"><use href="#i-folder-open"/></svg>Document</span>
+          </div>
+          <span class="sim-btn j-click fd-cta" id="fd1-go"><svg class="icon" style="font-size:9px"><use href="#i-camera"/></svg>Snap the receipt</span>
+          <div class="sim-cap" style="margin-top:7px">FreshMart · Saturday's shop</div>
+        </div>
+        <svg class="icon arrow" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+        <div class="window fd-win" role="img" aria-label="Costs, Documents and Groceries updating from one receipt photo.">
+          <div class="sim" aria-hidden="true">
+            <div class="sim-side">
+              <span class="mark"><svg class="icon"><use href="#i-house"/></svg></span>
+              <span class="s-item on"><svg class="icon"><use href="#i-wallet"/></svg></span>
+              <span class="s-item"><svg class="icon"><use href="#i-folder-open"/></svg></span>
+              <span class="s-item"><svg class="icon"><use href="#i-cart"/></svg></span>
+              <span class="s-gap"></span>
+              <span class="s-ava">G</span>
+            </div>
+            <div class="sim-main">
+              <div class="sim-group" style="padding-top:0">Costs · July <span class="gv num" id="fd1-total">$6,222</span></div>
+              <div class="sim-rows" id="fd1-costs">
+                <div class="sim-row">
+                  <span class="lead" style="background:color-mix(in oklch, var(--fg) 8%, transparent);color:var(--muted-fg)"><svg class="icon"><use href="#i-wifi-off"/></svg></span>
+                  <div class="rb"><div class="t">Internet</div><div class="m">Aussie Broadband</div></div>
+                  <div class="trail"><span class="frag num">$79 mo</span></div>
+                </div>
+              </div>
+              <div class="sim-group">Documents</div>
+              <div class="sim-rows" id="fd1-docs">
+                <div class="sim-row">
+                  <span class="lead" style="background:color-mix(in oklch, var(--fg) 8%, transparent);color:var(--muted-fg)"><svg class="icon"><use href="#i-file-text"/></svg></span>
+                  <div class="rb"><div class="t">Fridge warranty</div><div class="m">warranty · 2y left</div></div>
+                </div>
+              </div>
+              <div class="sim-group">Groceries · price memory</div>
+              <div class="sim-rows">
+                <div class="sim-row">
+                  <span class="lead lead-glyph">🍅</span>
+                  <div class="rb"><div class="t">Tomatoes</div><div class="m" id="fd1-tom">est ~$7</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
+    <!-- Flow 2: recipe -->
     <div class="flow lp-reveal">
       <div class="flow-name">Recipe to shopping list<small>Cook from what you have, buy only what you don't.</small></div>
-      <div class="chain">
-        <div class="node"><span class="n-icon" style="background:color-mix(in oklch, var(--danger) 10%, transparent);color:var(--danger)"><svg class="icon"><use href="#i-chef-hat"/></svg></span><div><div class="n-title">Pad see ew tonight</div><div class="n-cap">6 of 9 ingredients on hand</div></div></div>
-        <svg class="icon arrow"><use href="#i-arrow-right"/></svg>
-        <div class="node" data-goto="p-groceries"><span class="n-icon" style="background:color-mix(in oklch, var(--success) 14%, transparent);color:var(--success)"><svg class="icon"><use href="#i-cart"/></svg></span><div><div class="n-title">3 missing items join the list</div><div class="n-cap">tagged with the recipe they're for</div></div></div>
+      <div class="fd">
+        <div class="fd-trigger" role="img" aria-label="A recipe with three missing ingredients and a button to add them to the list.">
+          <div class="sim-lede" style="font-size:12px">Pad see ew</div>
+          <div class="sim-cap">Thai · 25 min · serves 4</div>
+          <div class="sim-meter" style="max-width:140px;margin-top:7px"><i style="width:67%;background:var(--warning)"></i></div>
+          <div class="sim-cap" style="margin:3px 0 0">6 of 9 ingredients on hand</div>
+          <span class="sim-btn j-click fd-cta" id="fd2-go"><svg class="icon" style="font-size:9px"><use href="#i-cart"/></svg>Add 3 missing</span>
+        </div>
+        <svg class="icon arrow" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+        <div class="window fd-win" role="img" aria-label="The shopping list receiving the recipe's missing ingredients.">
+          <div class="sim" aria-hidden="true">
+            <div class="sim-side">
+              <span class="mark"><svg class="icon"><use href="#i-house"/></svg></span>
+              <span class="s-item on"><svg class="icon"><use href="#i-cart"/></svg></span>
+              <span class="s-item"><svg class="icon"><use href="#i-chef-hat"/></svg></span>
+              <span class="s-gap"></span>
+              <span class="s-ava">M</span>
+            </div>
+            <div class="sim-main">
+              <div class="sim-group" style="padding-top:0">Shopping list <span class="gv num" id="fd2-count">17 to buy</span></div>
+              <div class="sim-rows" id="fd2-rows">
+                <div class="sim-row">
+                  <span class="lead lead-glyph">🍅</span>
+                  <div class="rb"><div class="t">Tomatoes</div><div class="m">×6 · need by Sat</div></div>
+                  <div class="trail"><span class="frag ok num">$7</span></div>
+                </div>
+                <div class="sim-row">
+                  <span class="lead lead-glyph">🥛</span>
+                  <div class="rb"><div class="t">Greek yoghurt</div><div class="m">×2 · lowest $4.50 at Aldi</div></div>
+                  <div class="trail"><span class="frag ok num">$9.80</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
+    <!-- Flow 3: document expiry -->
     <div class="flow lp-reveal">
       <div class="flow-name">Document expiry to reminder<small>Upload the lease once; the renewal task creates itself.</small></div>
-      <div class="chain">
-        <div class="node"><span class="n-icon" style="background:color-mix(in oklch, var(--fg) 8%, transparent);color:var(--muted-fg)"><svg class="icon"><use href="#i-file-text"/></svg></span><div><div class="n-title">Lease uploaded</div><div class="n-cap">expiry date on the file</div></div></div>
-        <svg class="icon arrow"><use href="#i-arrow-right"/></svg>
-        <div class="node" data-goto="p-tasks"><span class="n-icon" style="background:color-mix(in oklch, var(--warning) 14%, transparent);color:var(--warning)"><svg class="icon"><use href="#i-bell"/></svg></span><div><div class="n-title">Renewal reminder created</div><div class="n-cap">lands in Tasks a month out</div></div></div>
-        <svg class="icon arrow"><use href="#i-arrow-right"/></svg>
-        <div class="node" data-goto="p-home"><span class="n-icon" style="background:color-mix(in oklch, var(--primary) 12%, transparent);color:var(--primary)"><svg class="icon"><use href="#i-layout-grid"/></svg></span><div><div class="n-title">On the briefing that morning</div><div class="n-cap">nobody has to remember</div></div></div>
+      <div class="fd">
+        <div class="fd-trigger" role="img" aria-label="The Documents section with a button to upload the lease.">
+          <div class="sim-cap" style="margin-bottom:7px">Documents · add a file</div>
+          <span class="sim-btn j-click fd-cta" id="fd3-go"><svg class="icon" style="font-size:9px"><use href="#i-file-text"/></svg>Upload the lease</span>
+          <div class="sim-rows mod-off" id="fd3-row" style="margin-top:8px">
+            <div class="sim-row">
+              <span class="lead" style="background:color-mix(in oklch, var(--fg) 8%, transparent);color:var(--muted-fg)"><svg class="icon"><use href="#i-file-text"/></svg></span>
+              <div class="rb"><div class="t">Lease · 14 Fenwick St</div><div class="m">contract · expires in 11mo</div></div>
+            </div>
+          </div>
+        </div>
+        <svg class="icon arrow" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+        <div class="window fd-win" role="img" aria-label="Tasks and the Home briefing receiving the lease renewal reminder.">
+          <div class="sim" aria-hidden="true">
+            <div class="sim-side">
+              <span class="mark"><svg class="icon"><use href="#i-house"/></svg></span>
+              <span class="s-item on"><svg class="icon"><use href="#i-list-checks"/></svg></span>
+              <span class="s-item"><svg class="icon"><use href="#i-layout-grid"/></svg></span>
+              <span class="s-gap"></span>
+              <span class="s-ava">G</span>
+            </div>
+            <div class="sim-main">
+              <div class="sim-group" style="padding-top:0">Tasks · reminders</div>
+              <div class="sim-rows" id="fd3-tasks">
+                <div class="sim-row">
+                  <span class="lead" style="background:color-mix(in oklch, var(--warning) 14%, transparent);color:var(--warning)"><svg class="icon"><use href="#i-bell"/></svg></span>
+                  <div class="rb"><div class="t">Power discount ends</div><div class="m">in 6wk · from Costs</div></div>
+                </div>
+              </div>
+              <div class="sim-group">Home · the briefing, 60d out</div>
+              <div class="sim-rows" id="fd3-home">
+                <div class="sim-row">
+                  <span class="lead" style="background:color-mix(in oklch, var(--primary) 12%, transparent);color:var(--primary)"><svg class="icon"><use href="#i-layout-grid"/></svg></span>
+                  <div class="rb"><div class="t">Your day</div><div class="m">reminders surface here when they come due</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
+    <!-- Flow 4: chosen apartment -->
     <div class="flow lp-reveal">
-      <div class="flow-name">Chosen apartment to move-in plan<small>Rent, moving tasks, and room setup come from the listing you pick.</small></div>
-      <div class="chain">
-        <div class="node"><span class="n-icon" style="background:color-mix(in oklch, var(--primary) 12%, transparent);color:var(--primary)"><svg class="icon"><use href="#i-map-pin"/></svg></span><div><div class="n-title">You pick the place</div><div class="n-cap num">14 Fenwick St · 87% match</div></div></div>
-        <svg class="icon arrow"><use href="#i-arrow-right"/></svg>
-        <div class="fan">
-          <div class="node" data-goto="p-costs"><span class="n-icon" style="background:color-mix(in oklch, var(--warning) 14%, transparent);color:var(--warning)"><svg class="icon"><use href="#i-wallet"/></svg></span><div><div class="n-title">Rent becomes a budget line</div><div class="n-cap">one tap in Costs</div></div></div>
-          <div class="node" data-goto="p-setup"><span class="n-icon" style="background:color-mix(in oklch, var(--success) 14%, transparent);color:var(--success)"><svg class="icon"><use href="#i-list-checks"/></svg></span><div><div class="n-title">Move-in date builds the plan</div><div class="n-cap">moving tasks and room setup, dated for you</div></div></div>
+      <div class="flow-name">Chosen apartment to move-in plan<small>Rent and dated moving tasks come from the listing you pick.</small></div>
+      <div class="fd">
+        <div class="fd-trigger" role="img" aria-label="The winning listing with a button to choose it.">
+          <div class="sim-lede" style="font-size:12px">14 Fenwick St</div>
+          <div class="sim-cap">$620 wk · 2 bed · Brunswick</div>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:7px">
+            <div class="sim-meter" style="max-width:110px;flex:1;margin:0"><i style="width:87%;background:var(--success)"></i></div>
+            <span class="frag ok num">87%</span>
+          </div>
+          <span class="sim-btn j-click fd-cta" id="fd4-go"><svg class="icon" style="font-size:9px"><use href="#i-check"/></svg>Choose this place</span>
+        </div>
+        <svg class="icon arrow" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+        <div class="window fd-win" role="img" aria-label="Costs and Tasks receiving the rent line and the dated moving plan.">
+          <div class="sim" aria-hidden="true">
+            <div class="sim-side">
+              <span class="mark"><svg class="icon"><use href="#i-house"/></svg></span>
+              <span class="s-item on"><svg class="icon"><use href="#i-wallet"/></svg></span>
+              <span class="s-item"><svg class="icon"><use href="#i-list-checks"/></svg></span>
+              <span class="s-gap"></span>
+              <span class="s-ava">M</span>
+            </div>
+            <div class="sim-main">
+              <div class="sim-group" style="padding-top:0">Costs</div>
+              <div class="sim-rows" id="fd4-costs">
+                <div class="sim-row">
+                  <span class="lead" style="background:color-mix(in oklch, var(--fg) 8%, transparent);color:var(--muted-fg)"><svg class="icon"><use href="#i-file-text"/></svg></span>
+                  <div class="rb"><div class="t">Utilities</div><div class="m">power · water · gas</div></div>
+                  <div class="trail"><span class="frag num">$518 mo</span></div>
+                </div>
+              </div>
+              <div class="sim-group">Tasks · the moving plan</div>
+              <div class="sim-rows" id="fd4-tasks">
+                <div class="sim-row">
+                  <span class="lead lead-round"></span>
+                  <div class="rb"><div class="t">Vacuum upstairs</div><div class="m">repeats weekly</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -2407,70 +2534,107 @@
       el.addEventListener("click", function (e) { e.stopPropagation(); switchTo(el.getAttribute("data-goto"), true); });
     });
 
-    /* playable flows: tap the first card, the chain lights up in order */
-    var flowReduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!flowReduce) {
-      var ranFirst = false;
-      document.querySelectorAll("#connections .flow").forEach(function (flow, fi) {
-        var chain = flow.querySelector(".chain");
-        if (!chain) return;
-        var steps = [];
-        Array.prototype.forEach.call(chain.children, function (el) {
-          if (el.classList.contains("fan")) Array.prototype.forEach.call(el.children, function (n) { steps.push(n); });
-          else steps.push(el);
-        });
-        var trigger = steps[0];
-        var rest = steps.slice(1);
-        function resetFlow() {
-          rest.forEach(function (el) {
-            el.classList.remove("pop", "arrow-live");
-            el.classList.add("dim");
-          });
-        }
-        function runFlow() {
-          resetFlow();
-          trigger.classList.add("ran");
-          var d = 260;
-          rest.forEach(function (el) {
-            setTimeout(function () {
-              el.classList.remove("dim");
-              if (el.classList.contains("arrow")) el.classList.add("arrow-live");
-              else el.classList.add("pop");
-              var cnt = el.querySelector("[data-count]");
-              if (cnt && !cnt.dataset.counting) {
-                cnt.dataset.counting = "1";
-                var target = parseFloat(cnt.dataset.count);
-                var prefix = cnt.dataset.prefix || "";
-                var t0 = null;
-                var tick = function (ts) {
-                  if (!t0) t0 = ts;
-                  var p = Math.min(1, (ts - t0) / 550);
-                  cnt.textContent = prefix + (target * p).toFixed(2);
-                  if (p < 1) requestAnimationFrame(tick);
-                  else delete cnt.dataset.counting;
-                };
-                requestAnimationFrame(tick);
-              }
-            }, d);
-            d += el.classList.contains("arrow") ? 150 : 380;
-          });
-        }
-        resetFlow();
-        trigger.classList.add("flow-go");
-        trigger.addEventListener("click", runFlow);
-        if (fi === 0 && "IntersectionObserver" in window) {
-          var fio = new IntersectionObserver(function (entries) {
-            entries.forEach(function (en) {
-              if (en.isIntersecting && !ranFirst) {
-                ranFirst = true;
-                setTimeout(runFlow, 350);
-                fio.disconnect();
-              }
-            });
-          }, { threshold: 0.5 });
-          fio.observe(flow);
-        }
+    /* flows through the app's own surfaces: do the thing, watch the rows land */
+    function fdRow(html, goto) {
+      var el = document.createElement("div");
+      el.className = "sim-row fd-new j-flash" + (goto ? " j-click" : "");
+      el.innerHTML = html;
+      if (goto) el.addEventListener("click", function () { switchTo(goto, true); });
+      return el;
+    }
+    function fdDone(btn, label, goto) {
+      btn.classList.add("done");
+      btn.innerHTML = '<svg class="icon" style="font-size:9px"><use href="#i-check"/></svg>' + label;
+      if (goto) btn.addEventListener("click", function () { switchTo(goto, true); });
+    }
+    var fd1 = document.getElementById("fd1-go");
+    if (fd1) fd1.addEventListener("click", function () {
+      if (fd1.dataset.ran) return;
+      fd1.dataset.ran = "1";
+      fd1.innerHTML = "reading the photo&hellip;";
+      setTimeout(function () {
+        var costs = document.getElementById("fd1-costs");
+        costs.insertBefore(fdRow('<span class="lead" style="background:color-mix(in oklch, var(--success) 13%, transparent);color:var(--success)"><svg class="icon"><use href="#i-cart"/></svg></span><div class="rb"><div class="t">Groceries · FreshMart</div><div class="m">from the receipt · just now</div></div><div class="trail"><span class="frag num">$184.20</span></div>', "p-costs"), costs.firstChild);
+        var total = document.getElementById("fd1-total");
+        if (total) total.textContent = "$6,406";
+        setTimeout(function () {
+          var docs = document.getElementById("fd1-docs");
+          docs.insertBefore(fdRow('<span class="lead" style="background:color-mix(in oklch, var(--fg) 8%, transparent);color:var(--muted-fg)"><svg class="icon"><use href="#i-receipt"/></svg></span><div class="rb"><div class="t">Receipt · FreshMart</div><div class="m">filed · linked to the shop</div></div>', "p-documents"), docs.firstChild);
+          setTimeout(function () {
+            var tom = document.getElementById("fd1-tom");
+            if (tom) { tom.innerHTML = 'learned <span class="num">$6.80</span> · was ~$7'; tom.closest(".sim-row").classList.add("j-flash"); }
+            fdDone(fd1, "snapped · $184.20 · open Costs", "p-costs");
+          }, 420);
+        }, 420);
+      }, 700);
+    });
+    var fd2 = document.getElementById("fd2-go");
+    if (fd2) fd2.addEventListener("click", function () {
+      if (fd2.dataset.ran) return;
+      fd2.dataset.ran = "1";
+      var rows = document.getElementById("fd2-rows");
+      var items = [
+        ["🥦", "Chinese broccoli", "~$4"],
+        ["🌿", "Basil", "~$3.50"],
+        ["🍜", "Rice noodles, wide", "~$5"]
+      ];
+      items.forEach(function (it, i) {
+        setTimeout(function () {
+          rows.insertBefore(fdRow('<span class="lead lead-glyph">' + it[0] + '</span><div class="rb"><div class="t">' + it[1] + '</div><div class="m">for Pad see ew · just added</div></div><div class="trail"><span class="frag num">' + it[2] + '</span></div>', "p-groceries"), rows.firstChild);
+          var c = document.getElementById("fd2-count");
+          if (c) c.textContent = (18 + i) + " to buy";
+        }, 260 + i * 320);
       });
+      setTimeout(function () { fdDone(fd2, "on the list · open Groceries", "p-groceries"); }, 260 + items.length * 320);
+    });
+    var fd3 = document.getElementById("fd3-go");
+    if (fd3) fd3.addEventListener("click", function () {
+      if (fd3.dataset.ran) return;
+      fd3.dataset.ran = "1";
+      var row = document.getElementById("fd3-row");
+      if (row) { row.classList.remove("mod-off"); row.firstElementChild.classList.add("fd-new", "j-flash"); }
+      setTimeout(function () {
+        var tasks = document.getElementById("fd3-tasks");
+        tasks.insertBefore(fdRow('<span class="lead" style="background:color-mix(in oklch, var(--warning) 14%, transparent);color:var(--warning)"><svg class="icon"><use href="#i-bell"/></svg></span><div class="rb"><div class="t">Lease renewal window</div><div class="m">fires 60d before expiry · from Documents</div></div><div class="trail"><span class="sim-ava">M</span></div>', "p-tasks"), tasks.firstChild);
+        setTimeout(function () {
+          var home = document.getElementById("fd3-home");
+          home.appendChild(fdRow('<span class="lead" style="background:color-mix(in oklch, var(--warning) 14%, transparent);color:var(--warning)"><svg class="icon"><use href="#i-bell"/></svg></span><div class="rb"><div class="t">Lease renewal</div><div class="m">will surface here · nobody has to remember</div></div>', "p-home"));
+          fdDone(fd3, "filed · open Documents", "p-documents");
+        }, 420);
+      }, 520);
+    });
+    var fd4 = document.getElementById("fd4-go");
+    if (fd4) fd4.addEventListener("click", function () {
+      if (fd4.dataset.ran) return;
+      fd4.dataset.ran = "1";
+      var costs = document.getElementById("fd4-costs");
+      costs.insertBefore(fdRow('<span class="lead" style="background:color-mix(in oklch, var(--primary) 12%, transparent);color:var(--primary)"><svg class="icon"><use href="#i-house"/></svg></span><div class="rb"><div class="t">Rent</div><div class="m">from Home Search · just now</div></div><div class="trail"><span class="frag num">$520 wk</span></div>', "p-costs"), costs.firstChild);
+      var moving = [
+        ["Book the removalist", "2wk before move-in · dated for you"],
+        ["Connect the power", "3d before move-in"]
+      ];
+      moving.forEach(function (it, i) {
+        setTimeout(function () {
+          var tasks = document.getElementById("fd4-tasks");
+          tasks.insertBefore(fdRow('<span class="lead lead-round"></span><div class="rb"><div class="t">' + it[0] + '</div><div class="m">' + it[1] + '</div></div><div class="trail"><span class="sim-ava you">G</span></div>', "p-tasks"), tasks.firstChild);
+        }, 380 + i * 320);
+      });
+      setTimeout(function () { fdDone(fd4, "chosen · open Home Setup", "p-setup"); }, 380 + moving.length * 320);
+    });
+    /* the first flow runs itself once it scrolls into view */
+    if ("IntersectionObserver" in window && fd1) {
+      var fdReduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (!fdReduce) {
+        var fio = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            if (en.isIntersecting) {
+              setTimeout(function () { fd1.click(); }, 500);
+              fio.disconnect();
+            }
+          });
+        }, { threshold: 0.6 });
+        fio.observe(fd1);
+      }
     }
 
     /* ---- demo sugar: the sims respond like the real app ---- */
