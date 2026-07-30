@@ -524,6 +524,25 @@
   .fan { display: flex; flex-direction: column; gap: 8px; }
   .fan .node { padding: 8px 12px; }
 
+  /* playable flows: the first card runs the chain */
+  #connections .node, #connections .arrow { transition: opacity 300ms var(--swift), border-color 150ms var(--swift); }
+  #connections .node.dim { opacity: 0.35; }
+  #connections .arrow.dim { opacity: 0.25; }
+  .flow-go { cursor: pointer; border-color: color-mix(in oklch, var(--primary) 45%, var(--border)); }
+  .flow-go:hover { transform: translateY(-1px); }
+  .flow-go::after {
+    content: "tap to run"; font-size: 9.5px; font-weight: 600; color: var(--primary);
+    margin-left: 6px; align-self: center; white-space: nowrap;
+  }
+  .flow-go.ran::after { content: "again"; color: var(--muted-fg); }
+  .node.pop { animation: n-pop 380ms var(--swift); }
+  @keyframes n-pop { 0% { transform: scale(0.92); } 60% { transform: scale(1.03); } 100% { transform: scale(1); } }
+  .arrow.arrow-live { color: var(--primary); opacity: 1; }
+  @media (prefers-reduced-motion: reduce) {
+    .node.pop { animation: none; }
+    .flow-go:hover { transform: none; }
+  }
+
   /* ---------------- capture ---------------- */
   .split { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
   .split .sec-head { margin-bottom: 24px; }
@@ -2068,7 +2087,7 @@
   <div class="wrap">
     <div class="sec-head lp-reveal">
       <h2>The sections feed each other.</h2>
-      <p>Add something once and it shows up everywhere it matters: the budget, the document vault, the reminders, the shopping list.</p>
+      <p>Add something once and it shows up everywhere it matters. Tap the first card in a row to run it, then tap any result to open that section.</p>
     </div>
 
     <div class="flow lp-reveal">
@@ -2076,12 +2095,12 @@
       <div class="chain">
         <div class="node"><span class="n-icon" style="background:color-mix(in oklch, var(--primary) 12%, transparent);color:var(--primary)"><svg class="icon"><use href="#i-camera"/></svg></span><div><div class="n-title">Snap the receipt</div><div class="n-cap">from the capture button, anywhere</div></div></div>
         <svg class="icon arrow"><use href="#i-arrow-right"/></svg>
-        <div class="node"><span class="n-icon" style="background:oklch(0.6 0.12 290 / 0.13);color:oklch(0.6 0.12 290)"><svg class="icon"><use href="#i-sparkles"/></svg></span><div><div class="n-title">Total read for you</div><div class="n-cap num mono">$184.20</div></div></div>
+        <div class="node"><span class="n-icon" style="background:oklch(0.6 0.12 290 / 0.13);color:oklch(0.6 0.12 290)"><svg class="icon"><use href="#i-sparkles"/></svg></span><div><div class="n-title">Total read for you</div><div class="n-cap num mono" data-count="184.20" data-prefix="$">$184.20</div></div></div>
         <svg class="icon arrow"><use href="#i-arrow-right"/></svg>
         <div class="fan">
-          <div class="node"><span class="n-icon" style="background:color-mix(in oklch, var(--warning) 14%, transparent);color:var(--warning)"><svg class="icon"><use href="#i-wallet"/></svg></span><div><div class="n-title">Cost line logged</div><div class="n-cap">in this month's spend</div></div></div>
-          <div class="node"><span class="n-icon" style="background:color-mix(in oklch, var(--fg) 8%, transparent);color:var(--muted-fg)"><svg class="icon"><use href="#i-folder-open"/></svg></span><div><div class="n-title">Receipt filed</div><div class="n-cap">linked to the shop, findable later</div></div></div>
-          <div class="node"><span class="n-icon" style="background:color-mix(in oklch, var(--success) 14%, transparent);color:var(--success)"><svg class="icon"><use href="#i-cart"/></svg></span><div><div class="n-title">Prices learned</div><div class="n-cap">next list estimates itself</div></div></div>
+          <div class="node" data-goto="p-costs"><span class="n-icon" style="background:color-mix(in oklch, var(--warning) 14%, transparent);color:var(--warning)"><svg class="icon"><use href="#i-wallet"/></svg></span><div><div class="n-title">Cost line logged</div><div class="n-cap">in this month's spend</div></div></div>
+          <div class="node" data-goto="p-documents"><span class="n-icon" style="background:color-mix(in oklch, var(--fg) 8%, transparent);color:var(--muted-fg)"><svg class="icon"><use href="#i-folder-open"/></svg></span><div><div class="n-title">Receipt filed</div><div class="n-cap">linked to the shop, findable later</div></div></div>
+          <div class="node" data-goto="p-groceries"><span class="n-icon" style="background:color-mix(in oklch, var(--success) 14%, transparent);color:var(--success)"><svg class="icon"><use href="#i-cart"/></svg></span><div><div class="n-title">Prices learned</div><div class="n-cap">next list estimates itself</div></div></div>
         </div>
       </div>
     </div>
@@ -2091,7 +2110,7 @@
       <div class="chain">
         <div class="node"><span class="n-icon" style="background:color-mix(in oklch, var(--danger) 10%, transparent);color:var(--danger)"><svg class="icon"><use href="#i-chef-hat"/></svg></span><div><div class="n-title">Pad see ew tonight</div><div class="n-cap">6 of 9 ingredients on hand</div></div></div>
         <svg class="icon arrow"><use href="#i-arrow-right"/></svg>
-        <div class="node"><span class="n-icon" style="background:color-mix(in oklch, var(--success) 14%, transparent);color:var(--success)"><svg class="icon"><use href="#i-cart"/></svg></span><div><div class="n-title">3 missing items join the list</div><div class="n-cap">tagged with the recipe they're for</div></div></div>
+        <div class="node" data-goto="p-groceries"><span class="n-icon" style="background:color-mix(in oklch, var(--success) 14%, transparent);color:var(--success)"><svg class="icon"><use href="#i-cart"/></svg></span><div><div class="n-title">3 missing items join the list</div><div class="n-cap">tagged with the recipe they're for</div></div></div>
       </div>
     </div>
 
@@ -2100,9 +2119,9 @@
       <div class="chain">
         <div class="node"><span class="n-icon" style="background:color-mix(in oklch, var(--fg) 8%, transparent);color:var(--muted-fg)"><svg class="icon"><use href="#i-file-text"/></svg></span><div><div class="n-title">Lease uploaded</div><div class="n-cap">expiry date on the file</div></div></div>
         <svg class="icon arrow"><use href="#i-arrow-right"/></svg>
-        <div class="node"><span class="n-icon" style="background:color-mix(in oklch, var(--warning) 14%, transparent);color:var(--warning)"><svg class="icon"><use href="#i-bell"/></svg></span><div><div class="n-title">Renewal reminder created</div><div class="n-cap">lands in Tasks a month out</div></div></div>
+        <div class="node" data-goto="p-tasks"><span class="n-icon" style="background:color-mix(in oklch, var(--warning) 14%, transparent);color:var(--warning)"><svg class="icon"><use href="#i-bell"/></svg></span><div><div class="n-title">Renewal reminder created</div><div class="n-cap">lands in Tasks a month out</div></div></div>
         <svg class="icon arrow"><use href="#i-arrow-right"/></svg>
-        <div class="node"><span class="n-icon" style="background:color-mix(in oklch, var(--primary) 12%, transparent);color:var(--primary)"><svg class="icon"><use href="#i-layout-grid"/></svg></span><div><div class="n-title">On the briefing that morning</div><div class="n-cap">nobody has to remember</div></div></div>
+        <div class="node" data-goto="p-home"><span class="n-icon" style="background:color-mix(in oklch, var(--primary) 12%, transparent);color:var(--primary)"><svg class="icon"><use href="#i-layout-grid"/></svg></span><div><div class="n-title">On the briefing that morning</div><div class="n-cap">nobody has to remember</div></div></div>
       </div>
     </div>
 
@@ -2112,8 +2131,8 @@
         <div class="node"><span class="n-icon" style="background:color-mix(in oklch, var(--primary) 12%, transparent);color:var(--primary)"><svg class="icon"><use href="#i-map-pin"/></svg></span><div><div class="n-title">You pick the place</div><div class="n-cap num">14 Fenwick St · 87% match</div></div></div>
         <svg class="icon arrow"><use href="#i-arrow-right"/></svg>
         <div class="fan">
-          <div class="node"><span class="n-icon" style="background:color-mix(in oklch, var(--warning) 14%, transparent);color:var(--warning)"><svg class="icon"><use href="#i-wallet"/></svg></span><div><div class="n-title">Rent becomes a budget line</div><div class="n-cap">one tap in Costs</div></div></div>
-          <div class="node"><span class="n-icon" style="background:color-mix(in oklch, var(--success) 14%, transparent);color:var(--success)"><svg class="icon"><use href="#i-list-checks"/></svg></span><div><div class="n-title">Move-in date builds the plan</div><div class="n-cap">moving tasks and room setup, dated for you</div></div></div>
+          <div class="node" data-goto="p-costs"><span class="n-icon" style="background:color-mix(in oklch, var(--warning) 14%, transparent);color:var(--warning)"><svg class="icon"><use href="#i-wallet"/></svg></span><div><div class="n-title">Rent becomes a budget line</div><div class="n-cap">one tap in Costs</div></div></div>
+          <div class="node" data-goto="p-setup"><span class="n-icon" style="background:color-mix(in oklch, var(--success) 14%, transparent);color:var(--success)"><svg class="icon"><use href="#i-list-checks"/></svg></span><div><div class="n-title">Move-in date builds the plan</div><div class="n-cap">moving tasks and room setup, dated for you</div></div></div>
         </div>
       </div>
     </div>
@@ -2387,6 +2406,72 @@
     document.querySelectorAll("[data-goto]").forEach(function (el) {
       el.addEventListener("click", function (e) { e.stopPropagation(); switchTo(el.getAttribute("data-goto"), true); });
     });
+
+    /* playable flows: tap the first card, the chain lights up in order */
+    var flowReduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!flowReduce) {
+      var ranFirst = false;
+      document.querySelectorAll("#connections .flow").forEach(function (flow, fi) {
+        var chain = flow.querySelector(".chain");
+        if (!chain) return;
+        var steps = [];
+        Array.prototype.forEach.call(chain.children, function (el) {
+          if (el.classList.contains("fan")) Array.prototype.forEach.call(el.children, function (n) { steps.push(n); });
+          else steps.push(el);
+        });
+        var trigger = steps[0];
+        var rest = steps.slice(1);
+        function resetFlow() {
+          rest.forEach(function (el) {
+            el.classList.remove("pop", "arrow-live");
+            el.classList.add("dim");
+          });
+        }
+        function runFlow() {
+          resetFlow();
+          trigger.classList.add("ran");
+          var d = 260;
+          rest.forEach(function (el) {
+            setTimeout(function () {
+              el.classList.remove("dim");
+              if (el.classList.contains("arrow")) el.classList.add("arrow-live");
+              else el.classList.add("pop");
+              var cnt = el.querySelector("[data-count]");
+              if (cnt && !cnt.dataset.counting) {
+                cnt.dataset.counting = "1";
+                var target = parseFloat(cnt.dataset.count);
+                var prefix = cnt.dataset.prefix || "";
+                var t0 = null;
+                var tick = function (ts) {
+                  if (!t0) t0 = ts;
+                  var p = Math.min(1, (ts - t0) / 550);
+                  cnt.textContent = prefix + (target * p).toFixed(2);
+                  if (p < 1) requestAnimationFrame(tick);
+                  else delete cnt.dataset.counting;
+                };
+                requestAnimationFrame(tick);
+              }
+            }, d);
+            d += el.classList.contains("arrow") ? 150 : 380;
+          });
+        }
+        resetFlow();
+        trigger.classList.add("flow-go");
+        trigger.addEventListener("click", runFlow);
+        if (fi === 0 && "IntersectionObserver" in window) {
+          var fio = new IntersectionObserver(function (entries) {
+            entries.forEach(function (en) {
+              if (en.isIntersecting && !ranFirst) {
+                ranFirst = true;
+                setTimeout(runFlow, 350);
+                fio.disconnect();
+              }
+            });
+          }, { threshold: 0.5 });
+          fio.observe(flow);
+        }
+      });
+    }
 
     /* ---- demo sugar: the sims respond like the real app ---- */
 
