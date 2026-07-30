@@ -424,25 +424,53 @@
   .sec-head.center { margin-left: auto; margin-right: auto; text-align: center; }
   .sec-head.center p { margin-left: auto; margin-right: auto; }
 
-  /* ---------------- showcase ---------------- */
+  /* ---------------- showcase: picker + full-width panels ---------------- */
   #sections { padding-top: 120px; }
-  .showcase { display: grid; grid-template-columns: 1fr 1fr; gap: 64px 40px; align-items: start; }
-  .show { display: flex; flex-direction: column; min-width: 0; }
-  .show-head { margin-bottom: 16px; }
-  .show-head h3 { font-family: var(--font-inscription); font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; font-size: 15px; color: var(--axis); display: flex; align-items: center; gap: 10px; }
-  .show-head h3 .icon { color: var(--axis); font-size: 15px; }
-  .show-head p { font-size: 13.5px; color: var(--muted-fg); margin-top: 6px; max-width: 52ch; }
-  .show-wide { grid-column: span 2; }
+  .picker { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 44px; }
+  .pick {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-body); font-size: 13px; font-weight: 500;
+    color: var(--muted-fg); background: var(--card);
+    border: 1px solid var(--border); border-radius: 7px;
+    padding: 9px 14px; cursor: pointer; white-space: nowrap;
+    transition: border-color 150ms var(--swift), color 150ms var(--swift), background 150ms var(--swift);
+  }
+  .pick .icon { font-size: 14px; }
+  .pick:hover { border-color: color-mix(in oklch, var(--primary) 45%, var(--border)); color: var(--fg); }
+  .pick.on { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+  .pick:active { transform: translateY(1px); }
+
+  .panels.js-tabs .show-panel { display: none; }
+  .panels.js-tabs .show-panel.active { display: block; }
+  .panels:not(.js-tabs) .show-panel + .show-panel { margin-top: 72px; }
+  .panel-grid { display: grid; grid-template-columns: 300px 1fr; gap: 44px; align-items: start; }
+  .panel-copy h3 {
+    font-family: var(--font-inscription); font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.14em; font-size: 16px; color: var(--axis);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .panel-copy h3 .icon { color: var(--axis); font-size: 15px; }
+  .panel-copy > p { font-size: 14.5px; color: var(--body-c); margin: 12px 0 14px; }
+  .panel-feats { list-style: none; }
+  .panel-feats li { display: flex; gap: 10px; padding: 11px 0; border-top: 1px solid var(--hairline); font-size: 13px; color: var(--muted-fg); line-height: 1.55; }
+  .panel-feats li:last-child { border-bottom: 1px solid var(--hairline); }
+  .panel-feats .icon { color: var(--primary); margin-top: 2.5px; flex: none; font-size: 13px; }
+  .panel-feats b { color: var(--fg); font-weight: 600; }
+  .panel-screens { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
+  .panel-screens .window { flex: 1 1 400px; }
+  .panel-screens .phone { flex: none; }
+  .panel-screens .phone-screen { height: 480px; display: flex; flex-direction: column; }
   .window {
     background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg);
-    box-shadow: var(--card-shadow); overflow: hidden; flex: 1; display: flex; min-height: 300px;
+    box-shadow: var(--card-shadow); overflow: hidden; display: flex; min-height: 300px;
   }
   .window .sim { flex: 1; }
-  .show-phone { align-items: center; }
-  .show-phone .show-head { align-self: stretch; }
-  .show-phone .phone { flex: none; }
-  .show-phone .phone-screen { height: 480px; display: flex; flex-direction: column; }
-  .show-wide .window { min-height: 0; }
+
+  /* toggle primitive for the customize-sheet sim */
+  .sim-tgl { width: 24px; height: 14px; border-radius: 9999px; background: color-mix(in oklch, var(--fg) 18%, transparent); position: relative; display: inline-block; flex: none; }
+  .sim-tgl::after { content: ""; position: absolute; top: 2px; left: 2px; width: 10px; height: 10px; border-radius: 50%; background: var(--card); }
+  .sim-tgl.on { background: var(--primary); }
+  .sim-tgl.on::after { left: auto; right: 2px; }
 
   /* ---------------- connections (flows) ---------------- */
   .flow { padding: 30px 0; border-top: 1px solid var(--hairline); display: grid; grid-template-columns: 230px 1fr; gap: 28px; align-items: start; }
@@ -579,7 +607,7 @@
 
   /* ---------------- responsive ---------------- */
   @media (max-width: 1020px) {
-    .showcase { gap: 56px 28px; }
+    .panel-grid { grid-template-columns: 260px 1fr; gap: 32px; }
   }
   @media (max-width: 960px) {
     section { padding: 76px 0; }
@@ -594,8 +622,8 @@
     .devices { display: flex; flex-direction: column; align-items: center; }
   }
   @media (max-width: 880px) {
-    .showcase { grid-template-columns: 1fr; }
-    .show-wide { grid-column: span 1; }
+    .panel-grid { grid-template-columns: 1fr; gap: 28px; }
+    .panel-screens { justify-content: center; }
   }
   @media (max-width: 900px) {
     .nav-links { display: none; }
@@ -653,6 +681,7 @@
     <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></symbol>
     <symbol id="i-paperclip" viewBox="0 0 24 24"><path d="m16 6-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551"/></symbol>
     <symbol id="i-tag" viewBox="0 0 24 24"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/></symbol>
+    <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M12 17V7"/><path d="M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8"/><path d="M4 3a1 1 0 0 1 1-1 1.3 1.3 0 0 1 .7.2l.933.6a1.3 1.3 0 0 0 1.4 0l.934-.6a1.3 1.3 0 0 1 1.4 0l.933.6a1.3 1.3 0 0 0 1.4 0l.933-.6a1.3 1.3 0 0 1 1.4 0l.934.6a1.3 1.3 0 0 0 1.4 0l.933-.6A1.3 1.3 0 0 1 19 2a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1 1.3 1.3 0 0 1-.7-.2l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.934.6a1.3 1.3 0 0 1-1.4 0l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-1.4 0l-.934-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-.7.2 1 1 0 0 1-1-1z"/></symbol>
     <symbol id="i-droplets" viewBox="0 0 24 24"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/></symbol>
   </defs>
 </svg>
@@ -837,419 +866,221 @@
   <div class="wrap">
     <div class="sec-head lp-reveal">
       <h2>Ten sections. One household.</h2>
-      <p>The briefing above is Home, the section that gathers all the others. Here are the other nine, each with its own filled-in surface.</p>
+      <p>Pick a section to see its surfaces. All of them share the same people, the same data, and the same design language.</p>
     </div>
 
-    <div class="showcase">
+    <div class="picker lp-reveal" role="tablist" aria-label="Choose a section">
+      <button type="button" class="pick on" role="tab" aria-selected="true" data-panel="p-home"><svg class="icon"><use href="#i-layout-grid"/></svg>Home</button>
+      <button type="button" class="pick" role="tab" aria-selected="false" data-panel="p-tasks"><svg class="icon"><use href="#i-list-checks"/></svg>Tasks</button>
+      <button type="button" class="pick" role="tab" aria-selected="false" data-panel="p-groceries"><svg class="icon"><use href="#i-cart"/></svg>Groceries</button>
+      <button type="button" class="pick" role="tab" aria-selected="false" data-panel="p-costs"><svg class="icon"><use href="#i-wallet"/></svg>Costs &amp; Budget</button>
+      <button type="button" class="pick" role="tab" aria-selected="false" data-panel="p-recipes"><svg class="icon"><use href="#i-chef-hat"/></svg>Recipes</button>
+      <button type="button" class="pick" role="tab" aria-selected="false" data-panel="p-calendar"><svg class="icon"><use href="#i-calendar-days"/></svg>Calendar</button>
+      <button type="button" class="pick" role="tab" aria-selected="false" data-panel="p-checklists"><svg class="icon"><use href="#i-list-todo"/></svg>Checklists</button>
+      <button type="button" class="pick" role="tab" aria-selected="false" data-panel="p-setup"><svg class="icon"><use href="#i-house"/></svg>Home Setup</button>
+      <button type="button" class="pick" role="tab" aria-selected="false" data-panel="p-documents"><svg class="icon"><use href="#i-folder-open"/></svg>Documents</button>
+      <button type="button" class="pick" role="tab" aria-selected="false" data-panel="p-search"><svg class="icon"><use href="#i-layout-dashboard"/></svg>Home Search</button>
+    </div>
 
-      <!-- Tasks (phone) -->
-      <div class="show show-phone lp-reveal">
-        <div class="show-head">
-          <h3><svg class="icon"><use href="#i-list-checks"/></svg>Tasks</h3>
-          <p>Recurring chores and reminders. Swipe to complete, swipe to snooze, assign to whoever owes a favor.</p>
-        </div>
-        <div class="phone" role="img" aria-label="Phone showing the Tasks list with due dates, priorities and assignees.">
-          <div class="phone-screen">
-            <div class="phone-punch" aria-hidden="true"></div>
-            <div class="sim-phone" aria-hidden="true">
-              <div class="sim-main">
-                <div class="sim-head" style="margin-top:6px">
-                  <div>
-                    <div class="sim-lede" style="font-size:13px">Tasks</div>
-                    <div class="sim-cap"><span style="color:var(--danger)">3 overdue</span> · 5 this week</div>
+    <div class="panels">
+
+      <!-- ========== HOME ========== -->
+      <div class="show-panel active" id="p-home" role="tabpanel">
+        <div class="panel-grid">
+          <div class="panel-copy lp-reveal">
+            <h3><svg class="icon"><use href="#i-layout-grid"/></svg>Home</h3>
+            <p>The daily briefing you saw up top, plus a tile for every other section so the common actions are one tap away.</p>
+            <ul class="panel-feats">
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>One feed for the day.</b> Tasks, reminders, viewings, and calendar events from every section, ready to act on.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Nudges, not just lists.</b> Weather, budget pulse, shelf-life re-adds, and essentials running low sit beside the feed.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Quick actions in place.</b> Add a cost or upload a document from its tile, without leaving the hub.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Yours to arrange.</b> Every hero module toggles on or off per person.</span></li>
+            </ul>
+          </div>
+          <div class="panel-screens lp-reveal">
+            <div class="window" role="img" aria-label="Home overview with a tile for each section and its quick action.">
+              <div class="sim" aria-hidden="true">
+                <div class="sim-side">
+                  <span class="mark"><svg class="icon"><use href="#i-house"/></svg></span>
+                  <span class="s-item on"><svg class="icon"><use href="#i-layout-grid"/></svg></span>
+                  <span class="s-item"><svg class="icon"><use href="#i-list-checks"/></svg></span>
+                  <span class="s-item"><svg class="icon"><use href="#i-wallet"/></svg></span>
+                  <span class="s-item"><svg class="icon"><use href="#i-folder-open"/></svg></span>
+                  <span class="s-gap"></span>
+                  <span class="s-ava">G</span>
+                </div>
+                <div class="sim-main">
+                  <div class="sim-head">
+                    <div>
+                      <div class="sim-lede">Sections</div>
+                      <div class="sim-cap">quick actions without leaving the hub</div>
+                    </div>
+                  </div>
+                  <div class="sim-tiles c2" style="gap:8px">
+                    <div class="sim-tile" style="padding:10px 12px">
+                      <div class="lbl">Costs &amp; Budget</div>
+                      <div class="val num">$6,406 <small>of $7,000</small></div>
+                      <div class="sim-meter"><i style="width:91%;background:var(--success)"></i></div>
+                      <span class="sim-btn ghost" style="margin-top:7px"><svg class="icon" style="font-size:8px"><use href="#i-plus"/></svg>Add cost</span>
+                    </div>
+                    <div class="sim-tile" style="padding:10px 12px">
+                      <div class="lbl">Documents</div>
+                      <div class="val num">18 <small>files · 2 expiring</small></div>
+                      <span class="sim-btn ghost" style="margin-top:7px"><svg class="icon" style="font-size:8px"><use href="#i-plus"/></svg>Upload</span>
+                    </div>
+                    <div class="sim-tile" style="padding:10px 12px">
+                      <div class="lbl">Home Setup</div>
+                      <div class="val num">23 <small>of 31 done</small></div>
+                      <div class="sim-meter"><i style="width:74%;background:var(--success)"></i></div>
+                      <span class="sim-btn ghost" style="margin-top:7px"><svg class="icon" style="font-size:8px"><use href="#i-plus"/></svg>Add item</span>
+                    </div>
+                    <div class="sim-tile" style="padding:10px 12px">
+                      <div class="lbl">Home Search</div>
+                      <div class="val num">Sat 10:30 <small>next viewing</small></div>
+                      <div class="sim-cap" style="margin-top:2px">top match 87% · 14 Fenwick St</div>
+                    </div>
+                  </div>
+                  <div class="sim-group">Search everything</div>
+                  <div class="fake-search" style="margin:0"><svg class="icon"><use href="#i-search"/></svg>fenwick&hellip; <span style="margin-left:auto;font-size:7.5px">3 results across 2 sections</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="phone" role="img" aria-label="Phone showing the customize sheet: hero modules toggled per person.">
+              <div class="phone-screen">
+                <div class="phone-punch" aria-hidden="true"></div>
+                <div class="sim-phone" aria-hidden="true">
+                  <div class="sim-main" style="display:flex;flex-direction:column">
+                    <div class="sim-cap" style="margin-top:4px">Sat, Jul 25</div>
+                    <div class="sim-lede" style="font-size:13px">Your day</div>
+                    <div class="sim-tiles c2" style="margin-top:8px">
+                      <div class="sim-tile"><div class="lbl">On today</div><div class="val num">9</div></div>
+                      <div class="sim-tile"><div class="lbl">Budget</div><div class="val num over">$7,006</div></div>
+                    </div>
+                    <div class="cap-sheet" style="margin:auto -13px -10px;box-shadow:0 -6px 20px oklch(0 0 0 / 0.12)">
+                      <div class="grab"></div>
+                      <div class="sim-group" style="padding-top:0">Customize your hero</div>
+                      <div class="sim-rows">
+                        <div class="sim-row"><div class="rb"><div class="t">Weather</div></div><div class="trail"><span class="sim-tgl on"></span></div></div>
+                        <div class="sim-row"><div class="rb"><div class="t">Budget pulse</div></div><div class="trail"><span class="sim-tgl on"></span></div></div>
+                        <div class="sim-row"><div class="rb"><div class="t">Grocery nudges</div></div><div class="trail"><span class="sim-tgl on"></span></div></div>
+                        <div class="sim-row"><div class="rb"><div class="t">Setup progress</div></div><div class="trail"><span class="sim-tgl"></span></div></div>
+                      </div>
+                      <div class="sim-cap" style="margin-top:6px">applies to your view only</div>
+                    </div>
                   </div>
                 </div>
-                <div class="sim-group red">Overdue <span class="gv num" style="color:var(--danger)">3</span></div>
-                <div class="sim-rows">
-                  <div class="sim-row">
-                    <span class="lead lead-round"></span>
-                    <div class="rb"><div class="t">Move the phone bill</div><div class="m"><span class="dgr">4d overdue</span> · <span class="wrn">Med</span></div><span class="sim-portal"><svg class="icon" style="font-size:8px"><use href="#i-paperclip"/></svg>Comments</span></div>
-                    <div class="trail"><span class="sim-ava">M</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== TASKS ========== -->
+      <div class="show-panel" id="p-tasks" role="tabpanel">
+        <div class="panel-grid">
+          <div class="panel-copy lp-reveal">
+            <h3><svg class="icon"><use href="#i-list-checks"/></svg>Tasks</h3>
+            <p>Recurring chores and reminders with real ownership: assignees, comment threads, and checklists inside tasks.</p>
+            <ul class="panel-feats">
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Repeats that behave.</b> Every N days, with done rows collapsing and coming back on schedule.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Gestures first.</b> Swipe right to complete, left to snooze an hour, a day, or a week.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Depth when you need it.</b> Checklists and comments live inside a task, not beside it.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Reminders create themselves.</b> Document expiries and contract end dates land here automatically.</span></li>
+            </ul>
+          </div>
+          <div class="panel-screens lp-reveal">
+            <div class="window" role="img" aria-label="Reminders list where entries were created automatically from documents and costs.">
+              <div class="sim" aria-hidden="true">
+                <div class="sim-side">
+                  <span class="mark"><svg class="icon"><use href="#i-house"/></svg></span>
+                  <span class="s-item"><svg class="icon"><use href="#i-layout-grid"/></svg></span>
+                  <span class="s-item on"><svg class="icon"><use href="#i-list-checks"/></svg></span>
+                  <span class="s-item"><svg class="icon"><use href="#i-wallet"/></svg></span>
+                  <span class="s-item"><svg class="icon"><use href="#i-folder-open"/></svg></span>
+                  <span class="s-gap"></span>
+                  <span class="s-ava">G</span>
+                </div>
+                <div class="sim-main">
+                  <div class="sim-head">
+                    <div>
+                      <div class="sim-lede">Reminders</div>
+                      <div class="sim-cap">3 of these created themselves</div>
+                    </div>
                   </div>
-                  <div class="sim-row" style="align-items:flex-start">
-                    <span class="lead lead-round" style="margin-top:2px"></span>
-                    <div class="rb">
-                      <div class="t">Visa paperwork</div>
-                      <div class="m"><span class="dgr">2d overdue</span> · <span class="wrn">Med</span></div>
-                      <span class="sim-portal"><svg class="icon" style="font-size:8px"><use href="#i-list-todo"/></svg>Checklist 0/3</span>
-                      <div class="sim-checklist">
-                        <div class="ci"><span class="cb"></span>Translate documents</div>
-                        <div class="ci"><span class="cb"></span>Book biometrics</div>
-                        <div class="ci"><span class="cb"></span>Sponsor form</div>
-                        <div class="cfoot"><span class="num">0 / 3 done</span><span class="lnk">Open full checklist</span></div>
+                  <div class="sim-rows">
+                    <div class="sim-row">
+                      <span class="lead" style="background:color-mix(in oklch, var(--warning) 14%, transparent);color:var(--warning)"><svg class="icon"><use href="#i-bell"/></svg></span>
+                      <div class="rb"><div class="t">Contents insurance renewal</div><div class="m">due in 30d · <span class="wrn">renews 12 Aug</span></div><span class="sim-portal away">from Documents</span></div>
+                      <div class="trail"><span class="sim-ava">G</span></div>
+                    </div>
+                    <div class="sim-row">
+                      <span class="lead" style="background:color-mix(in oklch, var(--warning) 14%, transparent);color:var(--warning)"><svg class="icon"><use href="#i-bell"/></svg></span>
+                      <div class="rb"><div class="t">Power discount ends</div><div class="m">in 6wk · time to compare plans</div><span class="sim-portal away">from Costs</span></div>
+                      <div class="trail"><span class="sim-ava you">G</span></div>
+                    </div>
+                    <div class="sim-row">
+                      <span class="lead" style="background:color-mix(in oklch, var(--warning) 14%, transparent);color:var(--warning)"><svg class="icon"><use href="#i-bell"/></svg></span>
+                      <div class="rb"><div class="t">Lease renewal window</div><div class="m">in 10mo · 60d notice required</div><span class="sim-portal away">from Documents</span></div>
+                      <div class="trail"><span class="sim-ava">M</span></div>
+                    </div>
+                    <div class="sim-row">
+                      <span class="lead lead-round"></span>
+                      <div class="rb"><div class="t">Water the balcony plants</div><div class="m">repeats weekly · Sun</div></div>
+                      <div class="trail"><span class="sim-ava">M</span></div>
+                    </div>
+                  </div>
+                  <div class="sim-cap" style="margin-top:10px">a push notification fires when they come due, straight to the item</div>
+                </div>
+              </div>
+            </div>
+            <div class="phone" role="img" aria-label="Phone showing the Tasks list with due dates, priorities, assignees and an expanded checklist.">
+              <div class="phone-screen">
+                <div class="phone-punch" aria-hidden="true"></div>
+                <div class="sim-phone" aria-hidden="true">
+                  <div class="sim-main">
+                    <div class="sim-head" style="margin-top:6px">
+                      <div>
+                        <div class="sim-lede" style="font-size:13px">Tasks</div>
+                        <div class="sim-cap"><span style="color:var(--danger)">3 overdue</span> · 5 this week</div>
                       </div>
                     </div>
-                    <div class="trail"><span class="sim-ava you">G</span></div>
-                  </div>
-                  <div class="sim-row">
-                    <span class="lead lead-round"></span>
-                    <div class="rb"><div class="t">Sell the old chairs</div><div class="m"><span class="dgr">2d overdue</span> · <span class="wrn">Med</span></div></div>
-                    <div class="trail"><span class="sim-ava">M</span></div>
-                  </div>
-                </div>
-              </div>
-              <div class="sim-dock">
-                <span class="d"><svg class="icon"><use href="#i-layout-grid"/></svg></span>
-                <span class="d on"><svg class="icon"><use href="#i-list-checks"/></svg></span>
-                <span class="d-plus"><svg class="icon"><use href="#i-plus"/></svg></span>
-                <span class="d"><svg class="icon"><use href="#i-cart"/></svg></span>
-                <span class="d"><svg class="icon"><use href="#i-wallet"/></svg></span>
-                <span class="dock-tick"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Costs & Budget -->
-      <div class="show lp-reveal">
-        <div class="show-head">
-          <h3><svg class="icon"><use href="#i-wallet"/></svg>Costs &amp; Budget</h3>
-          <p>Recurring bills and one-offs against a monthly target, with lines pulled straight from the other sections.</p>
-        </div>
-        <div class="window" role="img" aria-label="Costs dashboard with a monthly total, six-month chart and cost lines.">
-          <div class="sim" aria-hidden="true">
-            <div class="sim-side">
-              <span class="mark"><svg class="icon"><use href="#i-house"/></svg></span>
-              <span class="s-item"><svg class="icon"><use href="#i-layout-grid"/></svg></span>
-              <span class="s-item"><svg class="icon"><use href="#i-layout-dashboard"/></svg></span>
-              <span class="s-item"><svg class="icon"><use href="#i-calendar-days"/></svg></span>
-              <span class="s-item on"><svg class="icon"><use href="#i-wallet"/></svg></span>
-              <span class="s-gap"></span>
-              <span class="s-ava">G</span>
-            </div>
-            <div class="sim-main">
-              <div class="sim-head">
-                <div>
-                  <div class="sim-lede num">$6,406 <span class="frag-in num">of $7,000 planned</span></div>
-                  <div class="sim-cap"><span style="color:var(--success)">$595 under plan</span> · 6d left</div>
-                </div>
-                <div class="sim-seg" style="width:150px;margin:0"><span>Weekly</span><span class="on">Monthly</span><span>Yearly</span></div>
-              </div>
-              <div class="sim-meter" style="max-width:100%"><i style="width:91%;background:var(--success)"></i></div>
-              <div class="sim-tiles" style="grid-template-columns:repeat(3,1fr);margin-top:9px">
-                <div class="sim-tile"><div class="lbl">Vs last month</div><div class="val num" style="font-size:10px">&minus;$4,752 <small>vs Jun</small></div></div>
-                <div class="sim-tile"><div class="lbl">Rest of year</div><div class="val num" style="font-size:10px">$31,688</div></div>
-                <div class="sim-tile"><div class="lbl">Year to date</div><div class="val num" style="font-size:10px">$50,451</div></div>
-              </div>
-              <div class="sim-chart">
-                <div class="plan" style="top:30%"></div>
-                <div class="bar blue" style="height:62%"></div>
-                <div class="bar blue" style="height:60%"></div>
-                <div class="bar blue" style="height:63%"></div>
-                <div class="bar blue" style="height:61%"></div>
-                <div class="bar blue" style="height:64%"></div>
-                <div class="bar blue" style="height:88%"></div>
-                <div class="bar blue cur" style="height:71%"></div>
-                <div class="bar future" style="height:58%"></div>
-                <div class="bar future" style="height:58%"></div>
-                <div class="bar future" style="height:58%"></div>
-                <div class="bar future" style="height:58%"></div>
-                <div class="bar future" style="height:58%"></div>
-              </div>
-              <div class="sim-chart-x"><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span></div>
-              <div class="sim-legend">
-                <span><i style="background:var(--primary)"></i>Spent</span>
-                <span><i style="background:color-mix(in oklch, var(--fg) 15%, transparent)"></i>Projected</span>
-                <span><span class="mono">--</span> Plan</span>
-              </div>
-              <div class="sim-group" style="margin-top:6px">Jul <span class="gv"><span style="color:var(--warning)">in progress</span> · <span class="num" style="color:var(--danger)">$7,006 projected</span></span></div>
-              <div class="sim-stack">
-                <i style="width:64%;background:var(--primary)"></i>
-                <i style="width:7%;background:oklch(0.68 0.14 55)"></i>
-                <i style="width:2%;background:oklch(0.7 0.1 230)"></i>
-                <i style="width:6%;background:oklch(0.6 0.12 290)"></i>
-                <i style="width:11%;background:var(--success)"></i>
-                <i style="width:8%;background:color-mix(in oklch, var(--fg) 30%, transparent)"></i>
-              </div>
-              <div class="sim-cat"><span class="cd" style="background:var(--primary)"></span><span class="cn">Rent</span><span class="sim-portal away" style="margin:0 0 0 4px">from Home Search</span><span class="cv num">$4,550</span></div>
-              <div class="sim-cat"><span class="cd" style="background:oklch(0.68 0.14 55)"></span><span class="cn">Utilities</span><span class="cv num">$518</span></div>
-              <div class="sim-cat"><span class="cd" style="background:oklch(0.7 0.1 230)"></span><span class="cn">Internet</span><span class="cv num">$105</span></div>
-              <div class="sim-cat"><span class="cd" style="background:oklch(0.6 0.12 290)"></span><span class="cn">Insurance</span><span class="cv num">$408</span></div>
-              <div class="sim-cat"><span class="cd" style="background:var(--success)"></span><span class="cn">Groceries</span><span class="cv num">$793</span></div>
-              <div class="sim-cat"><span class="cd" style="background:color-mix(in oklch, var(--fg) 30%, transparent)"></span><span class="cn">Fold-out bed</span><span class="oneoff">one-off</span><span class="cv num">$450</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Groceries (phone) -->
-      <div class="show show-phone lp-reveal">
-        <div class="show-head">
-          <h3><svg class="icon"><use href="#i-cart"/></svg>Groceries</h3>
-          <p>A shared list organized by aisle, with price memory and shelf-life tracking that suggests what to re-add.</p>
-        </div>
-        <div class="phone" role="img" aria-label="Phone showing the grocery list grouped by aisle with quantities and estimated prices.">
-          <div class="phone-screen">
-            <div class="phone-punch" aria-hidden="true"></div>
-            <div class="sim-phone" aria-hidden="true">
-              <div class="sim-main">
-                <div class="sim-head" style="margin-top:6px">
-                  <div>
-                    <div class="sim-lede" style="font-size:13px">17 to buy <span class="frag-in num">· ~$100</span></div>
-                    <div class="sim-cap">69 have</div>
-                  </div>
-                  <span class="sim-add"><svg class="icon" style="font-size:9px"><use href="#i-plus"/></svg>Add item</span>
-                </div>
-                <div class="sim-tiles c2">
-                  <div class="sim-tile"><div class="lbl">Need soon</div><div class="val num" style="color:var(--warning)">2</div></div>
-                  <div class="sim-tile"><div class="lbl">Est total</div><div class="val num">$100</div></div>
-                </div>
-                <div class="sim-readd">
-                  <div class="rh">Suggest re-add (2)</div>
-                  <div class="rr">
-                    <span style="font-size:11px">🥩</span>
-                    <div class="rb"><div class="t" style="font-size:9px">Beef mince</div><div class="m"><span class="wrn">3d past shelf life</span></div></div>
-                    <span class="sim-btn" style="margin-left:auto"><svg class="icon" style="font-size:8px"><use href="#i-plus"/></svg>Add</span>
-                  </div>
-                </div>
-                <div class="sim-group">🥬 Produce <span style="opacity:0.7">14</span> <span class="gv num">0/2 · ~$11</span></div>
-                <div class="sim-rows">
-                  <div class="sim-row">
-                    <span class="lead lead-glyph">🧄</span>
-                    <div class="rb"><div class="t">Garlic</div><div class="m">have 4d · repeats</div>
-                      <div class="sim-shelf"><div class="sim-meter"><i style="width:80%;background:var(--success)"></i></div><span class="sl">~25d left</span></div>
-                    </div>
-                    <div class="trail"><span class="frag ok num">$6</span></div>
-                  </div>
-                  <div class="sim-row">
-                    <span class="lead lead-glyph">🍅</span>
-                    <div class="rb"><div class="t">Tomatoes</div><div class="m">×6 · need by Sat</div><span class="sim-portal away"><svg class="icon" style="font-size:8px"><use href="#i-chef-hat"/></svg>Pad see ew</span></div>
-                    <div class="trail"><span class="frag ok num">$7</span></div>
-                  </div>
-                </div>
-              </div>
-              <div class="sim-dock">
-                <span class="d"><svg class="icon"><use href="#i-layout-grid"/></svg></span>
-                <span class="d"><svg class="icon"><use href="#i-list-checks"/></svg></span>
-                <span class="d-plus"><svg class="icon"><use href="#i-plus"/></svg></span>
-                <span class="d on"><svg class="icon"><use href="#i-cart"/></svg></span>
-                <span class="d"><svg class="icon"><use href="#i-wallet"/></svg></span>
-                <span class="dock-tick"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Calendar -->
-      <div class="show lp-reveal">
-        <div class="show-head">
-          <h3><svg class="icon"><use href="#i-calendar-days"/></svg>Calendar</h3>
-          <p>Household events, task due dates and viewings on one grid, synced both ways with Google Calendar.</p>
-        </div>
-        <div class="window" role="img" aria-label="Calendar with a month grid of event markers and a list of upcoming events.">
-          <div class="sim" aria-hidden="true">
-            <div class="sim-side">
-              <span class="mark"><svg class="icon"><use href="#i-house"/></svg></span>
-              <span class="s-item"><svg class="icon"><use href="#i-layout-grid"/></svg></span>
-              <span class="s-item"><svg class="icon"><use href="#i-layout-dashboard"/></svg></span>
-              <span class="s-item on"><svg class="icon"><use href="#i-calendar-days"/></svg></span>
-              <span class="s-item"><svg class="icon"><use href="#i-wallet"/></svg></span>
-              <span class="s-gap"></span>
-              <span class="s-ava">G</span>
-            </div>
-            <div class="sim-main">
-              <div class="sim-head">
-                <div>
-                  <div class="sim-lede">July</div>
-                  <div class="sim-cap">4 events this week · Google synced</div>
-                </div>
-              </div>
-              <div class="sim-cal">
-                <span class="out num">29</span><span class="out num">30</span><span class="num">1</span><span class="num">2</span><span class="num">3</span><span class="num">4</span><span class="num">5</span>
-                <span class="num">6</span><span class="num">7</span><span class="num">8<i style="background:var(--warning)"></i></span><span class="num">9</span><span class="num">10</span><span class="num">11</span><span class="num">12</span>
-                <span class="num">13</span><span class="num">14</span><span class="num">15<i style="background:oklch(0.6 0.12 290)"></i></span><span class="num">16</span><span class="num">17</span><span class="num">18</span><span class="num">19</span>
-                <span class="num">20</span><span class="num">21</span><span class="num">22</span><span class="num">23</span><span class="num">24</span><span class="today num">25</span><span class="num">26<i style="background:var(--primary)"></i></span>
-                <span class="num">27</span><span class="num">28<i style="background:var(--warning)"></i></span><span class="num">29</span><span class="num">30</span><span class="num">31</span><span class="out num">1</span><span class="out num">2</span>
-              </div>
-              <div class="sim-rows">
-                <div class="sim-row">
-                  <span class="lead" style="background:oklch(0.6 0.12 290 / 0.13);color:oklch(0.6 0.12 290)"><svg class="icon"><use href="#i-calendar-days"/></svg></span>
-                  <div class="rb"><div class="t">Dentist for Maya</div><div class="m">Wed 14:20 · medical · private</div></div>
-                  <div class="trail"><span class="sim-ava">M</span></div>
-                </div>
-                <div class="sim-row">
-                  <span class="lead" style="background:color-mix(in oklch, var(--warning) 14%, transparent);color:var(--warning)"><svg class="icon"><use href="#i-wallet"/></svg></span>
-                  <div class="rb"><div class="t">Rent due</div><div class="m">Mon · repeats monthly · from Costs</div></div>
-                </div>
-                <div class="sim-row">
-                  <span class="lead" style="background:color-mix(in oklch, var(--primary) 12%, transparent);color:var(--primary)"><svg class="icon"><use href="#i-map-pin"/></svg></span>
-                  <div class="rb"><div class="t">Viewing at 14 Fenwick St</div><div class="m">Sat · pushed to Google</div></div>
-                  <div class="trail"><span class="frag">10:30</span></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Recipes (phone) -->
-      <div class="show show-phone lp-reveal">
-        <div class="show-head">
-          <h3><svg class="icon"><use href="#i-chef-hat"/></svg>Recipes</h3>
-          <p>Scan a recipe from a photo. Ingredients match against the pantry, so it knows what you can cook tonight.</p>
-        </div>
-        <div class="phone" role="img" aria-label="Phone showing recipes with ingredient availability bars and a button to add missing items to the shopping list.">
-          <div class="phone-screen">
-            <div class="phone-punch" aria-hidden="true"></div>
-            <div class="sim-phone" aria-hidden="true">
-              <div class="sim-main">
-                <div class="sim-head" style="margin-top:6px">
-                  <div>
-                    <div class="sim-lede" style="font-size:13px">Recipes</div>
-                    <div class="sim-cap">12 saved · 2 you can make now</div>
-                  </div>
-                </div>
-                <div class="sim-rows">
-                  <div class="sim-row" style="padding:9px 1px">
-                    <span class="lead" style="background:color-mix(in oklch, var(--danger) 10%, transparent);color:var(--danger)"><svg class="icon"><use href="#i-chef-hat"/></svg></span>
-                    <div class="rb">
-                      <div class="t">Pad see ew</div>
-                      <div class="m">Thai · 25 min · serves 4</div>
-                      <div class="sim-meter" style="max-width:110px"><i style="width:67%;background:var(--warning)"></i></div>
-                      <span class="sim-portal away"><svg class="icon" style="font-size:8px"><use href="#i-cart"/></svg>add 3 missing to list</span>
-                    </div>
-                    <div class="trail"><span class="frag num">6 of 9</span></div>
-                  </div>
-                  <div class="sim-row" style="padding:9px 1px">
-                    <span class="lead" style="background:color-mix(in oklch, var(--danger) 10%, transparent);color:var(--danger)"><svg class="icon"><use href="#i-chef-hat"/></svg></span>
-                    <div class="rb">
-                      <div class="t">Shakshuka</div>
-                      <div class="m">30 min · <span style="color:var(--success)">can make now</span></div>
-                      <div class="sim-meter" style="max-width:110px"><i style="width:100%;background:var(--success)"></i></div>
-                    </div>
-                    <div class="trail"><span class="frag ok num">7 of 7</span></div>
-                  </div>
-                  <div class="sim-row" style="padding:9px 1px">
-                    <span class="lead" style="background:color-mix(in oklch, var(--danger) 10%, transparent);color:var(--danger)"><svg class="icon"><use href="#i-camera"/></svg></span>
-                    <div class="rb">
-                      <div class="t">Lemon dal</div>
-                      <div class="m">scanned from a photo · draft</div>
-                      <div class="sim-meter" style="max-width:110px"><i style="width:57%;background:var(--warning)"></i></div>
-                    </div>
-                    <div class="trail"><span class="frag num">4 of 7</span></div>
-                  </div>
-                </div>
-              </div>
-              <div class="sim-dock">
-                <span class="d"><svg class="icon"><use href="#i-layout-grid"/></svg></span>
-                <span class="d"><svg class="icon"><use href="#i-list-checks"/></svg></span>
-                <span class="d-plus"><svg class="icon"><use href="#i-plus"/></svg></span>
-                <span class="d on"><svg class="icon"><use href="#i-chef-hat"/></svg></span>
-                <span class="d"><svg class="icon"><use href="#i-cart"/></svg></span>
-                <span class="dock-tick"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Home Setup -->
-      <div class="show lp-reveal">
-        <div class="show-head">
-          <h3><svg class="icon"><use href="#i-house"/></svg>Home Setup</h3>
-          <p>Room-by-room move-in planning with prices and stores, and a running total the budget can see.</p>
-        </div>
-        <div class="window" role="img" aria-label="Home Setup checklist grouped by room with prices and progress meters.">
-          <div class="sim" aria-hidden="true">
-            <div class="sim-side">
-              <span class="mark"><svg class="icon"><use href="#i-house"/></svg></span>
-              <span class="s-item"><svg class="icon"><use href="#i-layout-grid"/></svg></span>
-              <span class="s-item on"><svg class="icon"><use href="#i-house"/></svg></span>
-              <span class="s-item"><svg class="icon"><use href="#i-list-checks"/></svg></span>
-              <span class="s-item"><svg class="icon"><use href="#i-wallet"/></svg></span>
-              <span class="s-gap"></span>
-              <span class="s-ava">G</span>
-            </div>
-            <div class="sim-main">
-              <div class="sim-head">
-                <div>
-                  <div class="sim-lede">Home Setup</div>
-                  <div class="sim-cap num">$2,180 spent of $2,500 planned</div>
-                </div>
-              </div>
-              <div class="sim-group">Kitchen <span class="gv num">8 of 10</span></div>
-              <div class="sim-rows">
-                <div class="sim-row done">
-                  <span class="lead lead-done-sq"><svg class="icon"><use href="#i-check"/></svg></span>
-                  <div class="rb"><div class="t">Rangehood filter</div><div class="m">Bunnings</div></div>
-                  <div class="trail"><span class="frag num">$32</span><span class="sim-ava">G</span></div>
-                </div>
-                <div class="sim-row">
-                  <span class="lead lead-square"></span>
-                  <div class="rb"><div class="t">Kettle</div><div class="m">Big W · <span class="wrn">high</span></div></div>
-                  <div class="trail"><span class="frag num">$89</span><span class="sim-ava you">M</span></div>
-                </div>
-              </div>
-              <div class="sim-group">Living room <span class="gv num">5 of 7</span></div>
-              <div class="sim-rows">
-                <div class="sim-row" style="align-items:flex-start">
-                  <span class="lead lead-square" style="margin-top:2px"></span>
-                  <div class="rb"><div class="t">Couch cover</div><div class="m">Temple &amp; Webster · 2 comments</div>
-                    <div class="sim-comments">
-                      <div class="sim-cm"><span class="sim-ava" style="width:12px;height:12px;font-size:5.5px">M</span><span><span class="who">Maya</span> · the grey one, right?</span></div>
-                      <div class="sim-cm"><span class="sim-ava you" style="width:12px;height:12px;font-size:5.5px">G</span><span><span class="who">You</span> · yes, the washable cover</span></div>
+                    <div class="sim-group red">Overdue <span class="gv num" style="color:var(--danger)">3</span></div>
+                    <div class="sim-rows">
+                      <div class="sim-row">
+                        <span class="lead lead-round"></span>
+                        <div class="rb"><div class="t">Move the phone bill</div><div class="m"><span class="dgr">4d overdue</span> · <span class="wrn">Med</span></div><span class="sim-portal"><svg class="icon" style="font-size:8px"><use href="#i-paperclip"/></svg>Comments</span></div>
+                        <div class="trail"><span class="sim-ava">M</span></div>
+                      </div>
+                      <div class="sim-row" style="align-items:flex-start">
+                        <span class="lead lead-round" style="margin-top:2px"></span>
+                        <div class="rb">
+                          <div class="t">Visa paperwork</div>
+                          <div class="m"><span class="dgr">2d overdue</span> · <span class="wrn">Med</span></div>
+                          <span class="sim-portal"><svg class="icon" style="font-size:8px"><use href="#i-list-todo"/></svg>Checklist 0/3</span>
+                          <div class="sim-checklist">
+                            <div class="ci"><span class="cb"></span>Translate documents</div>
+                            <div class="ci"><span class="cb"></span>Book biometrics</div>
+                            <div class="ci"><span class="cb"></span>Sponsor form</div>
+                            <div class="cfoot"><span class="num">0 / 3 done</span><span class="lnk">Open full checklist</span></div>
+                          </div>
+                        </div>
+                        <div class="trail"><span class="sim-ava you">G</span></div>
+                      </div>
+                      <div class="sim-row">
+                        <span class="lead lead-round"></span>
+                        <div class="rb"><div class="t">Sell the old chairs</div><div class="m"><span class="dgr">2d overdue</span> · <span class="wrn">Med</span></div></div>
+                        <div class="trail"><span class="sim-ava">M</span></div>
+                      </div>
                     </div>
                   </div>
-                  <div class="trail"><span class="frag num">$149</span></div>
-                </div>
-                <div class="sim-row done">
-                  <span class="lead lead-done-sq"><svg class="icon"><use href="#i-check"/></svg></span>
-                  <div class="rb"><div class="t">Floor lamp</div><div class="m">IKEA</div></div>
-                  <div class="trail"><span class="frag num">$79</span><span class="sim-ava">M</span></div>
-                </div>
-              </div>
-              <div style="margin-top:10px">
-                <div class="sim-cap">Setup total pulls into Costs as one line</div>
-                <div class="sim-meter" style="max-width:220px"><i style="width:74%;background:var(--success)"></i></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Checklists -->
-      <div class="show lp-reveal">
-        <div class="show-head">
-          <h3><svg class="icon"><use href="#i-list-todo"/></svg>Checklists</h3>
-          <p>Plain, repeating, or shopping lists. A dated checklist becomes a to-do on the briefing when its day comes.</p>
-        </div>
-        <div class="window" role="img" aria-label="Checklists overview with a repeating weekly reset list and its items.">
-          <div class="sim" aria-hidden="true">
-            <div class="sim-side">
-              <span class="mark"><svg class="icon"><use href="#i-house"/></svg></span>
-              <span class="s-item"><svg class="icon"><use href="#i-layout-grid"/></svg></span>
-              <span class="s-item on"><svg class="icon"><use href="#i-list-todo"/></svg></span>
-              <span class="s-item"><svg class="icon"><use href="#i-chef-hat"/></svg></span>
-              <span class="s-item"><svg class="icon"><use href="#i-folder-open"/></svg></span>
-              <span class="s-gap"></span>
-              <span class="s-ava">G</span>
-            </div>
-            <div class="sim-main">
-              <div class="sim-head">
-                <div>
-                  <div class="sim-lede">Checklists</div>
-                  <div class="sim-cap">3 active · 1 due Saturday</div>
-                </div>
-              </div>
-              <div class="sim-tiles c2">
-                <div class="sim-tile"><div class="lbl">Weekly reset</div><div class="val num">6 <small>of 9</small></div><div class="sim-meter"><i style="width:67%;background:var(--success)"></i></div></div>
-                <div class="sim-tile"><div class="lbl">Party prep · Sat</div><div class="val num">3 <small>of 12</small></div><div class="sim-meter"><i style="width:25%;background:var(--warning)"></i></div></div>
-              </div>
-              <div class="sim-group">Weekly reset · repeats Sun</div>
-              <div class="sim-rows">
-                <div class="sim-row done">
-                  <span class="lead lead-done-sq"><svg class="icon"><use href="#i-check"/></svg></span>
-                  <div class="rb"><div class="t">Strip the beds</div><div class="m">checked by Maya · 9:40</div></div>
-                </div>
-                <div class="sim-row done">
-                  <span class="lead lead-done-sq"><svg class="icon"><use href="#i-check"/></svg></span>
-                  <div class="rb"><div class="t">Water the plants</div><div class="m">checked by Guy · 10:05</div></div>
-                </div>
-                <div class="sim-row">
-                  <span class="lead lead-square"></span>
-                  <div class="rb"><div class="t">Plan the week's meals</div><div class="m">opens Recipes</div></div>
+                  <div class="sim-dock">
+                    <span class="d"><svg class="icon"><use href="#i-layout-grid"/></svg></span>
+                    <span class="d on"><svg class="icon"><use href="#i-list-checks"/></svg></span>
+                    <span class="d-plus"><svg class="icon"><use href="#i-plus"/></svg></span>
+                    <span class="d"><svg class="icon"><use href="#i-cart"/></svg></span>
+                    <span class="d"><svg class="icon"><use href="#i-wallet"/></svg></span>
+                    <span class="dock-tick"></span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1257,51 +1088,111 @@
         </div>
       </div>
 
-      <!-- Home Search -->
-      <div class="show lp-reveal">
-        <div class="show-head">
-          <h3><svg class="icon"><use href="#i-layout-dashboard"/></svg>Home Search</h3>
-          <p>And for when it's time to find the next place: paste a listing URL and it parses itself, scored against your own weighted checklist.</p>
-        </div>
-        <div class="window" role="img" aria-label="Home Search dashboard with listing counts and scored apartments.">
-          <div class="sim" aria-hidden="true">
-            <div class="sim-side">
-              <span class="mark"><svg class="icon"><use href="#i-house"/></svg></span>
-              <span class="s-item"><svg class="icon"><use href="#i-layout-grid"/></svg></span>
-              <span class="s-item on"><svg class="icon"><use href="#i-layout-dashboard"/></svg></span>
-              <span class="s-item"><svg class="icon"><use href="#i-calendar-days"/></svg></span>
-              <span class="s-item"><svg class="icon"><use href="#i-wallet"/></svg></span>
-              <span class="s-gap"></span>
-              <span class="s-ava">G</span>
+      <!-- ========== GROCERIES ========== -->
+      <div class="show-panel" id="p-groceries" role="tabpanel">
+        <div class="panel-grid">
+          <div class="panel-copy lp-reveal">
+            <h3><svg class="icon"><use href="#i-cart"/></svg>Groceries</h3>
+            <p>A shared list organized by aisle, with a memory for prices and shelf life.</p>
+            <ul class="panel-feats">
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Walking order.</b> Aisle groups you can drag to match your actual store.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Price memory.</b> Last and lowest price per item, learned from your receipts.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Shelf-life nudges.</b> Things you buy regularly come back as re-add suggestions before they run out.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Sessions, not chaos.</b> Each shop closes with a receipt, a total, and one line in Costs.</span></li>
+            </ul>
+          </div>
+          <div class="panel-screens lp-reveal">
+            <div class="window" role="img" aria-label="A finished shopping session with the receipt scanned and prices learned.">
+              <div class="sim" aria-hidden="true">
+                <div class="sim-side">
+                  <span class="mark"><svg class="icon"><use href="#i-house"/></svg></span>
+                  <span class="s-item"><svg class="icon"><use href="#i-layout-grid"/></svg></span>
+                  <span class="s-item on"><svg class="icon"><use href="#i-cart"/></svg></span>
+                  <span class="s-item"><svg class="icon"><use href="#i-wallet"/></svg></span>
+                  <span class="s-item"><svg class="icon"><use href="#i-folder-open"/></svg></span>
+                  <span class="s-gap"></span>
+                  <span class="s-ava">G</span>
+                </div>
+                <div class="sim-main">
+                  <div class="sim-head">
+                    <div>
+                      <div class="sim-lede">Saturday's shop</div>
+                      <div class="sim-cap">FreshMart · 14 items · done shopping</div>
+                    </div>
+                    <span class="sim-btn"><svg class="icon" style="font-size:8px"><use href="#i-check"/></svg>Finalize</span>
+                  </div>
+                  <div class="sim-rows">
+                    <div class="sim-row">
+                      <span class="lead" style="background:color-mix(in oklch, var(--primary) 12%, transparent);color:var(--primary)"><svg class="icon"><use href="#i-receipt"/></svg></span>
+                      <div class="rb"><div class="t">Receipt scanned</div><div class="m">total read automatically</div><span class="sim-portal"><svg class="icon" style="font-size:8px"><use href="#i-paperclip"/></svg>photo attached</span></div>
+                      <div class="trail"><span class="frag num">$184.20</span></div>
+                    </div>
+                    <div class="sim-row">
+                      <span class="lead lead-glyph">🍅</span>
+                      <div class="rb"><div class="t">Tomatoes</div><div class="m">price learned · was ~$7</div></div>
+                      <div class="trail"><span class="frag ok num">$6.80</span></div>
+                    </div>
+                    <div class="sim-row">
+                      <span class="lead lead-glyph">🥛</span>
+                      <div class="rb"><div class="t">Greek yoghurt</div><div class="m">lowest so far · Aldi still cheaper</div></div>
+                      <div class="trail"><span class="frag num">$4.90</span></div>
+                    </div>
+                    <div class="sim-row">
+                      <span class="lead" style="background:color-mix(in oklch, var(--warning) 14%, transparent);color:var(--warning)"><svg class="icon"><use href="#i-wallet"/></svg></span>
+                      <div class="rb"><div class="t">Logged to Costs</div><div class="m">groceries · one line for the whole shop</div><span class="sim-portal away">July groceries $793</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="sim-main">
-              <div class="sim-head">
-                <div>
-                  <div class="sim-lede">Home Search</div>
-                  <div class="sim-cap">24 listings · 6 to book</div>
-                </div>
-              </div>
-              <div class="sim-tiles c4">
-                <div class="sim-tile"><div class="lbl">To book</div><div class="val num">6</div></div>
-                <div class="sim-tile"><div class="lbl">Booked</div><div class="val num">4</div></div>
-                <div class="sim-tile"><div class="lbl">Visited</div><div class="val num">9</div></div>
-                <div class="sim-tile"><div class="lbl">To score</div><div class="val num">5</div></div>
-              </div>
-              <div class="sim-rows">
-                <div class="sim-row">
-                  <span class="lead" style="background:color-mix(in oklch, var(--primary) 12%, transparent);color:var(--primary)"><svg class="icon"><use href="#i-map-pin"/></svg></span>
-                  <div class="rb"><div class="t">14 Fenwick St, Brunswick</div><div class="m">$620 wk · 2 bed · 1 bath · viewing Sat</div><span class="sim-portal">8 photos</span></div>
-                  <div class="trail"><div style="text-align:right"><span class="frag ok num">87%</span><div class="sim-meter w52"><i style="width:87%;background:var(--success)"></i></div></div></div>
-                </div>
-                <div class="sim-row">
-                  <span class="lead" style="background:color-mix(in oklch, var(--primary) 12%, transparent);color:var(--primary)"><svg class="icon"><use href="#i-map-pin"/></svg></span>
-                  <div class="rb"><div class="t">2/8 Girard Ave, Coburg</div><div class="m">$585 wk · 2 bed · 320m to station</div></div>
-                  <div class="trail"><div style="text-align:right"><span class="frag warn num">64%</span><div class="sim-meter w52"><i style="width:64%;background:var(--warning)"></i></div></div></div>
-                </div>
-                <div class="sim-row">
-                  <span class="lead" style="background:color-mix(in oklch, var(--primary) 12%, transparent);color:var(--primary)"><svg class="icon"><use href="#i-map-pin"/></svg></span>
-                  <div class="rb"><div class="t">301/12 Harrow Ln, Preston</div><div class="m">$650 wk · 3 bed · parsed from URL</div></div>
-                  <div class="trail"><span class="frag">to score</span></div>
+            <div class="phone" role="img" aria-label="Phone showing the grocery list grouped by aisle with re-add suggestions and estimated prices.">
+              <div class="phone-screen">
+                <div class="phone-punch" aria-hidden="true"></div>
+                <div class="sim-phone" aria-hidden="true">
+                  <div class="sim-main">
+                    <div class="sim-head" style="margin-top:6px">
+                      <div>
+                        <div class="sim-lede" style="font-size:13px">17 to buy <span class="frag-in num">· ~$100</span></div>
+                        <div class="sim-cap">69 have</div>
+                      </div>
+                      <span class="sim-add"><svg class="icon" style="font-size:9px"><use href="#i-plus"/></svg>Add item</span>
+                    </div>
+                    <div class="sim-tiles c2">
+                      <div class="sim-tile"><div class="lbl">Need soon</div><div class="val num" style="color:var(--warning)">2</div></div>
+                      <div class="sim-tile"><div class="lbl">Est total</div><div class="val num">$100</div></div>
+                    </div>
+                    <div class="sim-readd">
+                      <div class="rh">Suggest re-add (2)</div>
+                      <div class="rr">
+                        <span style="font-size:11px">🥩</span>
+                        <div class="rb"><div class="t" style="font-size:9px">Beef mince</div><div class="m"><span class="wrn">3d past shelf life</span></div></div>
+                        <span class="sim-btn" style="margin-left:auto"><svg class="icon" style="font-size:8px"><use href="#i-plus"/></svg>Add</span>
+                      </div>
+                    </div>
+                    <div class="sim-group">🥬 Produce <span style="opacity:0.7">14</span> <span class="gv num">0/2 · ~$11</span></div>
+                    <div class="sim-rows">
+                      <div class="sim-row">
+                        <span class="lead lead-glyph">🧄</span>
+                        <div class="rb"><div class="t">Garlic</div><div class="m">have 4d · repeats</div>
+                          <div class="sim-shelf"><div class="sim-meter"><i style="width:80%;background:var(--success)"></i></div><span class="sl">~25d left</span></div>
+                        </div>
+                        <div class="trail"><span class="frag ok num">$6</span></div>
+                      </div>
+                      <div class="sim-row">
+                        <span class="lead lead-glyph">🍅</span>
+                        <div class="rb"><div class="t">Tomatoes</div><div class="m">×6 · need by Sat</div><span class="sim-portal away"><svg class="icon" style="font-size:8px"><use href="#i-chef-hat"/></svg>Pad see ew</span></div>
+                        <div class="trail"><span class="frag ok num">$7</span></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="sim-dock">
+                    <span class="d"><svg class="icon"><use href="#i-layout-grid"/></svg></span>
+                    <span class="d"><svg class="icon"><use href="#i-list-checks"/></svg></span>
+                    <span class="d-plus"><svg class="icon"><use href="#i-plus"/></svg></span>
+                    <span class="d on"><svg class="icon"><use href="#i-cart"/></svg></span>
+                    <span class="d"><svg class="icon"><use href="#i-wallet"/></svg></span>
+                    <span class="dock-tick"></span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1309,45 +1200,760 @@
         </div>
       </div>
 
-      <!-- Documents (wide) -->
-      <div class="show show-wide lp-reveal">
-        <div class="show-head">
-          <h3><svg class="icon"><use href="#i-folder-open"/></svg>Documents</h3>
-          <p>The household vault. Every file links back to the cost, appliance or event it belongs to, and expiry dates become reminders on their own.</p>
-        </div>
-        <div class="window" role="img" aria-label="Documents list with type chips, expiry dates and links to related items.">
-          <div class="sim" aria-hidden="true">
-            <div class="sim-side">
-              <span class="mark"><svg class="icon"><use href="#i-house"/></svg></span>
-              <span class="s-item"><svg class="icon"><use href="#i-layout-grid"/></svg></span>
-              <span class="s-item"><svg class="icon"><use href="#i-wallet"/></svg></span>
-              <span class="s-item on"><svg class="icon"><use href="#i-folder-open"/></svg></span>
-              <span class="s-gap"></span>
-              <span class="s-ava">G</span>
-            </div>
-            <div class="sim-main">
-              <div class="sim-head">
-                <div>
-                  <div class="sim-lede">Documents</div>
-                  <div class="sim-cap">18 files · 2 expiring soon</div>
+      <!-- ========== COSTS & BUDGET ========== -->
+      <div class="show-panel" id="p-costs" role="tabpanel">
+        <div class="panel-grid">
+          <div class="panel-copy lp-reveal">
+            <h3><svg class="icon"><use href="#i-wallet"/></svg>Costs &amp; Budget</h3>
+            <p>Recurring bills and one-offs against a monthly target, with projections and a who-pays split.</p>
+            <ul class="panel-feats">
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Plan vs reality.</b> Weekly, monthly, or yearly view with a plan line and a month-end projection.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Fed by the other sections.</b> Rent from Home Search, setup totals, and grocery sessions arrive as lines.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Who pays what.</b> A payer per item, so nobody keeps score in their head.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Dates that warn you.</b> Contract and discount end dates turn into reminders.</span></li>
+            </ul>
+          </div>
+          <div class="panel-screens lp-reveal">
+            <div class="window" role="img" aria-label="Costs dashboard with a monthly total, twelve-month chart with plan line, and category breakdown.">
+              <div class="sim" aria-hidden="true">
+                <div class="sim-side">
+                  <span class="mark"><svg class="icon"><use href="#i-house"/></svg></span>
+                  <span class="s-item"><svg class="icon"><use href="#i-layout-grid"/></svg></span>
+                  <span class="s-item"><svg class="icon"><use href="#i-layout-dashboard"/></svg></span>
+                  <span class="s-item"><svg class="icon"><use href="#i-calendar-days"/></svg></span>
+                  <span class="s-item on"><svg class="icon"><use href="#i-wallet"/></svg></span>
+                  <span class="s-gap"></span>
+                  <span class="s-ava">G</span>
                 </div>
-                <span class="sim-portal"><svg class="icon" style="font-size:8px"><use href="#i-tag"/></svg>lease · warranty · tax</span>
+                <div class="sim-main">
+                  <div class="sim-head">
+                    <div>
+                      <div class="sim-lede num">$6,406 <span class="frag-in num">of $7,000 planned</span></div>
+                      <div class="sim-cap"><span style="color:var(--success)">$595 under plan</span> · 6d left</div>
+                    </div>
+                    <div class="sim-seg" style="width:150px;margin:0"><span>Weekly</span><span class="on">Monthly</span><span>Yearly</span></div>
+                  </div>
+                  <div class="sim-meter" style="max-width:100%"><i style="width:91%;background:var(--success)"></i></div>
+                  <div class="sim-tiles" style="grid-template-columns:repeat(3,1fr);margin-top:9px">
+                    <div class="sim-tile"><div class="lbl">Vs last month</div><div class="val num" style="font-size:10px">&minus;$4,752 <small>vs Jun</small></div></div>
+                    <div class="sim-tile"><div class="lbl">Rest of year</div><div class="val num" style="font-size:10px">$31,688</div></div>
+                    <div class="sim-tile"><div class="lbl">Year to date</div><div class="val num" style="font-size:10px">$50,451</div></div>
+                  </div>
+                  <div class="sim-chart">
+                    <div class="plan" style="top:30%"></div>
+                    <div class="bar blue" style="height:62%"></div>
+                    <div class="bar blue" style="height:60%"></div>
+                    <div class="bar blue" style="height:63%"></div>
+                    <div class="bar blue" style="height:61%"></div>
+                    <div class="bar blue" style="height:64%"></div>
+                    <div class="bar blue" style="height:88%"></div>
+                    <div class="bar blue cur" style="height:71%"></div>
+                    <div class="bar future" style="height:58%"></div>
+                    <div class="bar future" style="height:58%"></div>
+                    <div class="bar future" style="height:58%"></div>
+                    <div class="bar future" style="height:58%"></div>
+                    <div class="bar future" style="height:58%"></div>
+                  </div>
+                  <div class="sim-chart-x"><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span></div>
+                  <div class="sim-legend">
+                    <span><i style="background:var(--primary)"></i>Spent</span>
+                    <span><i style="background:color-mix(in oklch, var(--fg) 15%, transparent)"></i>Projected</span>
+                    <span><span class="mono">--</span> Plan</span>
+                  </div>
+                  <div class="sim-group" style="margin-top:6px">Jul <span class="gv"><span style="color:var(--warning)">in progress</span> · <span class="num" style="color:var(--danger)">$7,006 projected</span></span></div>
+                  <div class="sim-stack">
+                    <i style="width:64%;background:var(--primary)"></i>
+                    <i style="width:7%;background:oklch(0.68 0.14 55)"></i>
+                    <i style="width:2%;background:oklch(0.7 0.1 230)"></i>
+                    <i style="width:6%;background:oklch(0.6 0.12 290)"></i>
+                    <i style="width:11%;background:var(--success)"></i>
+                    <i style="width:8%;background:color-mix(in oklch, var(--fg) 30%, transparent)"></i>
+                  </div>
+                  <div class="sim-cat"><span class="cd" style="background:var(--primary)"></span><span class="cn">Rent</span><span class="sim-portal away" style="margin:0 0 0 4px">from Home Search</span><span class="cv num">$4,550</span></div>
+                  <div class="sim-cat"><span class="cd" style="background:oklch(0.68 0.14 55)"></span><span class="cn">Utilities</span><span class="cv num">$518</span></div>
+                  <div class="sim-cat"><span class="cd" style="background:var(--success)"></span><span class="cn">Groceries</span><span class="cv num">$793</span></div>
+                  <div class="sim-cat"><span class="cd" style="background:color-mix(in oklch, var(--fg) 30%, transparent)"></span><span class="cn">Fold-out bed</span><span class="oneoff">one-off</span><span class="cv num">$450</span></div>
+                </div>
               </div>
-              <div class="sim-rows">
-                <div class="sim-row">
-                  <span class="lead" style="background:color-mix(in oklch, var(--fg) 8%, transparent);color:var(--muted-fg)"><svg class="icon"><use href="#i-file-text"/></svg></span>
-                  <div class="rb"><div class="t">Lease · 14 Fenwick St</div><div class="m">contract · expires in 11mo</div><span class="sim-portal away">linked to Rent</span></div>
-                  <div class="trail"><span class="sim-ava">M</span></div>
+            </div>
+            <div class="phone" role="img" aria-label="Phone showing the who-pays split with a payer per cost item.">
+              <div class="phone-screen">
+                <div class="phone-punch" aria-hidden="true"></div>
+                <div class="sim-phone" aria-hidden="true">
+                  <div class="sim-main">
+                    <div class="sim-head" style="margin-top:6px">
+                      <div>
+                        <div class="sim-lede" style="font-size:13px">Who pays</div>
+                        <div class="sim-cap">July · settles at month end</div>
+                      </div>
+                    </div>
+                    <div class="sim-tiles c2">
+                      <div class="sim-tile"><div class="lbl">You</div><div class="val num">$2,986</div></div>
+                      <div class="sim-tile"><div class="lbl">Maya</div><div class="val num">$3,420</div></div>
+                    </div>
+                    <div class="sim-rows">
+                      <div class="sim-row">
+                        <span class="lead" style="background:color-mix(in oklch, var(--primary) 12%, transparent);color:var(--primary)"><svg class="icon"><use href="#i-house"/></svg></span>
+                        <div class="rb"><div class="t">Rent</div><div class="m">$520 wk · Maya pays</div></div>
+                        <div class="trail"><span class="frag num">$4,550</span><span class="sim-ava">M</span></div>
+                      </div>
+                      <div class="sim-row">
+                        <span class="lead" style="background:color-mix(in oklch, var(--fg) 8%, transparent);color:var(--muted-fg)"><svg class="icon"><use href="#i-wifi-off"/></svg></span>
+                        <div class="rb"><div class="t">Internet</div><div class="m">$79 mo · you pay</div></div>
+                        <div class="trail"><span class="frag num">$79</span><span class="sim-ava you">G</span></div>
+                      </div>
+                      <div class="sim-row">
+                        <span class="lead" style="background:color-mix(in oklch, var(--fg) 8%, transparent);color:var(--muted-fg)"><svg class="icon"><use href="#i-file-text"/></svg></span>
+                        <div class="rb"><div class="t">Power</div><div class="m">est · <span class="wrn">discount ends in 6wk</span></div><span class="sim-portal"><svg class="icon" style="font-size:8px"><use href="#i-paperclip"/></svg>2 bills</span></div>
+                        <div class="trail"><span class="frag num">$143</span><span class="sim-ava you">G</span></div>
+                      </div>
+                      <div class="sim-row">
+                        <span class="lead" style="background:color-mix(in oklch, var(--success) 13%, transparent);color:var(--success)"><svg class="icon"><use href="#i-cart"/></svg></span>
+                        <div class="rb"><div class="t">Groceries</div><div class="m">covered · shared card</div></div>
+                        <div class="trail"><span class="frag num">$793</span></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="sim-dock">
+                    <span class="d"><svg class="icon"><use href="#i-layout-grid"/></svg></span>
+                    <span class="d"><svg class="icon"><use href="#i-list-checks"/></svg></span>
+                    <span class="d-plus"><svg class="icon"><use href="#i-plus"/></svg></span>
+                    <span class="d"><svg class="icon"><use href="#i-cart"/></svg></span>
+                    <span class="d on"><svg class="icon"><use href="#i-wallet"/></svg></span>
+                    <span class="dock-tick"></span>
+                  </div>
                 </div>
-                <div class="sim-row">
-                  <span class="lead" style="background:color-mix(in oklch, var(--fg) 8%, transparent);color:var(--muted-fg)"><svg class="icon"><use href="#i-file-text"/></svg></span>
-                  <div class="rb"><div class="t">Fridge warranty</div><div class="m">warranty · 2y left · Samsung</div><span class="sim-portal"><svg class="icon" style="font-size:8px"><use href="#i-paperclip"/></svg>receipt</span></div>
-                  <div class="trail"><span class="sim-ava">G</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== RECIPES ========== -->
+      <div class="show-panel" id="p-recipes" role="tabpanel">
+        <div class="panel-grid">
+          <div class="panel-copy lp-reveal">
+            <h3><svg class="icon"><use href="#i-chef-hat"/></svg>Recipes</h3>
+            <p>A shared recipe book that knows what's in your pantry.</p>
+            <ul class="panel-feats">
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Scan from a photo.</b> A cookbook page or a screenshot becomes a draft recipe to review.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Pantry-aware.</b> Ingredients match against grocery items you already have.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Tonight's answer.</b> A "can make now" filter for the daily what's-for-dinner question.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Missing items shop themselves.</b> One tap sends them to the list, tagged with the recipe.</span></li>
+            </ul>
+          </div>
+          <div class="panel-screens lp-reveal">
+            <div class="window" role="img" aria-label="Recipe detail with ingredient availability and a button to add the missing ones to the shopping list.">
+              <div class="sim" aria-hidden="true">
+                <div class="sim-side">
+                  <span class="mark"><svg class="icon"><use href="#i-house"/></svg></span>
+                  <span class="s-item"><svg class="icon"><use href="#i-layout-grid"/></svg></span>
+                  <span class="s-item on"><svg class="icon"><use href="#i-chef-hat"/></svg></span>
+                  <span class="s-item"><svg class="icon"><use href="#i-cart"/></svg></span>
+                  <span class="s-item"><svg class="icon"><use href="#i-folder-open"/></svg></span>
+                  <span class="s-gap"></span>
+                  <span class="s-ava">G</span>
                 </div>
-                <div class="sim-row">
-                  <span class="lead" style="background:color-mix(in oklch, var(--warning) 14%, transparent);color:var(--warning)"><svg class="icon"><use href="#i-file-text"/></svg></span>
-                  <div class="rb"><div class="t">Contents insurance</div><div class="m">insurance · <span class="wrn">renews 12 Aug</span></div><span class="sim-portal"><svg class="icon" style="font-size:8px"><use href="#i-bell"/></svg>reminder set</span></div>
-                  <div class="trail"><span class="sim-ava">G</span></div>
+                <div class="sim-main">
+                  <div class="sim-head">
+                    <div>
+                      <div class="sim-lede">Pad see ew</div>
+                      <div class="sim-cap">Thai · 25 min · serves 4 · scanned from a photo</div>
+                    </div>
+                    <span class="sim-btn"><svg class="icon" style="font-size:8px"><use href="#i-cart"/></svg>Add 3 missing</span>
+                  </div>
+                  <div class="sim-meter" style="max-width:220px"><i style="width:67%;background:var(--warning)"></i></div>
+                  <div class="sim-cap" style="margin:3px 0 6px">6 of 9 ingredients on hand</div>
+                  <div class="sim-group">Ingredients</div>
+                  <div class="sim-rows">
+                    <div class="sim-row done">
+                      <span class="lead lead-done-sq"><svg class="icon"><use href="#i-check"/></svg></span>
+                      <div class="rb"><div class="t">Rice noodles, wide</div><div class="m">have · pantry</div></div>
+                    </div>
+                    <div class="sim-row done">
+                      <span class="lead lead-done-sq"><svg class="icon"><use href="#i-check"/></svg></span>
+                      <div class="rb"><div class="t">Dark soy sauce</div><div class="m">have · ~3mo left</div></div>
+                    </div>
+                    <div class="sim-row">
+                      <span class="lead lead-square"></span>
+                      <div class="rb"><div class="t">Chinese broccoli</div><div class="m">missing</div></div>
+                      <div class="trail"><span class="frag num">~$4</span></div>
+                    </div>
+                    <div class="sim-row">
+                      <span class="lead lead-square"></span>
+                      <div class="rb"><div class="t">Basil</div><div class="m">missing · already on the list</div><span class="sim-portal away"><svg class="icon" style="font-size:8px"><use href="#i-cart"/></svg>on the list</span></div>
+                      <div class="trail"><span class="frag num">~$3.50</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="phone" role="img" aria-label="Phone showing the recipes list with ingredient availability bars and the can-make-now filter.">
+              <div class="phone-screen">
+                <div class="phone-punch" aria-hidden="true"></div>
+                <div class="sim-phone" aria-hidden="true">
+                  <div class="sim-main">
+                    <div class="sim-head" style="margin-top:6px">
+                      <div>
+                        <div class="sim-lede" style="font-size:13px">Recipes</div>
+                        <div class="sim-cap">12 saved · 2 you can make now</div>
+                      </div>
+                    </div>
+                    <div class="sim-rows">
+                      <div class="sim-row" style="padding:9px 1px">
+                        <span class="lead" style="background:color-mix(in oklch, var(--danger) 10%, transparent);color:var(--danger)"><svg class="icon"><use href="#i-chef-hat"/></svg></span>
+                        <div class="rb">
+                          <div class="t">Pad see ew</div>
+                          <div class="m">Thai · 25 min · serves 4</div>
+                          <div class="sim-meter" style="max-width:110px"><i style="width:67%;background:var(--warning)"></i></div>
+                          <span class="sim-portal away"><svg class="icon" style="font-size:8px"><use href="#i-cart"/></svg>add 3 missing to list</span>
+                        </div>
+                        <div class="trail"><span class="frag num">6 of 9</span></div>
+                      </div>
+                      <div class="sim-row" style="padding:9px 1px">
+                        <span class="lead" style="background:color-mix(in oklch, var(--danger) 10%, transparent);color:var(--danger)"><svg class="icon"><use href="#i-chef-hat"/></svg></span>
+                        <div class="rb">
+                          <div class="t">Shakshuka</div>
+                          <div class="m">30 min · <span style="color:var(--success)">can make now</span></div>
+                          <div class="sim-meter" style="max-width:110px"><i style="width:100%;background:var(--success)"></i></div>
+                        </div>
+                        <div class="trail"><span class="frag ok num">7 of 7</span></div>
+                      </div>
+                      <div class="sim-row" style="padding:9px 1px">
+                        <span class="lead" style="background:color-mix(in oklch, var(--danger) 10%, transparent);color:var(--danger)"><svg class="icon"><use href="#i-camera"/></svg></span>
+                        <div class="rb">
+                          <div class="t">Lemon dal</div>
+                          <div class="m">scanned from a photo · draft</div>
+                          <div class="sim-meter" style="max-width:110px"><i style="width:57%;background:var(--warning)"></i></div>
+                        </div>
+                        <div class="trail"><span class="frag num">4 of 7</span></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="sim-dock">
+                    <span class="d"><svg class="icon"><use href="#i-layout-grid"/></svg></span>
+                    <span class="d"><svg class="icon"><use href="#i-list-checks"/></svg></span>
+                    <span class="d-plus"><svg class="icon"><use href="#i-plus"/></svg></span>
+                    <span class="d on"><svg class="icon"><use href="#i-chef-hat"/></svg></span>
+                    <span class="d"><svg class="icon"><use href="#i-cart"/></svg></span>
+                    <span class="dock-tick"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== CALENDAR ========== -->
+      <div class="show-panel" id="p-calendar" role="tabpanel">
+        <div class="panel-grid">
+          <div class="panel-copy lp-reveal">
+            <h3><svg class="icon"><use href="#i-calendar-days"/></svg>Calendar</h3>
+            <p>One grid for household events, task due dates, and viewings, synced with Google in both directions.</p>
+            <ul class="panel-feats">
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Family categories.</b> Medical, school, finance, travel, work, each with its own color.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Two-way Google sync.</b> Pull the calendars you choose; push HomeUp items to a dedicated one.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Import as anything.</b> A Google event can become a task or a viewing in one tap.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Private stays private.</b> Per-event flags keep an appointment off the shared grid.</span></li>
+            </ul>
+          </div>
+          <div class="panel-screens lp-reveal">
+            <div class="window" role="img" aria-label="Calendar with a month grid of event markers and a list of upcoming events.">
+              <div class="sim" aria-hidden="true">
+                <div class="sim-side">
+                  <span class="mark"><svg class="icon"><use href="#i-house"/></svg></span>
+                  <span class="s-item"><svg class="icon"><use href="#i-layout-grid"/></svg></span>
+                  <span class="s-item"><svg class="icon"><use href="#i-layout-dashboard"/></svg></span>
+                  <span class="s-item on"><svg class="icon"><use href="#i-calendar-days"/></svg></span>
+                  <span class="s-item"><svg class="icon"><use href="#i-wallet"/></svg></span>
+                  <span class="s-gap"></span>
+                  <span class="s-ava">G</span>
+                </div>
+                <div class="sim-main">
+                  <div class="sim-head">
+                    <div>
+                      <div class="sim-lede">July</div>
+                      <div class="sim-cap">4 events this week · Google synced</div>
+                    </div>
+                  </div>
+                  <div class="sim-cal">
+                    <span class="out num">29</span><span class="out num">30</span><span class="num">1</span><span class="num">2</span><span class="num">3</span><span class="num">4</span><span class="num">5</span>
+                    <span class="num">6</span><span class="num">7</span><span class="num">8<i style="background:var(--warning)"></i></span><span class="num">9</span><span class="num">10</span><span class="num">11</span><span class="num">12</span>
+                    <span class="num">13</span><span class="num">14</span><span class="num">15<i style="background:oklch(0.6 0.12 290)"></i></span><span class="num">16</span><span class="num">17</span><span class="num">18</span><span class="num">19</span>
+                    <span class="num">20</span><span class="num">21</span><span class="num">22</span><span class="num">23</span><span class="num">24</span><span class="today num">25</span><span class="num">26<i style="background:var(--primary)"></i></span>
+                    <span class="num">27</span><span class="num">28<i style="background:var(--warning)"></i></span><span class="num">29</span><span class="num">30</span><span class="num">31</span><span class="out num">1</span><span class="out num">2</span>
+                  </div>
+                  <div class="sim-rows">
+                    <div class="sim-row">
+                      <span class="lead" style="background:oklch(0.6 0.12 290 / 0.13);color:oklch(0.6 0.12 290)"><svg class="icon"><use href="#i-calendar-days"/></svg></span>
+                      <div class="rb"><div class="t">Dentist for Maya</div><div class="m">Wed 14:20 · medical · private</div></div>
+                      <div class="trail"><span class="sim-ava">M</span></div>
+                    </div>
+                    <div class="sim-row">
+                      <span class="lead" style="background:color-mix(in oklch, var(--warning) 14%, transparent);color:var(--warning)"><svg class="icon"><use href="#i-wallet"/></svg></span>
+                      <div class="rb"><div class="t">Rent due</div><div class="m">Mon · repeats monthly · from Costs</div></div>
+                    </div>
+                    <div class="sim-row">
+                      <span class="lead" style="background:color-mix(in oklch, var(--primary) 12%, transparent);color:var(--primary)"><svg class="icon"><use href="#i-map-pin"/></svg></span>
+                      <div class="rb"><div class="t">Viewing at 14 Fenwick St</div><div class="m">Sat · pushed to Google</div></div>
+                      <div class="trail"><span class="frag">10:30</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="phone" role="img" aria-label="Phone showing suggestions pulled from Google Calendar with buttons to import each one.">
+              <div class="phone-screen">
+                <div class="phone-punch" aria-hidden="true"></div>
+                <div class="sim-phone" aria-hidden="true">
+                  <div class="sim-main">
+                    <div class="sim-head" style="margin-top:6px">
+                      <div>
+                        <div class="sim-lede" style="font-size:13px">From Google</div>
+                        <div class="sim-cap">guy@… connected · 2 calendars pulled</div>
+                      </div>
+                    </div>
+                    <div class="sim-rows">
+                      <div class="sim-row" style="padding:9px 1px">
+                        <span class="lead" style="background:color-mix(in oklch, var(--fg) 8%, transparent);color:var(--muted-fg)"><svg class="icon"><use href="#i-calendar-days"/></svg></span>
+                        <div class="rb"><div class="t">Inspection · 22 Rowe St</div><div class="m">Sat 12:15 · looks like a viewing</div><span class="sim-portal away"><svg class="icon" style="font-size:8px"><use href="#i-map-pin"/></svg>import as viewing</span></div>
+                      </div>
+                      <div class="sim-row" style="padding:9px 1px">
+                        <span class="lead" style="background:color-mix(in oklch, var(--fg) 8%, transparent);color:var(--muted-fg)"><svg class="icon"><use href="#i-calendar-days"/></svg></span>
+                        <div class="rb"><div class="t">Pick up the bond cheque</div><div class="m">Tue · from your work calendar</div><span class="sim-portal away"><svg class="icon" style="font-size:8px"><use href="#i-check"/></svg>import as task</span></div>
+                      </div>
+                      <div class="sim-row" style="padding:9px 1px">
+                        <span class="lead" style="background:color-mix(in oklch, var(--primary) 12%, transparent);color:var(--primary)"><svg class="icon"><use href="#i-arrow-right"/></svg></span>
+                        <div class="rb"><div class="t">HomeUp calendar</div><div class="m">to-dos and viewings push back here</div></div>
+                      </div>
+                    </div>
+                    <div class="sim-cap" style="margin-top:8px">shared events reach the household · private ones stay yours</div>
+                  </div>
+                  <div class="sim-dock">
+                    <span class="d"><svg class="icon"><use href="#i-layout-grid"/></svg></span>
+                    <span class="d on"><svg class="icon"><use href="#i-calendar-days"/></svg></span>
+                    <span class="d-plus"><svg class="icon"><use href="#i-plus"/></svg></span>
+                    <span class="d"><svg class="icon"><use href="#i-cart"/></svg></span>
+                    <span class="d"><svg class="icon"><use href="#i-wallet"/></svg></span>
+                    <span class="dock-tick"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== CHECKLISTS ========== -->
+      <div class="show-panel" id="p-checklists" role="tabpanel">
+        <div class="panel-grid">
+          <div class="panel-copy lp-reveal">
+            <h3><svg class="icon"><use href="#i-list-todo"/></svg>Checklists</h3>
+            <p>Lists for everything that isn't a chore: weekly routines, party prep, packing, the visa saga.</p>
+            <ul class="panel-feats">
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Three kinds.</b> Plain, repeating, or shopping, each with its own behavior.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Dated lists surface.</b> Give one a date and it becomes a to-do on the briefing.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Routines renew.</b> Repeating lists reset or clone on their cadence.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Attribution built in.</b> Every check records who did it and when.</span></li>
+            </ul>
+          </div>
+          <div class="panel-screens lp-reveal">
+            <div class="window" role="img" aria-label="Checklists overview with a repeating weekly reset list and its items.">
+              <div class="sim" aria-hidden="true">
+                <div class="sim-side">
+                  <span class="mark"><svg class="icon"><use href="#i-house"/></svg></span>
+                  <span class="s-item"><svg class="icon"><use href="#i-layout-grid"/></svg></span>
+                  <span class="s-item on"><svg class="icon"><use href="#i-list-todo"/></svg></span>
+                  <span class="s-item"><svg class="icon"><use href="#i-chef-hat"/></svg></span>
+                  <span class="s-item"><svg class="icon"><use href="#i-folder-open"/></svg></span>
+                  <span class="s-gap"></span>
+                  <span class="s-ava">G</span>
+                </div>
+                <div class="sim-main">
+                  <div class="sim-head">
+                    <div>
+                      <div class="sim-lede">Checklists</div>
+                      <div class="sim-cap">3 active · 1 due Saturday</div>
+                    </div>
+                  </div>
+                  <div class="sim-tiles c2">
+                    <div class="sim-tile"><div class="lbl">Weekly reset</div><div class="val num">6 <small>of 9</small></div><div class="sim-meter"><i style="width:67%;background:var(--success)"></i></div></div>
+                    <div class="sim-tile"><div class="lbl">Party prep · Sat</div><div class="val num">3 <small>of 12</small></div><div class="sim-meter"><i style="width:25%;background:var(--warning)"></i></div></div>
+                  </div>
+                  <div class="sim-group">Weekly reset · repeats Sun</div>
+                  <div class="sim-rows">
+                    <div class="sim-row done">
+                      <span class="lead lead-done-sq"><svg class="icon"><use href="#i-check"/></svg></span>
+                      <div class="rb"><div class="t">Strip the beds</div><div class="m">checked by Maya · 9:40</div></div>
+                    </div>
+                    <div class="sim-row done">
+                      <span class="lead lead-done-sq"><svg class="icon"><use href="#i-check"/></svg></span>
+                      <div class="rb"><div class="t">Water the plants</div><div class="m">checked by Guy · 10:05</div></div>
+                    </div>
+                    <div class="sim-row">
+                      <span class="lead lead-square"></span>
+                      <div class="rb"><div class="t">Plan the week's meals</div><div class="m">opens Recipes</div></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="phone" role="img" aria-label="Phone showing checklist templates with a button to start from each.">
+              <div class="phone-screen">
+                <div class="phone-punch" aria-hidden="true"></div>
+                <div class="sim-phone" aria-hidden="true">
+                  <div class="sim-main">
+                    <div class="sim-head" style="margin-top:6px">
+                      <div>
+                        <div class="sim-lede" style="font-size:13px">Templates</div>
+                        <div class="sim-cap">start from a real list, not a blank page</div>
+                      </div>
+                    </div>
+                    <div class="sim-rows">
+                      <div class="sim-row" style="padding:9px 1px">
+                        <span class="lead" style="background:color-mix(in oklch, var(--primary) 12%, transparent);color:var(--primary)"><svg class="icon"><use href="#i-list-todo"/></svg></span>
+                        <div class="rb"><div class="t">Moving day</div><div class="m">24 items · keys, meters, mail</div></div>
+                        <div class="trail"><span class="sim-btn ghost">Use</span></div>
+                      </div>
+                      <div class="sim-row" style="padding:9px 1px">
+                        <span class="lead" style="background:color-mix(in oklch, var(--primary) 12%, transparent);color:var(--primary)"><svg class="icon"><use href="#i-list-todo"/></svg></span>
+                        <div class="rb"><div class="t">Weekly reset</div><div class="m">9 items · repeats Sun</div></div>
+                        <div class="trail"><span class="sim-btn ghost">Use</span></div>
+                      </div>
+                      <div class="sim-row" style="padding:9px 1px">
+                        <span class="lead" style="background:color-mix(in oklch, var(--primary) 12%, transparent);color:var(--primary)"><svg class="icon"><use href="#i-cart"/></svg></span>
+                        <div class="rb"><div class="t">Camping trip</div><div class="m">14 items · shopping type, logs costs</div></div>
+                        <div class="trail"><span class="sim-btn ghost">Use</span></div>
+                      </div>
+                    </div>
+                    <div class="sim-cap" style="margin-top:8px">or start blank and save yours as a template</div>
+                  </div>
+                  <div class="sim-dock">
+                    <span class="d"><svg class="icon"><use href="#i-layout-grid"/></svg></span>
+                    <span class="d on"><svg class="icon"><use href="#i-list-todo"/></svg></span>
+                    <span class="d-plus"><svg class="icon"><use href="#i-plus"/></svg></span>
+                    <span class="d"><svg class="icon"><use href="#i-cart"/></svg></span>
+                    <span class="d"><svg class="icon"><use href="#i-wallet"/></svg></span>
+                    <span class="dock-tick"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== HOME SETUP ========== -->
+      <div class="show-panel" id="p-setup" role="tabpanel">
+        <div class="panel-grid">
+          <div class="panel-copy lp-reveal">
+            <h3><svg class="icon"><use href="#i-house"/></svg>Home Setup</h3>
+            <p>Room-by-room planning for the move and everything after it.</p>
+            <ul class="panel-feats">
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Rooms, not one long list.</b> Priorities, stores, and estimated vs actual prices per item.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Seeded, not blank.</b> Region-aware suggestions start each room from a real list.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Talk it through.</b> Comments per item, drag to reorder, links to where to buy.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>The budget sees it.</b> The running total lands in Costs as one line.</span></li>
+            </ul>
+          </div>
+          <div class="panel-screens lp-reveal">
+            <div class="window" role="img" aria-label="Home Setup checklist grouped by room with prices, progress meters and a comment thread.">
+              <div class="sim" aria-hidden="true">
+                <div class="sim-side">
+                  <span class="mark"><svg class="icon"><use href="#i-house"/></svg></span>
+                  <span class="s-item"><svg class="icon"><use href="#i-layout-grid"/></svg></span>
+                  <span class="s-item on"><svg class="icon"><use href="#i-house"/></svg></span>
+                  <span class="s-item"><svg class="icon"><use href="#i-list-checks"/></svg></span>
+                  <span class="s-item"><svg class="icon"><use href="#i-wallet"/></svg></span>
+                  <span class="s-gap"></span>
+                  <span class="s-ava">G</span>
+                </div>
+                <div class="sim-main">
+                  <div class="sim-head">
+                    <div>
+                      <div class="sim-lede">Home Setup</div>
+                      <div class="sim-cap num">$2,180 spent of $2,500 planned</div>
+                    </div>
+                  </div>
+                  <div class="sim-group">Kitchen <span class="gv num">8 of 10</span></div>
+                  <div class="sim-rows">
+                    <div class="sim-row done">
+                      <span class="lead lead-done-sq"><svg class="icon"><use href="#i-check"/></svg></span>
+                      <div class="rb"><div class="t">Rangehood filter</div><div class="m">Bunnings</div></div>
+                      <div class="trail"><span class="frag num">$32</span><span class="sim-ava">G</span></div>
+                    </div>
+                    <div class="sim-row">
+                      <span class="lead lead-square"></span>
+                      <div class="rb"><div class="t">Kettle</div><div class="m">Big W · <span class="wrn">high</span></div></div>
+                      <div class="trail"><span class="frag num">$89</span><span class="sim-ava you">M</span></div>
+                    </div>
+                  </div>
+                  <div class="sim-group">Living room <span class="gv num">5 of 7</span></div>
+                  <div class="sim-rows">
+                    <div class="sim-row" style="align-items:flex-start">
+                      <span class="lead lead-square" style="margin-top:2px"></span>
+                      <div class="rb"><div class="t">Couch cover</div><div class="m">Temple &amp; Webster · 2 comments</div>
+                        <div class="sim-comments">
+                          <div class="sim-cm"><span class="sim-ava" style="width:12px;height:12px;font-size:5.5px">M</span><span><span class="who">Maya</span> · the grey one, right?</span></div>
+                          <div class="sim-cm"><span class="sim-ava you" style="width:12px;height:12px;font-size:5.5px">G</span><span><span class="who">You</span> · yes, the washable cover</span></div>
+                        </div>
+                      </div>
+                      <div class="trail"><span class="frag num">$149</span></div>
+                    </div>
+                  </div>
+                  <div style="margin-top:10px">
+                    <div class="sim-cap">Setup total pulls into Costs as one line</div>
+                    <div class="sim-meter" style="max-width:220px"><i style="width:74%;background:var(--success)"></i></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="phone" role="img" aria-label="Phone showing suggested items to seed the kitchen with add buttons.">
+              <div class="phone-screen">
+                <div class="phone-punch" aria-hidden="true"></div>
+                <div class="sim-phone" aria-hidden="true">
+                  <div class="sim-main">
+                    <div class="sim-head" style="margin-top:6px">
+                      <div>
+                        <div class="sim-lede" style="font-size:13px">Suggested · Kitchen</div>
+                        <div class="sim-cap">seeded for AU homes · edit anything</div>
+                      </div>
+                    </div>
+                    <div class="sim-rows">
+                      <div class="sim-row" style="padding:9px 1px">
+                        <span class="lead lead-square"></span>
+                        <div class="rb"><div class="t">Drying rack</div><div class="m">est $25</div></div>
+                        <div class="trail"><span class="sim-btn"><svg class="icon" style="font-size:8px"><use href="#i-plus"/></svg>Add</span></div>
+                      </div>
+                      <div class="sim-row" style="padding:9px 1px">
+                        <span class="lead lead-square"></span>
+                        <div class="rb"><div class="t">Fire blanket</div><div class="m">est $35 · <span class="wrn">high</span></div></div>
+                        <div class="trail"><span class="sim-btn"><svg class="icon" style="font-size:8px"><use href="#i-plus"/></svg>Add</span></div>
+                      </div>
+                      <div class="sim-row" style="padding:9px 1px">
+                        <span class="lead lead-square"></span>
+                        <div class="rb"><div class="t">Bin liners</div><div class="m">est $12</div></div>
+                        <div class="trail"><span class="sim-btn"><svg class="icon" style="font-size:8px"><use href="#i-plus"/></svg>Add</span></div>
+                      </div>
+                      <div class="sim-row done">
+                        <span class="lead lead-done-sq"><svg class="icon"><use href="#i-check"/></svg></span>
+                        <div class="rb"><div class="t">Kettle</div><div class="m">added to Kitchen</div></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="sim-dock">
+                    <span class="d"><svg class="icon"><use href="#i-layout-grid"/></svg></span>
+                    <span class="d on"><svg class="icon"><use href="#i-house"/></svg></span>
+                    <span class="d-plus"><svg class="icon"><use href="#i-plus"/></svg></span>
+                    <span class="d"><svg class="icon"><use href="#i-cart"/></svg></span>
+                    <span class="d"><svg class="icon"><use href="#i-wallet"/></svg></span>
+                    <span class="dock-tick"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== DOCUMENTS ========== -->
+      <div class="show-panel" id="p-documents" role="tabpanel">
+        <div class="panel-grid">
+          <div class="panel-copy lp-reveal">
+            <h3><svg class="icon"><use href="#i-folder-open"/></svg>Documents</h3>
+            <p>The household vault, linked to everything it describes.</p>
+            <ul class="panel-feats">
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Types with real fields.</b> Warranties, leases, insurance, manuals, receipts, each with its own metadata.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Linked, not filed away.</b> One document attaches to any number of items: a cost, an appliance, an event.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Expiry does the remembering.</b> Renewal reminders create themselves from the dates on file.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Findable.</b> Tags and search across the whole vault.</span></li>
+            </ul>
+          </div>
+          <div class="panel-screens lp-reveal">
+            <div class="window" role="img" aria-label="Documents list with type chips, expiry dates and links to related items.">
+              <div class="sim" aria-hidden="true">
+                <div class="sim-side">
+                  <span class="mark"><svg class="icon"><use href="#i-house"/></svg></span>
+                  <span class="s-item"><svg class="icon"><use href="#i-layout-grid"/></svg></span>
+                  <span class="s-item"><svg class="icon"><use href="#i-wallet"/></svg></span>
+                  <span class="s-item on"><svg class="icon"><use href="#i-folder-open"/></svg></span>
+                  <span class="s-gap"></span>
+                  <span class="s-ava">G</span>
+                </div>
+                <div class="sim-main">
+                  <div class="sim-head">
+                    <div>
+                      <div class="sim-lede">Documents</div>
+                      <div class="sim-cap">18 files · 2 expiring soon</div>
+                    </div>
+                    <span class="sim-portal"><svg class="icon" style="font-size:8px"><use href="#i-tag"/></svg>lease · warranty · tax</span>
+                  </div>
+                  <div class="sim-rows">
+                    <div class="sim-row">
+                      <span class="lead" style="background:color-mix(in oklch, var(--fg) 8%, transparent);color:var(--muted-fg)"><svg class="icon"><use href="#i-file-text"/></svg></span>
+                      <div class="rb"><div class="t">Lease · 14 Fenwick St</div><div class="m">contract · expires in 11mo</div><span class="sim-portal away">linked to Rent</span></div>
+                      <div class="trail"><span class="sim-ava">M</span></div>
+                    </div>
+                    <div class="sim-row">
+                      <span class="lead" style="background:color-mix(in oklch, var(--fg) 8%, transparent);color:var(--muted-fg)"><svg class="icon"><use href="#i-file-text"/></svg></span>
+                      <div class="rb"><div class="t">Fridge warranty</div><div class="m">warranty · 2y left · Samsung</div><span class="sim-portal"><svg class="icon" style="font-size:8px"><use href="#i-paperclip"/></svg>receipt</span></div>
+                      <div class="trail"><span class="sim-ava">G</span></div>
+                    </div>
+                    <div class="sim-row">
+                      <span class="lead" style="background:color-mix(in oklch, var(--warning) 14%, transparent);color:var(--warning)"><svg class="icon"><use href="#i-file-text"/></svg></span>
+                      <div class="rb"><div class="t">Contents insurance</div><div class="m">insurance · <span class="wrn">renews 12 Aug</span></div><span class="sim-portal"><svg class="icon" style="font-size:8px"><use href="#i-bell"/></svg>reminder set</span></div>
+                      <div class="trail"><span class="sim-ava">G</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="phone" role="img" aria-label="Phone showing one document's detail with its links to a cost, an apartment and a reminder.">
+              <div class="phone-screen">
+                <div class="phone-punch" aria-hidden="true"></div>
+                <div class="sim-phone" aria-hidden="true">
+                  <div class="sim-main">
+                    <div class="sim-head" style="margin-top:6px">
+                      <div>
+                        <div class="sim-lede" style="font-size:13px">Lease · 14 Fenwick St</div>
+                        <div class="sim-cap">contract · uploaded by Maya · 2w ago</div>
+                      </div>
+                    </div>
+                    <div class="sim-tiles c2">
+                      <div class="sim-tile"><div class="lbl">Expires</div><div class="val num" style="font-size:10px">in 11mo</div></div>
+                      <div class="sim-tile"><div class="lbl">Notice period</div><div class="val num" style="font-size:10px">60d</div></div>
+                    </div>
+                    <div class="sim-group">Linked to</div>
+                    <div class="sim-rows">
+                      <div class="sim-row">
+                        <span class="lead" style="background:color-mix(in oklch, var(--warning) 14%, transparent);color:var(--warning)"><svg class="icon"><use href="#i-wallet"/></svg></span>
+                        <div class="rb"><div class="t">Rent</div><div class="m">Costs · $520 wk</div></div>
+                      </div>
+                      <div class="sim-row">
+                        <span class="lead" style="background:color-mix(in oklch, var(--primary) 12%, transparent);color:var(--primary)"><svg class="icon"><use href="#i-map-pin"/></svg></span>
+                        <div class="rb"><div class="t">14 Fenwick St</div><div class="m">Home Search · 87% match</div></div>
+                      </div>
+                      <div class="sim-row">
+                        <span class="lead" style="background:color-mix(in oklch, var(--success) 13%, transparent);color:var(--success)"><svg class="icon"><use href="#i-bell"/></svg></span>
+                        <div class="rb"><div class="t">Renewal reminder</div><div class="m">Tasks · fires 60d before expiry</div></div>
+                      </div>
+                    </div>
+                    <div class="sim-group">Tags</div>
+                    <div style="display:flex;gap:5px;flex-wrap:wrap">
+                      <span class="sim-portal">lease</span><span class="sim-portal">home</span><span class="sim-portal">2026</span>
+                    </div>
+                  </div>
+                  <div class="sim-dock">
+                    <span class="d"><svg class="icon"><use href="#i-layout-grid"/></svg></span>
+                    <span class="d"><svg class="icon"><use href="#i-list-checks"/></svg></span>
+                    <span class="d-plus"><svg class="icon"><use href="#i-plus"/></svg></span>
+                    <span class="d"><svg class="icon"><use href="#i-cart"/></svg></span>
+                    <span class="d on"><svg class="icon"><use href="#i-folder-open"/></svg></span>
+                    <span class="dock-tick"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== HOME SEARCH ========== -->
+      <div class="show-panel" id="p-search" role="tabpanel">
+        <div class="panel-grid">
+          <div class="panel-copy lp-reveal">
+            <h3><svg class="icon"><use href="#i-layout-dashboard"/></svg>Home Search</h3>
+            <p>And for when it's time to find the next place: the hunt, scored and routed.</p>
+            <ul class="panel-feats">
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Listings parse themselves.</b> Paste a URL or share it into the app; photos, price, and address fill in.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Your checklist scores it.</b> Weighted criteria and dealbreakers produce a match percentage.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Viewing days route themselves.</b> Transit legs between appointments, exportable to your calendar.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>The handoff.</b> The place you pick sends rent and move-in dates to the rest of the app.</span></li>
+            </ul>
+          </div>
+          <div class="panel-screens lp-reveal">
+            <div class="window" role="img" aria-label="Home Search dashboard with listing counts and scored apartments.">
+              <div class="sim" aria-hidden="true">
+                <div class="sim-side">
+                  <span class="mark"><svg class="icon"><use href="#i-house"/></svg></span>
+                  <span class="s-item"><svg class="icon"><use href="#i-layout-grid"/></svg></span>
+                  <span class="s-item on"><svg class="icon"><use href="#i-layout-dashboard"/></svg></span>
+                  <span class="s-item"><svg class="icon"><use href="#i-calendar-days"/></svg></span>
+                  <span class="s-item"><svg class="icon"><use href="#i-wallet"/></svg></span>
+                  <span class="s-gap"></span>
+                  <span class="s-ava">G</span>
+                </div>
+                <div class="sim-main">
+                  <div class="sim-head">
+                    <div>
+                      <div class="sim-lede">Home Search</div>
+                      <div class="sim-cap">24 listings · 6 to book</div>
+                    </div>
+                  </div>
+                  <div class="sim-tiles c4">
+                    <div class="sim-tile"><div class="lbl">To book</div><div class="val num">6</div></div>
+                    <div class="sim-tile"><div class="lbl">Booked</div><div class="val num">4</div></div>
+                    <div class="sim-tile"><div class="lbl">Visited</div><div class="val num">9</div></div>
+                    <div class="sim-tile"><div class="lbl">To score</div><div class="val num">5</div></div>
+                  </div>
+                  <div class="sim-rows">
+                    <div class="sim-row">
+                      <span class="lead" style="background:color-mix(in oklch, var(--primary) 12%, transparent);color:var(--primary)"><svg class="icon"><use href="#i-map-pin"/></svg></span>
+                      <div class="rb"><div class="t">14 Fenwick St, Brunswick</div><div class="m">$620 wk · 2 bed · 1 bath · viewing Sat</div><span class="sim-portal">8 photos</span></div>
+                      <div class="trail"><div style="text-align:right"><span class="frag ok num">87%</span><div class="sim-meter w52"><i style="width:87%;background:var(--success)"></i></div></div></div>
+                    </div>
+                    <div class="sim-row">
+                      <span class="lead" style="background:color-mix(in oklch, var(--primary) 12%, transparent);color:var(--primary)"><svg class="icon"><use href="#i-map-pin"/></svg></span>
+                      <div class="rb"><div class="t">2/8 Girard Ave, Coburg</div><div class="m">$585 wk · 2 bed · 320m to station</div></div>
+                      <div class="trail"><div style="text-align:right"><span class="frag warn num">64%</span><div class="sim-meter w52"><i style="width:64%;background:var(--warning)"></i></div></div></div>
+                    </div>
+                    <div class="sim-row">
+                      <span class="lead" style="background:color-mix(in oklch, var(--primary) 12%, transparent);color:var(--primary)"><svg class="icon"><use href="#i-map-pin"/></svg></span>
+                      <div class="rb"><div class="t">301/12 Harrow Ln, Preston</div><div class="m">$650 wk · 3 bed · parsed from URL</div></div>
+                      <div class="trail"><span class="frag">to score</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="phone" role="img" aria-label="Phone showing Saturday's viewing itinerary with transit legs between appointments.">
+              <div class="phone-screen">
+                <div class="phone-punch" aria-hidden="true"></div>
+                <div class="sim-phone" aria-hidden="true">
+                  <div class="sim-main">
+                    <div class="sim-head" style="margin-top:6px">
+                      <div>
+                        <div class="sim-lede" style="font-size:13px">Saturday</div>
+                        <div class="sim-cap">2 viewings · routed by transit</div>
+                      </div>
+                      <span class="sim-portal"><svg class="icon" style="font-size:8px"><use href="#i-calendar-days"/></svg>export .ics</span>
+                    </div>
+                    <div class="sim-rows">
+                      <div class="sim-row">
+                        <span class="lead" style="background:color-mix(in oklch, var(--primary) 12%, transparent);color:var(--primary)"><svg class="icon"><use href="#i-map-pin"/></svg></span>
+                        <div class="rb"><div class="t">14 Fenwick St, Brunswick</div><div class="m">agent Nadia · 87% match</div></div>
+                        <div class="trail"><span class="frag">10:30</span></div>
+                      </div>
+                    </div>
+                    <div class="sim-cap" style="padding:6px 0 6px 29px;display:flex;align-items:center;gap:5px"><svg class="icon" style="font-size:9px"><use href="#i-arrow-right"/></svg>tram 19 · 25 min · leave 11:20</div>
+                    <div class="sim-rows">
+                      <div class="sim-row">
+                        <span class="lead" style="background:color-mix(in oklch, var(--primary) 12%, transparent);color:var(--primary)"><svg class="icon"><use href="#i-map-pin"/></svg></span>
+                        <div class="rb"><div class="t">2/8 Girard Ave, Coburg</div><div class="m">agent Tom · 64% match</div></div>
+                        <div class="trail"><span class="frag">12:00</span></div>
+                      </div>
+                    </div>
+                    <div class="sim-cap" style="margin-top:8px">both pushed to Google Calendar</div>
+                  </div>
+                  <div class="sim-dock">
+                    <span class="d"><svg class="icon"><use href="#i-layout-grid"/></svg></span>
+                    <span class="d on"><svg class="icon"><use href="#i-layout-dashboard"/></svg></span>
+                    <span class="d-plus"><svg class="icon"><use href="#i-plus"/></svg></span>
+                    <span class="d"><svg class="icon"><use href="#i-cart"/></svg></span>
+                    <span class="d"><svg class="icon"><use href="#i-wallet"/></svg></span>
+                    <span class="dock-tick"></span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1646,6 +2252,23 @@
       root.setAttribute("data-theme", next);
       try { localStorage.setItem("homeup-landing-theme", next); } catch (e) {}
     });
+
+    /* section picker: pre-rendered panels, JS only toggles which one shows */
+    var panels = document.querySelector(".panels");
+    var picks = document.querySelectorAll(".pick");
+    if (panels && picks.length) {
+      panels.classList.add("js-tabs");
+      picks.forEach(function (p) {
+        p.addEventListener("click", function () {
+          picks.forEach(function (o) { o.classList.remove("on"); o.setAttribute("aria-selected", "false"); });
+          p.classList.add("on");
+          p.setAttribute("aria-selected", "true");
+          panels.querySelectorAll(".show-panel").forEach(function (sp) { sp.classList.remove("active"); });
+          var target = document.getElementById(p.dataset.panel);
+          if (target) target.classList.add("active");
+        });
+      });
+    }
 
     /* scroll reveals: opt-in via html.lp-anim so no-JS and reduced-motion stay visible */
     var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
