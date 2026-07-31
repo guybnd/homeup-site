@@ -4,9 +4,9 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>HomeUp · self-hosted household management</title>
-<meta name="description" content="Tasks, groceries, budget, documents, and the home search itself. One calm app for the whole household, running on your own server, open to your own AI agent." />
+<meta name="description" content="Self-hosted household management: tasks, groceries, budget, calendar, documents, and apartment search. One Docker Compose stack, offline-first PWA, built-in MCP server for AI agents." />
 <meta property="og:title" content="HomeUp" />
-<meta property="og:description" content="Self-hosted household management. Ten connected sections, one calm briefing, and an MCP server for your own agent." />
+<meta property="og:description" content="Self-hosted household management. Ten integrated sections, an offline-first PWA, and a built-in MCP server for AI agents." />
 <meta property="og:type" content="website" />
 <link rel="icon" href="icon.svg" type="image/svg+xml" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -781,11 +781,11 @@
 <!-- ================= HERO ================= -->
 <section class="hero" id="top">
   <div class="wrap">
-    <h1 class="lp-reveal">Run the whole household from <em>one calm place</em>.</h1>
-    <p class="lp-reveal" style="transition-delay:80ms">Tasks, groceries, budget, documents, even the apartment hunt. Shared with your household, working offline, running on your own server.</p>
+    <h1 class="lp-reveal">Household management, <em>self-hosted</em>.</h1>
+    <p class="lp-reveal" style="transition-delay:80ms">Tasks, groceries, budget, calendar, documents, and apartment search in one app. Multi-user, offline-first, one Docker Compose stack.</p>
     <div class="hero-ctas lp-reveal" style="transition-delay:160ms">
       <a class="btn btn-primary" href="#self-host">Get it running</a>
-      <a class="btn btn-ghost" href="#sections">See how it connects</a>
+      <a class="btn btn-ghost" href="#sections">Explore the sections</a>
     </div>
     <div class="axis-seg lp-reveal" style="transition-delay:240ms" aria-hidden="true"></div>
 
@@ -948,7 +948,7 @@
   <div class="wrap">
     <div class="sec-head lp-reveal">
       <h2>Ten sections. One household.</h2>
-      <p>Keep scrolling and the sections walk through themselves, or jump straight to one with the picker.</p>
+      <p>Scroll to step through all ten, or jump with the picker. Every section shares the same users, data, and design system.</p>
     </div>
 
     <div class="picker lp-reveal" role="tablist" aria-label="Choose a section">
@@ -971,12 +971,12 @@
         <div class="panel-grid">
           <div class="panel-copy lp-reveal">
             <h3><svg class="icon"><use href="#i-layout-grid"/></svg>Home</h3>
-            <p>Insights, to-dos, and the shopping list on one actionable surface. This one is live: check things off, tap a tile, flip the toggles on the phone.</p>
+            <p>The aggregation surface: due items, budget state, and grocery nudges from every section. This demo is live: check items off, tap a tile, flip the toggles on the phone.</p>
             <ul class="panel-feats">
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>One feed for the day.</b> Tasks, reminders, and viewings from every section. Check one off and the count follows.</span></li>
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Insights beside the feed.</b> Weather, budget pulse, shelf-life re-adds, essentials running low.</span></li>
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Everything is a door.</b> The budget tile opens Costs, the grocery tile opens the list. Try them.</span></li>
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Yours to arrange.</b> The toggles on the phone hide and show this screen's modules, per person.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Unified feed.</b> Tasks, reminders, and appointments from all sections, with inline complete, snooze, and reassign.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Computed nudges.</b> Weather, projected spend vs plan, shelf-life re-add suggestions, low essentials.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Tiles deep-link.</b> The budget tile opens Costs, the grocery tile opens the list.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Per-user layout.</b> The phone's toggles hide and show this screen's modules, per account.</span></li>
             </ul>
           </div>
           <div class="panel-screens lp-reveal">
@@ -1093,12 +1093,12 @@
         <div class="panel-grid">
           <div class="panel-copy lp-reveal">
             <h3><svg class="icon"><use href="#i-list-checks"/></svg>Tasks</h3>
-            <p>Recurring chores and reminders with real ownership: assignees, comment threads, and checklists inside tasks.</p>
+            <p>Recurring tasks and reminders with assignees, comment threads, and nested checklists.</p>
             <ul class="panel-feats">
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Repeats that behave.</b> Every N days, with done rows collapsing and coming back on schedule.</span></li>
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Gestures first.</b> Swipe right to complete, left to snooze an hour, a day, or a week.</span></li>
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Depth when you need it.</b> Checklists and comments live inside a task, not beside it.</span></li>
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Reminders create themselves.</b> Document expiries and contract end dates land here automatically.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Recurrence.</b> Repeat every N days; completed instances regenerate on schedule.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Gestures.</b> Swipe right completes; swipe left snoozes for an hour, a day, or a week.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Nested detail.</b> Checklists and comment threads attach to the task record itself.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Generated reminders.</b> Document expiry and contract end dates materialize here as reminder rows.</span></li>
             </ul>
           </div>
           <div class="panel-screens lp-reveal">
@@ -1206,12 +1206,12 @@
         <div class="panel-grid">
           <div class="panel-copy lp-reveal">
             <h3><svg class="icon"><use href="#i-cart"/></svg>Groceries</h3>
-            <p>A shared list organized by aisle, with a memory for prices and shelf life.</p>
+            <p>A shared list grouped by aisle, with per-item price and shelf-life history.</p>
             <ul class="panel-feats">
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Walking order.</b> Aisle groups you can drag to match your actual store.</span></li>
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Price memory.</b> Last and lowest price per item, learned from your receipts.</span></li>
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Shelf-life nudges.</b> Things you buy regularly come back as re-add suggestions before they run out.</span></li>
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Sessions, not chaos.</b> Each shop closes with a receipt, a total, and one line in Costs.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Aisle order.</b> Drag aisle groups to match your store's layout.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Price history.</b> Last and lowest price per item, extracted from scanned receipts.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Shelf-life tracking.</b> Items past their shelf life surface as re-add suggestions.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Shopping sessions.</b> Each shop finalizes with a receipt attachment, an OCR total, and one cost line.</span></li>
             </ul>
           </div>
           <div class="panel-screens lp-reveal">
@@ -1318,12 +1318,12 @@
         <div class="panel-grid">
           <div class="panel-copy lp-reveal">
             <h3><svg class="icon"><use href="#i-wallet"/></svg>Costs &amp; Budget</h3>
-            <p>Recurring bills and one-offs against a monthly target, with projections and a who-pays split.</p>
+            <p>Recurring and one-off costs against a monthly plan, with projections and a per-person payer split.</p>
             <ul class="panel-feats">
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Plan vs reality.</b> Weekly, monthly, or yearly view with a plan line and a month-end projection.</span></li>
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Fed by the other sections.</b> Rent from Home Search, setup totals, and grocery sessions arrive as lines.</span></li>
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Who pays what.</b> A payer per item, so nobody keeps score in their head.</span></li>
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Dates that warn you.</b> Contract and discount end dates turn into reminders.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Plan vs actual.</b> Weekly, monthly, or yearly view with a plan line and a month-end projection.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Cross-section lines.</b> Rent from Home Search, setup totals, and grocery sessions post as cost items with provenance.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Payer per item.</b> Monthly totals per person are computed from item assignments.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Date-driven reminders.</b> Contract and discount end dates generate task reminders.</span></li>
             </ul>
           </div>
           <div class="panel-screens lp-reveal">
@@ -1464,12 +1464,12 @@
         <div class="panel-grid">
           <div class="panel-copy lp-reveal">
             <h3><svg class="icon"><use href="#i-chef-hat"/></svg>Recipes</h3>
-            <p>A shared recipe book that knows what's in your pantry.</p>
+            <p>A shared recipe store with ingredient matching against the grocery inventory.</p>
             <ul class="panel-feats">
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Scan from a photo.</b> A cookbook page or a screenshot becomes a draft recipe to review.</span></li>
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Pantry-aware.</b> Ingredients match against grocery items you already have.</span></li>
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Tonight's answer.</b> A "can make now" filter for the daily what's-for-dinner question.</span></li>
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Missing items shop themselves.</b> One tap sends them to the list, tagged with the recipe.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Photo import.</b> A cookbook page or screenshot parses into a draft recipe for review.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Inventory matching.</b> Ingredients name-match against grocery items marked as on hand.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Availability filter.</b> "Can make now" filters to recipes with all ingredients on hand.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>List integration.</b> Missing ingredients post to the shopping list, tagged with the source recipe.</span></li>
             </ul>
           </div>
           <div class="panel-screens lp-reveal">
@@ -1585,12 +1585,12 @@
         <div class="panel-grid">
           <div class="panel-copy lp-reveal">
             <h3><svg class="icon"><use href="#i-calendar-days"/></svg>Calendar</h3>
-            <p>One grid for household events, task due dates, and viewings, synced with Google in both directions.</p>
+            <p>One grid overlaying household events, task due dates, and viewings, with two-way Google Calendar sync.</p>
             <ul class="panel-feats">
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Family categories.</b> Medical, school, finance, travel, work, each with its own color.</span></li>
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Two-way Google sync.</b> Pull the calendars you choose; push HomeUp items to a dedicated one.</span></li>
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Import as anything.</b> A Google event can become a task or a viewing in one tap.</span></li>
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Private stays private.</b> Per-event flags keep an appointment off the shared grid.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Event categories.</b> Medical, school, finance, travel, work, color-coded.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Two-way Google sync.</b> Pull selected calendars; push HomeUp items to a dedicated one.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Typed import.</b> A pulled Google event converts to a task or a viewing.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Per-event visibility.</b> A private flag keeps an event off the shared grid.</span></li>
             </ul>
           </div>
           <div class="panel-screens lp-reveal">
@@ -1685,12 +1685,12 @@
         <div class="panel-grid">
           <div class="panel-copy lp-reveal">
             <h3><svg class="icon"><use href="#i-list-todo"/></svg>Checklists</h3>
-            <p>Lists for everything that isn't a chore: weekly routines, party prep, packing, the visa saga.</p>
+            <p>General-purpose lists in three types: plain, repeating, and shopping.</p>
             <ul class="panel-feats">
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Three kinds.</b> Plain, repeating, or shopping, each with its own behavior.</span></li>
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Dated lists surface.</b> Give one a date and it becomes a to-do on the briefing.</span></li>
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Routines renew.</b> Repeating lists reset or clone on their cadence.</span></li>
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Attribution built in.</b> Every check records who did it and when.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Scheduled lists.</b> A dated checklist creates a linked to-do on the Home feed.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Renewal.</b> Repeating lists reset or clone on their cadence.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Check attribution.</b> Every check records the user and timestamp.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Cost logging.</b> Shopping-type lists post checked items as cost lines.</span></li>
             </ul>
           </div>
           <div class="panel-screens lp-reveal">
@@ -1784,12 +1784,12 @@
         <div class="panel-grid">
           <div class="panel-copy lp-reveal">
             <h3><svg class="icon"><use href="#i-house"/></svg>Home Setup</h3>
-            <p>Room-by-room planning for the move and everything after it.</p>
+            <p>Room-by-room move-in inventory with prices, stores, and progress.</p>
             <ul class="panel-feats">
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Rooms, not one long list.</b> Priorities, stores, and estimated vs actual prices per item.</span></li>
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Seeded, not blank.</b> Region-aware suggestions start each room from a real list.</span></li>
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Talk it through.</b> Comments per item, drag to reorder, links to where to buy.</span></li>
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>The budget sees it.</b> The running total lands in Costs as one line.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Per-item fields.</b> Priority, store, estimated vs actual price, assignee.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Template seeding.</b> Region-aware suggestions populate each room's starting list.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Collaboration.</b> Per-item comments, drag reordering, store links.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Budget integration.</b> The running total posts to Costs as a single line.</span></li>
             </ul>
           </div>
           <div class="panel-screens lp-reveal">
@@ -1897,12 +1897,12 @@
         <div class="panel-grid">
           <div class="panel-copy lp-reveal">
             <h3><svg class="icon"><use href="#i-folder-open"/></svg>Documents</h3>
-            <p>The household vault, linked to everything it describes.</p>
+            <p>Typed document storage with entity links and expiry handling.</p>
             <ul class="panel-feats">
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Types with real fields.</b> Warranties, leases, insurance, manuals, receipts, each with its own metadata.</span></li>
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Linked, not filed away.</b> One document attaches to any number of items: a cost, an appliance, an event.</span></li>
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Expiry does the remembering.</b> Renewal reminders create themselves from the dates on file.</span></li>
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Findable.</b> Tags and search across the whole vault.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Typed metadata.</b> Warranty, lease, insurance, manual, and receipt types each carry their own fields.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Polymorphic links.</b> One document attaches to any number of records: a cost, an appliance, an event.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Expiry handling.</b> Expiry dates generate renewal reminders in Tasks.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Retrieval.</b> Tag filters and search across the vault.</span></li>
             </ul>
           </div>
           <div class="panel-screens lp-reveal">
@@ -2002,12 +2002,12 @@
         <div class="panel-grid">
           <div class="panel-copy lp-reveal">
             <h3><svg class="icon"><use href="#i-layout-dashboard"/></svg>Home Search</h3>
-            <p>And for when it's time to find the next place: the hunt, scored and routed.</p>
+            <p>Apartment hunting: parsed listings, weighted scoring, routed viewings.</p>
             <ul class="panel-feats">
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Listings parse themselves.</b> Paste a URL or share it into the app; photos, price, and address fill in.</span></li>
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Your checklist scores it.</b> Weighted criteria and dealbreakers produce a match percentage.</span></li>
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Viewing days route themselves.</b> Transit legs between appointments, exportable to your calendar.</span></li>
-              <li><svg class="icon"><use href="#i-check"/></svg><span><b>The handoff.</b> The place you pick sends rent and move-in dates to the rest of the app.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Listing ingestion.</b> Paste or share a URL; price, address, and photos parse out via AI.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Weighted scoring.</b> Criteria with weights 1-10 and dealbreakers produce a match percentage.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Viewing routes.</b> Transit legs between appointments, exportable as .ics.</span></li>
+              <li><svg class="icon"><use href="#i-check"/></svg><span><b>Handoff.</b> The chosen listing posts rent to Costs and dates the moving plan from move-in.</span></li>
             </ul>
           </div>
           <div class="panel-screens lp-reveal">
@@ -2117,13 +2117,13 @@
 <section id="connections">
   <div class="wrap">
     <div class="sec-head lp-reveal">
-      <h2>The sections feed each other.</h2>
-      <p>Do the thing in the app on the left, and watch the other sections update on the right. Every new row opens its section.</p>
+      <h2>Cross-section integration.</h2>
+      <p>A record written in one section propagates to the others. Run each action on the left; the resulting rows land on the right and link back to their sections.</p>
     </div>
 
     <!-- Flow 1: receipt -->
     <div class="flow lp-reveal">
-      <div class="flow-name">Receipt photo to three sections<small>One snap updates Costs, Documents, and price memory.</small></div>
+      <div class="flow-name">Receipt photo to three sections<small>OCR reads the total; a cost line, a filed document, and price history are written.</small></div>
       <div class="fd">
         <div class="fd-trigger" role="img" aria-label="The capture sheet, ready to snap a receipt photo.">
           <div class="grab" aria-hidden="true"></div>
@@ -2178,7 +2178,7 @@
 
     <!-- Flow 2: recipe -->
     <div class="flow lp-reveal">
-      <div class="flow-name">Recipe to shopping list<small>Cook from what you have, buy only what you don't.</small></div>
+      <div class="flow-name">Recipe to shopping list<small>Missing ingredients are diffed against the pantry and posted to the list.</small></div>
       <div class="fd">
         <div class="fd-trigger" role="img" aria-label="A recipe with three missing ingredients and a button to add them to the list.">
           <div class="sim-lede" style="font-size:12px">Pad see ew</div>
@@ -2219,7 +2219,7 @@
 
     <!-- Flow 3: document expiry -->
     <div class="flow lp-reveal">
-      <div class="flow-name">Document expiry to reminder<small>Upload the lease once; the renewal task creates itself.</small></div>
+      <div class="flow-name">Document expiry to reminder<small>The expiry date on the file generates a renewal task ahead of time.</small></div>
       <div class="fd">
         <div class="fd-trigger" role="img" aria-label="The Documents section with a button to upload the lease.">
           <div class="sim-cap" style="margin-bottom:7px">Documents · add a file</div>
@@ -2264,7 +2264,7 @@
 
     <!-- Flow 4: chosen apartment -->
     <div class="flow lp-reveal">
-      <div class="flow-name">Chosen apartment to move-in plan<small>Rent and dated moving tasks come from the listing you pick.</small></div>
+      <div class="flow-name">Chosen apartment to move-in plan<small>Rent posts to Costs; moving tasks are dated from the move-in date.</small></div>
       <div class="fd">
         <div class="fd-trigger" role="img" aria-label="The winning listing with a button to choose it.">
           <div class="sim-lede" style="font-size:12px">14 Fenwick St</div>
@@ -2314,14 +2314,14 @@
   <div class="wrap split">
     <div>
       <div class="sec-head lp-reveal">
-        <h2>One button captures everything.</h2>
-        <p>The raised plus follows you through the whole app. Whatever lands in your hands, it already knows where it goes.</p>
+        <h2>One capture entry point.</h2>
+        <p>The capture button is available on every screen and routes input by type.</p>
       </div>
       <ul class="feature-list lp-reveal">
-        <li><svg class="icon"><use href="#i-plus"/></svg><span><b>Quick-add to any section.</b> A cost, a to-do, an event, a grocery item, a listing URL. Two taps from anywhere.</span></li>
-        <li><svg class="icon"><use href="#i-camera"/></svg><span><b>Photos route themselves.</b> An invoice becomes a cost with the document filed. A receipt attaches to today's shop and reads its own total.</span></li>
-        <li><svg class="icon"><use href="#i-search"/></svg><span><b>Search the whole household.</b> One fuzzy search across every section, straight to the item's editor.</span></li>
-        <li><svg class="icon"><use href="#i-share-2"/></svg><span><b>Share into it from other apps.</b> Send a listing URL or a PDF to HomeUp and it lands in the right place.</span></li>
+        <li><svg class="icon"><use href="#i-plus"/></svg><span><b>Quick-add.</b> A cost, to-do, event, grocery item, or listing URL from any screen, in two taps.</span></li>
+        <li><svg class="icon"><use href="#i-camera"/></svg><span><b>Photo routing.</b> An invoice becomes a cost item with the file attached; a receipt attaches to the open shopping session and is OCR-parsed.</span></li>
+        <li><svg class="icon"><use href="#i-search"/></svg><span><b>Global search.</b> Fuzzy search across all sections, opening the item's editor directly.</span></li>
+        <li><svg class="icon"><use href="#i-share-2"/></svg><span><b>Share target.</b> URLs and files shared from other apps route to the matching section.</span></li>
       </ul>
     </div>
     <div class="capture-phone lp-reveal" style="transition-delay:120ms">
@@ -2364,13 +2364,13 @@
     </div>
     <div>
       <div class="sec-head lp-reveal" style="margin-bottom:20px">
-        <h2>Your household's data, on your own box.</h2>
-        <p>The entire backend is one compose file: the full Supabase stack, trimmed to what a household actually needs.</p>
+        <h2>The whole backend is one compose file.</h2>
+        <p>A trimmed Supabase stack: Postgres 17, GoTrue auth, PostgREST, Realtime, Storage, and edge functions behind a Kong gateway.</p>
       </div>
       <ul class="feature-list lp-reveal">
-        <li><svg class="icon"><use href="#i-server"/></svg><span><b>No cloud account anywhere.</b> Sign in with email and password against your own auth server. Nothing phones home.</span></li>
-        <li><svg class="icon"><use href="#i-key-round"/></svg><span><b>Keys manage themselves.</b> Secrets are generated on first boot and reused after. Migrations run on every start.</span></li>
-        <li><svg class="icon"><use href="#i-sparkles"/></svg><span><b>Extras are opt-in.</b> Bring a Mapbox token for maps. AI parsing, Google Calendar, and push keys are optional and degrade quietly.</span></li>
+        <li><svg class="icon"><use href="#i-server"/></svg><span><b>No external services.</b> Auth is your own GoTrue instance with email autoconfirm; no SMTP required, nothing phones home.</span></li>
+        <li><svg class="icon"><use href="#i-key-round"/></svg><span><b>Automated provisioning.</b> JWT and API keys generate into .env on first boot and are reused after; migrations apply on every start.</span></li>
+        <li><svg class="icon"><use href="#i-sparkles"/></svg><span><b>Optional integrations.</b> A Mapbox token is required for maps; AI listing and receipt parsing, Google Calendar, and web push are opt-in and degrade gracefully.</span></li>
       </ul>
     </div>
   </div>
@@ -2381,7 +2381,7 @@
   <div class="wrap">
     <div class="sec-head lp-reveal">
       <h2>Bring your own agent.</h2>
-      <p>An MCP server is built into the app itself. Issue a personal access token in settings, point any MCP client at your instance, and your assistant can read the budget, add groceries, and book tasks like a member of the household.</p>
+      <p>The app exposes an MCP server at /api/mcp: 4 read tools and 13 mutating tools over tasks, groceries, costs, and calendar. Auth is a bearer personal access token issued in settings; any MCP client works.</p>
     </div>
     <div class="agent-panel lp-reveal">
       <div>
@@ -2413,9 +2413,9 @@
       </div>
     </div>
     <div class="agent-facts lp-reveal">
-      <div><b>Scoped like a person</b>Every call runs under your token, inside your household's data boundary. Same rules as the app.</div>
-      <div><b>Revocable in a tap</b>Tokens are hashed at rest, one per person, refreshed or revoked from settings.</div>
-      <div><b>Telegram-ready</b>Pair it with home-agent, the companion bridge, and drive the house from a chat thread.</div>
+      <div><b>Group-scoped</b>Every call resolves to the token's user and household; the same row-level security as the app applies.</div>
+      <div><b>Token lifecycle</b>SHA-256 hashed at rest, one active token per user, refresh and revoke in settings.</div>
+      <div><b>Companion bridge</b>home-agent connects a Telegram bot to this MCP server with an allowlisted tool set.</div>
     </div>
   </div>
 </section>
@@ -2425,7 +2425,7 @@
   <div class="wrap">
     <div class="sec-head center lp-reveal">
       <h2>An E-Ink theme for always-on displays.</h2>
-      <p>Pin the briefing to a wall-mounted e-ink tablet. The theme strips every shadow, blur, and animation, and carries status in labels and grayscale instead of color, so the day reads like print.</p>
+      <p>For wall-mounted e-ink tablets: the theme removes all shadows, blur, and animation, and maps status colors to grayscale, with meaning carried by labels instead of hue.</p>
     </div>
     <div class="eink-tablet lp-reveal" style="transition-delay:100ms" role="img" aria-label="Landscape e-ink tablet showing the HomeUp briefing in grayscale: today's tasks on the left, the shopping list and a weather note on the right.">
       <div class="eink-screen">
@@ -2490,15 +2490,15 @@
 <section id="platform">
   <div class="wrap">
     <div class="sec-head lp-reveal">
-      <h2>Works like a native app.</h2>
+      <h2>An installable PWA with offline sync.</h2>
     </div>
     <div class="plat lp-reveal">
-      <div><svg class="icon"><use href="#i-wifi-off"/></svg><b>Offline first</b><p>Every list is cached on the device. Edits queue up and sync themselves when you're back.</p></div>
-      <div><svg class="icon"><use href="#i-smartphone"/></svg><b>Installable</b><p>A real PWA for the home screen on iOS and Android, with gestures, sheets, and haptics to match.</p></div>
-      <div><svg class="icon"><use href="#i-bell-ring"/></svg><b>Push reminders</b><p>Task notifications from your own server, deep-linking straight to the item.</p></div>
-      <div><svg class="icon"><use href="#i-share-2"/></svg><b>A share target</b><p>Share a listing URL, a PDF, or a photo into HomeUp from any other app.</p></div>
-      <div><svg class="icon"><use href="#i-palette"/></svg><b>Themed throughout</b><p>A shelf of themes, Obsidian to E-Ink to the Axis Mundi pair this page wears, all one design language.</p></div>
-      <div><svg class="icon"><use href="#i-lock"/></svg><b>Scoped to your household</b><p>Row-level security keeps data inside your group, with per-item private flags on top.</p></div>
+      <div><svg class="icon"><use href="#i-wifi-off"/></svg><b>Offline first</b><p>Reads serve from a local IndexedDB cache; mutations queue and replay via background sync.</p></div>
+      <div><svg class="icon"><use href="#i-smartphone"/></svg><b>Installable</b><p>Home-screen install on iOS and Android, with gestures, bottom sheets, and haptics.</p></div>
+      <div><svg class="icon"><use href="#i-bell-ring"/></svg><b>Web push</b><p>Task notifications via your own VAPID keys, deep-linking to the item.</p></div>
+      <div><svg class="icon"><use href="#i-share-2"/></svg><b>Share target</b><p>Listing URLs, PDFs, and photos shared from other apps route into the app.</p></div>
+      <div><svg class="icon"><use href="#i-palette"/></svg><b>Theming</b><p>Obsidian to E-Ink to the Axis Mundi pair this page uses; one design language across all of them.</p></div>
+      <div><svg class="icon"><use href="#i-lock"/></svg><b>Household-scoped data</b><p>Row-level security keeps rows inside your group, with per-item private flags on top.</p></div>
     </div>
   </div>
 </section>
@@ -2508,7 +2508,7 @@
   <div class="wrap">
     <div class="axis-seg lp-reveal" aria-hidden="true"></div>
     <h2 class="lp-reveal">Set it up on your own hardware.</h2>
-    <p class="lp-reveal" style="transition-delay:80ms">A mini PC, a NAS, or that laptop in the drawer is plenty.</p>
+    <p class="lp-reveal" style="transition-delay:80ms">Three commands on a mini PC, a NAS, or a spare laptop.</p>
     <div class="lp-reveal" style="transition-delay:160ms">
       <a class="btn btn-primary" href="#self-host">Get it running</a>
     </div>
@@ -2662,7 +2662,7 @@
         tasks.insertBefore(fdRow('<span class="lead" style="background:color-mix(in oklch, var(--warning) 14%, transparent);color:var(--warning)"><svg class="icon"><use href="#i-bell"/></svg></span><div class="rb"><div class="t">Lease renewal window</div><div class="m">fires 60d before expiry · from Documents</div></div><div class="trail"><span class="sim-ava">M</span></div>', "p-tasks"), tasks.firstChild);
         setTimeout(function () {
           var home = document.getElementById("fd3-home");
-          home.appendChild(fdRow('<span class="lead" style="background:color-mix(in oklch, var(--warning) 14%, transparent);color:var(--warning)"><svg class="icon"><use href="#i-bell"/></svg></span><div class="rb"><div class="t">Lease renewal</div><div class="m">will surface here · nobody has to remember</div></div>', "p-home"));
+          home.appendChild(fdRow('<span class="lead" style="background:color-mix(in oklch, var(--warning) 14%, transparent);color:var(--warning)"><svg class="icon"><use href="#i-bell"/></svg></span><div class="rb"><div class="t">Lease renewal</div><div class="m">surfaces here when it comes due</div></div>', "p-home"));
           fdDone(fd3, "filed · open Documents", "p-documents");
         }, 420);
       }, 520);
