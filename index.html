@@ -453,14 +453,15 @@
   #sections.js-scrolly .show-panel {
     position: absolute; top: 0; left: 0; width: 100%;
     opacity: 0; visibility: hidden; transform: translateX(26px);
-    transition: opacity 260ms var(--swift), transform 260ms var(--swift), visibility 0s 260ms;
     pointer-events: none;
   }
   #sections.js-scrolly .show-panel.is-center {
     position: relative; opacity: 1; visibility: visible; transform: none;
     pointer-events: auto;
-    transition: opacity 260ms var(--swift), transform 260ms var(--swift);
   }
+  /* transitions arm one frame after init so load doesn't flash all panels */
+  #sections.js-scrolly.ready .show-panel { transition: opacity 260ms var(--swift), transform 260ms var(--swift), visibility 0s 260ms; }
+  #sections.js-scrolly.ready .show-panel.is-center { transition: opacity 260ms var(--swift), transform 260ms var(--swift); }
   #sections.js-tabs .show-panel { display: none; }
   #sections.js-tabs .show-panel.is-center { display: block; }
   #sections:not(.js-scrolly):not(.js-tabs) .show-panel + .show-panel { margin-top: 72px; }
@@ -2583,6 +2584,7 @@
       sectionsEl.classList.add(scrollyOn ? "js-scrolly" : "js-tabs");
       picks.forEach(function (p) { p.addEventListener("click", function () { switchTo(p.dataset.panel, false); }); });
       markCenter("p-home");
+      requestAnimationFrame(function () { requestAnimationFrame(function () { sectionsEl.classList.add("ready"); }); });
       if (scrollyOn && "IntersectionObserver" in window) {
         var sio = new IntersectionObserver(function (entries) {
           entries.forEach(function (en) { if (en.isIntersecting) markCenter(en.target.dataset.sp); });
