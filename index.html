@@ -4,9 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>HomeUp · Made for households</title>
-    <meta name="description" content="One app for everything your home runs on: tasks, bills, groceries, recipes, checklists, the calendar and the paperwork." />
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F6F3EF" />
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121016" />
+    <meta name="description" content="One shared app for the tasks, bills, groceries, recipes, checklists, calendar and paperwork of a home." />
+    <meta name="theme-color" content="#121016" />
     <link rel="icon" href="./icon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,20 +14,12 @@
       html { --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif; --font-mono: "Geist Mono", ui-monospace, monospace; --font-heading: "Bricolage Grotesque", var(--font-sans); }
     </style>
     <script>
-      // Ember Day or Ember Night, following the device (the app's boot script without a stored preference).
-      (function () {
-        var m = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)");
-        function apply() {
-          var dark = !!(m && m.matches);
-          document.documentElement.setAttribute("data-theme", dark ? "ember-night" : "ember-day");
-          document.documentElement.classList.toggle("dark", dark);
-        }
-        apply();
-        if (m && m.addEventListener) m.addEventListener("change", apply);
-      })();
+      // The landing page is always presented in Ember Night.
+      document.documentElement.setAttribute("data-theme", "ember-night");
+      document.documentElement.classList.add("dark");
     </script>
-    <script type="module" crossorigin src="./assets/index-CLODKmQF.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-CUo3IkFS.css">
+    <script type="module" crossorigin src="./assets/index-C-wahfDm.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-B_9nG6dB.css">
   </head>
   <body class="antialiased noise-overlay">
     <div id="root"></div>
